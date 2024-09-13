@@ -1,0 +1,7 @@
+.carousel-item img {
+	margin: 0;
+	padding: 0;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
