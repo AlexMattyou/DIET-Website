@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Concert+One&family=Fredoka:wght@300..700&family=Rowdies:wght@300;400;700&display=swap');
+
+:root {
+
+    --disp1: "Rowdies", system-ui;
+    --disp2: "Concert One", system-ui;
+
+    --txt1: "Balsamiq Sans", system-ui;
+    --txt2: "Fredoka", system-ui;
+}
+
+@media (min-width: 768px) {
+    .no-mobile {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .no-mobile {
+        display: none;
+    }
+}
+
+.navbar-divider {
+    border-left: 2px solid var(--light);
+    height: 30px;
+    margin: auto;
+    opacity: 0.5;
+}

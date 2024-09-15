@@ -1,11 +1,37 @@
+@import url("./assets/css/master.css");
+
+@media (min-width: 768px) {
+    .no-mobile {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px){
+    .no-mobile {
+        display: none;
+      }
+  }
+
 .carousel-item img {
     width: 100%;
     height: auto;
     object-fit: scale-down;
 }
 
-.main-logo img, .sub-logo img{
+.main-logo img,
+.sub-logo img {
     width: 10em;
     height: auto;
     object-fit: contain;
+}
+
+.hover-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.custom-hr {
+    /* border: 2px solid #000; */
+    width: 100%;
+    margin: 3px;
+    padding: 0;
 }
