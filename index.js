@@ -17,7 +17,7 @@ function generateCarousel() {
       
       // Create indicator dot
       const indicatorItem = `
-          <li data-target="#carouselExample" data-slide-to="${index}" class="${isActive}"></li>
+          <li data-target="#carouselExample" data-slide-to="${index}" class="${isActive} no-mobile"></li>
       `;
       carouselIndicators.append(indicatorItem);
   });

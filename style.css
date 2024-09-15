@@ -1,37 +1,10 @@
 @import url("./assets/css/master.css");
 
-@media (min-width: 768px) {
-    .no-mobile {
-      display: block;
-    }
-  }
+:root {
 
-  @media (max-width: 768px){
-    .no-mobile {
-        display: none;
-      }
-  }
+    --disp1: "Rowdies", system-ui;
+    --disp2: "Concert One", system-ui;
 
-.carousel-item img {
-    width: 100%;
-    height: auto;
-    object-fit: scale-down;
-}
-
-.main-logo img,
-.sub-logo img {
-    width: 10em;
-    height: auto;
-    object-fit: contain;
-}
-
-.hover-dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-.custom-hr {
-    /* border: 2px solid #000; */
-    width: 100%;
-    margin: 3px;
-    padding: 0;
+    --txt1: "Balsamiq Sans", system-ui;
+    --txt2: "Fredoka", system-ui;
 }
