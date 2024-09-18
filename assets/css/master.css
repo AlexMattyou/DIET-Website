@@ -49,6 +49,9 @@
     .no-mobile {
         display: block;
     }
+	.no-desktop {
+    display: none;
+  }
     .hover-dropdown:hover .dropdown-menu {
         display: block;
     }
@@ -58,6 +61,9 @@
     .no-mobile {
         display: none;
     }
+	.no-desktop{
+		display: block;
+	}
     .hover-dropdown:hover .dropdown-menu {
         display: none;
     }
