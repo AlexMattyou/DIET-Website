@@ -1,14 +1,15 @@
 import express from 'express';
-import { MovieIndex } from "../controllers/movies.controller.js"
+import { MovieIndex, MovieDetail, MovieCreate, MovieUpdate, MovieDelete } from "../controllers/movies.controller.js"
 
 const router = express.Router()
 
-router.post("/", () => {}); //C
+router.post("/", MovieCreate); //C
 
 router.get("/", MovieIndex);  //R
+router.get("/:id", MovieDetail);
 
-router.put("//:id", ()=> {});  //U
+router.put("/:id", MovieUpdate);  //U
 
-router.delete("/:id", () => {}); //D
+router.delete("/:id", MovieDelete); //D
 
 export default router;
