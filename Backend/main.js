@@ -1,35 +1,34 @@
 import express from "express";
 import movieRoutes from "./routes/movie.route.js"
+import adminRoutes from "./routes/admin.route.js"
 import connectDB from "./lib/db.js"
-import cors from "cors";
-
-const corsOptions = { 
-	origin: 'https://diettuty.onrender.com', 
-	methods: 'GET,POST,PUT,DELETE', 
-	allowedHeaders: 'Content-Type,Authorization',
-    optionsSuccessStatus: 200
-};
-
+import {robotsTxt,corsOptions,rateLimiter,helmet,cors} from './lib/middleware.js';
 
 const app = express();
-const PORT = 6969;
-
-// only allow the website
-app.use(cors(corsOptions));
+const PORT = 5879;
 
 // MIDDLEVERSE
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+// app.use(helmet());
+app.use(rateLimiter);
+// app.use(cors(corsOptions));
+
+// Serve robots.txt
+app.get('/robots.txt', robotsTxt);
+
 // connectDB
 connectDB();
+
 
 app.get('/', (req, res) => {
     res.json({ msg: "Hello students!"});
 });
 
+app.use('/diet-admin', adminRoutes)
 app.use('/movies', movieRoutes)
 
 app.listen(PORT, () => {
-    console.log(`The Server is running at http://127.0.0.1:6969`);
+    console.log(`The Server is running...`);
 });
