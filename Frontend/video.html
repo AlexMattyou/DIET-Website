@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Player</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .video-container {
+            width: 640px;
+            height: 360px;
+            position: relative;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+        .custom-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="videoPlayer" controls>
+            <source src="https://www.youtube.com/watch?v=vTNfuxSk52E" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="custom-controls">
+        <button id="playPauseBtn">Play</button>
+        <button id="muteBtn">Mute</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var video = $("#videoPlayer")[0];
+            var isPlaying = false;
+            var isMuted = false;
+
+            // Play/Pause button
+            $("#playPauseBtn").click(function () {
+                if (isPlaying) {
+                    video.pause();
+                    $(this).text("Play");
+                } else {
+                    video.play();
+                    $(this).text("Pause");
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // Mute/Unmute button
+            $("#muteBtn").click(function () {
+                if (isMuted) {
+                    video.muted = false;
+                    $(this).text("Mute");
+                } else {
+                    video.muted = true;
+                    $(this).text("Unmute");
+                }
+                isMuted = !isMuted;
+            });
+        });
+    </script>
+</body>
+</html>

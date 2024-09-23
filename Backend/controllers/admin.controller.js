@@ -47,7 +47,7 @@ export const LoginAdmin = async (req, res) => {
     try {
         // Find user in the database
         const user = await Admin.findOne({ username });
-        console.log(username)
+        console.log(user)
         if (!user) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
@@ -66,3 +66,14 @@ export const LoginAdmin = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+export const VerifyAdmin = async (req, res) => {
+    const token = req.headers['authorization'];
+    
+    if (!token) return res.status(403).json({ error: 'No token provided' });
+  
+    jwt.verify(token.split(' ')[1], apiKey, (err, decoded) => {
+      if (err) return res.status(401).json({ error: 'Invalid token' });
+      res.json({ message: 'Token is valid', userId: decoded.userId });
+    });
+  };

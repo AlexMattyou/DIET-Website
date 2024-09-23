@@ -7,6 +7,11 @@ import {robotsTxt,corsOptions,rateLimiter,helmet,cors} from './lib/middleware.js
 const app = express();
 const PORT = 5879;
 
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',  // Replace with the origin where your frontend is hosted
+    credentials: true
+  }));
+
 // MIDDLEVERSE
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
