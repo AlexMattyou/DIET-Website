@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Team List</h1>
+    <div id="team-list"></div>
+
+    <script>
+        const url = "http://127.0.0.1:5879/team";  // API endpoint
+
+        // Fetch and display data using jQuery
+        $.get(url, function(data) {
+            let teamHtml = '';
+
+            // Loop through the team data
+            data.forEach(team => {
+                teamHtml += `
+                    <div>
+                        <h3>${team.name}</h3>
+                        <p>Occupation: ${team.occulation ? team.occulation : 'N/A'}</p>
+                        <p>Address: ${team.address ? team.address : 'N/A'}</p>
+                        <img src="${team.image}" alt="${team.name}" style="width: 100px; height: auto;">
+                    </div>
+                    <hr>
+                `;
+            });
+
+            // Display the teams in the div
+            $('#team-list').html(teamHtml);
+        });
+    </script>
+</body>
+</html>
