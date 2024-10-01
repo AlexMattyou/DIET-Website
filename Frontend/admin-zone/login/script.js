@@ -6,7 +6,7 @@ $(document).ready(function () {
       const password = $('#password').val();
 
       $.ajax({
-        url: 'http://127.0.0.1:5879/diet-admin/login',  // Your API endpoint
+        url: 'https://diet-api-dm7h.onrender.com/diet-admin/login',  // Your API endpoint
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ username, password }),

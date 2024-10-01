@@ -70,7 +70,7 @@ $(document).ready(function () {
 
 // Fetch and display data using jQuery
 function GetTeamData() {
-    const url = "http://127.0.0.1:5879/team";  // API endpoint
+    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
 
     $.get(url, function (data) {
         let teamHtml = '';
@@ -160,7 +160,7 @@ function CreateTeam(){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "http://127.0.0.1:5879/team", // API URL
+        url: "https://diet-api-dm7h.onrender.com/team", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -188,7 +188,7 @@ function DeleteTeam(teamID){
     if (teamElement) {
         // Make an AJAX DELETE request to delete the team from the database
         $.ajax({
-            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+            url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
             type: "DELETE",  // Request method for deleting
             success: function(response) {
                 console.log("Team deleted successfully:", response);
@@ -227,7 +227,7 @@ function UpdateTeam(teamID){
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+            url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(teamData),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
