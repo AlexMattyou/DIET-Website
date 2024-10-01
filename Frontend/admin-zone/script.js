@@ -92,7 +92,7 @@ function GetTeamData() {
                                 <div class="image-upload-wrapper">
                                     <div class="image-upload">
                                         <input type="file" class="file-input d-none" accept="image/*">
-                                        <img class="image-preview img-fluid" src="${imageSrc}" alt="Team member image preview">
+                                        <img class="image-preview img-fluid" src="${imageSrc  || "https://diettuty.onrender.com/data/img/no-profile.jpg"}" alt="Team member image preview">
                                         <div class="image-upload-prompt">
                                             <b>Drag & Drop or Click to Upload Image</b>
                                         </div>
@@ -107,7 +107,7 @@ function GetTeamData() {
                             </div>
                         </div>
                         <div class="d-flex justify-content-end gap-3">
-                            <button type="button" class="btn btn-outline-info mark-button team-update">
+                            <button type="button" class="btn btn-outline-info mark-button team-update" onClick="UpdateTeam('${team._id}')">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-arrow-up-square-fill" viewbox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -117,7 +117,7 @@ function GetTeamData() {
                                 </svg>
                                 Update
                             </button>
-                            <button type="button" class="btn btn-outline-danger mark-button team-delete">
+                            <button type="button" class="btn btn-outline-danger mark-button team-delete" onClick="DeleteTeam('${team._id}')">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-trash-fill" viewbox="0 0 16 16">
                                     <path
@@ -153,5 +153,93 @@ function GetTeamData() {
 }
 
 function CreateTeam(){
-    // function block here
+    // Prepare the data to send
+    const teamData = {
+        name: "New Name"
+    };
+
+    // Make an AJAX POST request
+    $.ajax({
+        url: "http://127.0.0.1:5879/team", // API URL
+        type: "POST",  // Request method
+        contentType: "application/json", // Send as JSON
+        data: JSON.stringify(teamData), // Convert JS object to JSON string
+        success: function(response) {
+            console.log("Team created successfully:", response);
+            // Optionally, you can refresh the team list or display a success message here
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to create team:", error);
+        }
+    });
+
+    // clear the container
+    $('#all-team-container').empty();
+
+    //load again
+    setTimeout(GetTeamData, 200);
+
+}
+
+function DeleteTeam(teamID){
+    // Find the team element on the screen
+    const teamElement = document.getElementById(teamID);
+
+    if (teamElement) {
+        // Make an AJAX DELETE request to delete the team from the database
+        $.ajax({
+            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+            type: "DELETE",  // Request method for deleting
+            success: function(response) {
+                console.log("Team deleted successfully:", response);
+                
+                // Remove the team element from the DOM after successful deletion
+                teamElement.remove();
+            },
+            error: function(xhr, status, error) {
+                console.error("Failed to delete team:", error);
+            }
+        });
+    } else {
+        console.error("Team element not found for ID:", teamID);
+    }
+}
+
+function UpdateTeam(teamID){
+    // Find the team element with the given id
+    const teamElement = document.getElementById(teamID);
+    
+    if (teamElement) {
+        // Find the input elements inside this specific team box
+        const name = teamElement.querySelector('.team-name').value;
+        const occupation = teamElement.querySelector('.team-occupation').value;
+        const address = teamElement.querySelector('.team-address').value;
+
+        // Prepare the data in the required format
+        const teamData = {
+            name: name,
+            occupation: occupation,
+            address: address
+        };
+
+        // Log the data for checking
+        console.log("Data to be updated:", teamData);
+
+        // Now make an AJAX PUT request to update the team
+        $.ajax({
+            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+            type: "PUT",  // Request method for updating
+            data: JSON.stringify(teamData),  // Send the team data as JSON
+            contentType: "application/json",  // Set content type as JSON
+            success: function(response) {
+                console.log("Team updated successfully:", response);
+                // Optionally show a success message or update the UI further
+            },
+            error: function(xhr, status, error) {
+                console.error("Failed to update team:", error);
+            }
+        });
+    } else {
+        console.error("Team element not found for ID:", teamID);
+    }
 }
