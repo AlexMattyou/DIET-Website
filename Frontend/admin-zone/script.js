@@ -1,92 +1,90 @@
-// Select all image upload boxes
-const imageUploadBoxes = document.querySelectorAll('.image-upload');
+$(document).ready(function () {
 
-imageUploadBoxes.forEach(box => {
-    // Open file manager when clicking the upload box
-    box.addEventListener('click', () => {
+    // Select all image upload boxes
+    const imageUploadBoxes = document.querySelectorAll('.image-upload');
+
+    imageUploadBoxes.forEach(box => {
+        // Open file manager when clicking the upload box
+        box.addEventListener('click', () => {
+            const fileInput = box.querySelector('.file-input');
+            fileInput.click();
+        });
+
+        // Handle file input change (when selecting a file)
         const fileInput = box.querySelector('.file-input');
-        fileInput.click();
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            handleFile(file, box);
+        });
+
+        // Handle file drop
+        box.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            box.classList.add('border-primary');
+        });
+
+        box.addEventListener('dragleave', () => {
+            box.classList.remove('border-primary');
+        });
+
+        box.addEventListener('drop', (e) => {
+            e.preventDefault();
+            box.classList.remove('border-primary');
+            const file = e.dataTransfer.files[0];
+            handleFile(file, box);
+        });
+
+        // Handle pasted URLs for image
+        box.addEventListener('paste', (e) => {
+            const pastedData = e.clipboardData.getData('text');
+            if (pastedData && (pastedData.startsWith('http://') || pastedData.startsWith('https://'))) {
+                const imagePreview = box.querySelector('.image-preview');
+                const uploadPrompt = box.querySelector('.image-upload-prompt');
+                imagePreview.src = pastedData;
+                imagePreview.style.display = 'block';
+                uploadPrompt.style.display = 'none';
+            }
+        });
     });
 
-    // Handle file input change (when selecting a file)
-    const fileInput = box.querySelector('.file-input');
-    fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        handleFile(file, box);
-    });
-
-    // Handle file drop
-    box.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        box.classList.add('border-primary');
-    });
-
-    box.addEventListener('dragleave', () => {
-        box.classList.remove('border-primary');
-    });
-
-    box.addEventListener('drop', (e) => {
-        e.preventDefault();
-        box.classList.remove('border-primary');
-        const file = e.dataTransfer.files[0];
-        handleFile(file, box);
-    });
-
-    // Handle pasted URLs for image
-    box.addEventListener('paste', (e) => {
-        const pastedData = e.clipboardData.getData('text');
-        if (pastedData && (pastedData.startsWith('http://') || pastedData.startsWith('https://'))) {
-            const imagePreview = box.querySelector('.image-preview');
-            const uploadPrompt = box.querySelector('.image-upload-prompt');
-            imagePreview.src = pastedData;
-            imagePreview.style.display = 'block';
-            uploadPrompt.style.display = 'none';
+    // Handle image files
+    function handleFile(file, box) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imagePreview = box.querySelector('.image-preview');
+                const uploadPrompt = box.querySelector('.image-upload-prompt');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                uploadPrompt.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
         }
-    });
-});
-
-// Handle image files
-function handleFile(file, box) {
-    if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const imagePreview = box.querySelector('.image-preview');
-            const uploadPrompt = box.querySelector('.image-upload-prompt');
-            imagePreview.src = e.target.result;
-            imagePreview.style.display = 'block';
-            uploadPrompt.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
     }
-}
 
-// new team button:
-const clickableContainers = document.querySelectorAll('.clickable-container');
 
-clickableContainers.forEach(container => {
-  container.addEventListener('click', () => {
-    // Your JavaScript function to handle the click here
-    console.log('Button clicked!');
-
-    // Replace with your actual function logic (e.g., call another function, show a message)
-    alert('Button clicked!');
-  });
+    /////////////////////// -> Get data opperation
+    GetTeamData()
 });
 
-/////////////////////// -> Get data opperation
 
-const url = "http://127.0.0.1:5879/team";  // API endpoint
+// Fetch and display data using jQuery
+function GetTeamData() {
+    const url = "http://127.0.0.1:5879/team";  // API endpoint
 
-    // Fetch and display data using jQuery
-    $.get(url, function(data) {
+    $.get(url, function (data) {
         let teamHtml = '';
 
         // Loop through the team data
         data.forEach(team => {
-            const teamId = `team-${team._id}`;  // Create a unique id using team id
+
+            let imageSrc = '';
+            if (team.image) {
+                imageSrc = `data:image/jpeg;base64,${team.image}`;
+            }
 
             teamHtml += `
-                <div id="${teamId}" class="col-md-6">
+                <div id="${team._id}" class="col-md-6 p-2">
                     <div class="border p-3 color-container">
                         <div class="row g-3">
                             <div class="col-md-4">
@@ -94,7 +92,7 @@ const url = "http://127.0.0.1:5879/team";  // API endpoint
                                 <div class="image-upload-wrapper">
                                     <div class="image-upload">
                                         <input type="file" class="file-input d-none" accept="image/*">
-                                        <img class="image-preview img-fluid" src="${team.image || ''}" alt="Team member image preview">
+                                        <img class="image-preview img-fluid" src="${imageSrc}" alt="Team member image preview">
                                         <div class="image-upload-prompt">
                                             <b>Drag & Drop or Click to Upload Image</b>
                                         </div>
@@ -135,7 +133,25 @@ const url = "http://127.0.0.1:5879/team";  // API endpoint
             `;
         });
 
+        let addNewTeamHtml = `
+        
+        <div class="col-md-6 p-2">
+  <button class="d-flex justify-content-center align-items-center border p-3 h-100 w-100 alert-success" onClick="CreateTeam()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40%" height="40%" fill="var(--success)" class="bi bi-plus-square" viewBox="0 0 16 16">
+      <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+    </svg>
+  </button>
+</div>
+        
+        `
+
         // Append the team HTML into the all-team-container
         $('#all-team-container').html(teamHtml);
+        $('#all-team-container').append(addNewTeamHtml);
     });
+}
 
+function CreateTeam(){
+    // function block here
+}
