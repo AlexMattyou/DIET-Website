@@ -1,6 +1,5 @@
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
-import cors from 'cors';
 import path from 'path';
 
 
@@ -27,6 +26,5 @@ export {
   robotsTxt,
   corsOptions,
   rateLimiter,
-  helmet,
-  cors
+  helmet
 };
