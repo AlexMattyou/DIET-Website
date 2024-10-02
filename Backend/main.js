@@ -9,7 +9,7 @@ const app = express();
 const PORT = 5879;
 
 app.use(cors({
-    origin: 'http://127.0.0.1:5500',  // Replace with the origin where your frontend is hosted
+    origin: 'https://diet-api-dm7h.onrender.com',  // Replace with the origin where your frontend is hosted
     credentials: true
   }));
 
