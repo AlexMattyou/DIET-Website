@@ -8,10 +8,10 @@ import {robotsTxt,corsOptions,rateLimiter,helmet,cors} from './lib/middleware.js
 const app = express();
 const PORT = 5879;
 
-app.use(cors({
-    origin: 'https://diettuty.onrender.com/admin-zone/',  // Replace with the origin where your frontend is hosted
-    credentials: true
-  }));
+// app.use(cors({
+//     origin: 'https://diettuty.onrender.com/admin-zone/',  // Replace with the origin where your frontend is hosted
+//     credentials: true
+//   }));
 
 // MIDDLEVERSE
 app.use(express.json());
