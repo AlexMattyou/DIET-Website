@@ -23,7 +23,7 @@ body {
 }
 
 .box:hover::before {
-    background-color: rgba(9, 9, 9, 0.8); /* Darker overlay on hover */
+    background-color: rgba(9, 9, 9, 0.3); /* Darker overlay on hover */
     transition: background-color 0.5s ease;
 }
 
@@ -34,7 +34,7 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     color: #ffffff; /* Bright text */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Stronger text shadow */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Stronger text shadow */
     font-size: 1.5rem;
     font-weight: bold;
     z-index: 10;
@@ -48,7 +48,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(9, 9, 9, 0.6); /* Initial overlay */
+    background-color: rgba(9, 9, 9, 0.7); /* Initial overlay */
     z-index: 1;
 }
 

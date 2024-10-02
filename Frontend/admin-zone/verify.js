@@ -7,7 +7,7 @@ $(document).ready(function () {
       } else {
         // Verify the token with the server
         $.ajax({
-          url: 'https://diet-api-dm7h.onrender.com/diet-admin/verify',  // Your API endpoint for token verification
+          url: 'http://127.0.0.1:5879/diet-admin/verify',  // Your API endpoint for token verification
           type: 'GET',
           headers: {
             'Authorization': token

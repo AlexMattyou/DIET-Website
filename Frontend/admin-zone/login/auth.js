@@ -1,5 +1,5 @@
 // Set cookie
-const api = "https://diet-api-dm7h.onrender.com/"
+const api = "http://127.0.0.1:5879/"
 
 function setCookie(name, value, days) {
     let date = new Date();
