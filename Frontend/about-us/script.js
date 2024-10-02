@@ -5,7 +5,7 @@ function loadTeamMembers() {
     
     const teamContainer = document.getElementById("team-container");
 
-    $.get("http://127.0.0.1:5879/team", function (teams) {
+    $.get("https://diet-api-dm7h.onrender.com/team", function (teams) {
         // Clear existing content
         teamContainer.innerHTML = '';
 
