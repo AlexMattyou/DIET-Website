@@ -27,12 +27,15 @@ export const CreateTeam = async (req, res) => {
     console.log(req.body);
 
     // Validate data
-    const newTeam = new Team({
-        name: req.body.name,
-        image: req.body.image, // Adjust according to your requirements (e.g., URL or Buffer)
-        occulation: req.body.occupation,
-        address: req.body.address
-    });
+const newTeam = new Team({
+    name: req.body.name,
+    image: req.body.image,
+    teaching: req.body.teaching,
+    designation: req.body.designation,
+    address: req.body.address,
+    phone1: req.body.phone1,
+    phone2: req.body.phone2
+});
 
     try {
         const team = await newTeam.save();
@@ -49,8 +52,10 @@ export const UpdateTeam = async (req, res) => {
             {
                 name: req.body.name,
                 image: req.body.image,
-                occulation: req.body.occupation,
-                address: req.body.address
+                designation: req.body.designation,
+                address: req.body.address,
+                phone1: req.body.phone1,
+                phone2: req.body.phone2
             },
             {
                 upsert: true, // create if not exist

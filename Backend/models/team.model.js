@@ -6,11 +6,12 @@ const schema = new Schema({
         type: String,
         required: true,
     },
-    image: {
-        type: Buffer,
-    },
-    occulation: String,
+    teaching: String,
+    image: String,
+    designation: String,
     address: String,
+    phone1: String,
+    phone2: String,
 });
 
 // create your model

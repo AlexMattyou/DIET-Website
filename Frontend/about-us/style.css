@@ -51,3 +51,64 @@
         font-size: 0.5rem; /* Further reduce the subtitle size */
     }
 }
+
+
+
+/*flip card*/
+
+.card-flip {
+    position: relative;
+    perspective: 1000px;
+    width: 100%; /* Ensure the card flip container takes full width */
+    height: 100%; /* Ensure the card flip container takes full height */
+}
+
+.card {
+    position: absolute;
+    width: 100%; /* Ensures both cards take full width */
+    height: 100%; /* Ensures both cards take full height */
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+.front {
+    z-index: 2; /* Place the front card on top */
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+/* Flip effect on container hover */
+.col-lg-4:hover .card-flip .front {
+    transform: rotateY(180deg);
+}
+
+.col-lg-4:hover .card-flip .back {
+    transform: rotateY(0);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-evenly; /* Center aligns vertically */
+    align-items: center; /* Center aligns horizontally */
+    padding: 20px;
+    flex-wrap: wrap;
+    align-content: stretch; /* Optional: Add padding for better spacing */
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column; /* Stack address and phone numbers vertically */
+    align-items: flex-start; /* Align text to the left */
+    width: 100%; /* Make sure it occupies the full width */
+}
+
+/* Optional: Add margin for uniform spacing */
+.contact-info p {
+    margin: 5px 0; /* Adjust the spacing between items */
+}
