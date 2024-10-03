@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "temporal-wares-437514-p7",
+  "private_key_id": "cfab13a948afcbeb40f47c3c34ccd6c57d112142",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC4Tb2XX2cGIY1S\nQ8kURUeA/Ff5rVQGaD9qPaBI73ojLtR4k1hmgs4g2XeU9129u7DYs/r7mk1rf3Dx\nXXpjUW7u9Gzw4+K8ZnHRoQ5RYYoD2t4NZaK770oME6r24loOmDEvfBnhUw4Ja5kQ\nmtckKMzK9sWrbS1O/3m9T5awkxgtVfsHjXTQadwEq1l+vgKJP63Xj+eeCHFVwM1d\n1OJoqvx7+s+h0dxPfIxzpLQahE12NWQnhBqPeDL1P/qxPcmZSG8uPcYRFDh9aHUH\nc7Md83zdQJ/j7UbR3vkrXt7+8nJgZ8c1q4Tz1I937xeJTFJfpgRrd3l7mx09B29K\nODJ31yvPAgMBAAECggEAKhq4gWhuJNxtaKnLujHJkBIWFxgd5gjS0/aYM5FiGb+N\nEq62t1SSurZztzh71eiXEiqr3+b0YOaQatOsLhxgd36nlLC7D8dnoThmCPl7ij3q\nFK1va/fStseXeydi44qpUevMDcnnnwdRxJVbKQuZHZUau3sJqs56hWE1T8mK8HAc\nVGwHirmpSXYy/lZxLCTG01G/LgCF70MHpvO/QWsGWYvBQSJaW0Rytn7sih0Qhq3A\nOJ+KPsxBSriQ+claQ2BtnvxD4/IWss9QOm3AmQE9D2O/5MgLY3DkL5CBSt9BiQSw\n17nDBH9bVFvbaXWeOE38Qq2vyAVDSqZDl07b7fLk4QKBgQDwSUGIYns3KMct0pEy\nig3xXt1aE3Rf7HiQWPXtN5Dx/Kub19+QlDbo+gdmQ0jZ1EMSeXjBiKYQ8LAlk4MX\nJS3ziXxDK3k4GtbniYyX7OrSwlP+LeeTwK/t4vuyLCgldD1PIuGvHxiYpD+KXh8x\ny1eLtMyD2YDCTYKsna2QYUJT4wKBgQDEW0FkNY4AqL25pmfG2y9/MEIR438A7pD1\nyWDNBj906LzKYMM/zZ9FCmCWHaamHKzq6TWigrVn3a6deKdotkNdoOTA7UzZlw+e\nsohUDGlWuMO+fvdD72Rl5cA+wNyOB3xOI/qwuP5ySJXoUNgM2VAadG3F3WILU3wJ\nOuWK0gCEJQKBgAl6Sjxv7f5B/IFBMfr1WRFxNXftFoUGFcdTyvd9Xpk85yPxgt74\nCaZs3kfZVZFJ/w9GfU3c7vfyFnCU/fG2xLY7cQxRNanR3TIqycHgVW7UvW1kMCMy\n0X2nm1fux/KaQCTT8mTu7BBxQhRaHA7hv2VCT2LP/HUti371hTgRrgUTAoGBALU5\nHAMmwmatVl2vzXvk89NJcNEdzCvKAxQ1xhezuoFmBEgsQkfyuRp5V2d0+ke5k4ZD\nsvLH/DFekjhYEPo9rbMOOdItsY3pM8teLyCTS+10HYUFnaSfn2PERkgkq+qR0hI0\ndr0AICbOAz0k0CIbtyiTaHUDu+eEJ6hFKXGUHFHZAoGBAKQ8YffzjzW8KCgBiv0J\nS06CEtl6BP3qnLk+fKm5NuMMtssYvkAmX5EUnps5UimEsj+CJCYC8NJDJl6d2Mpw\n9tT8U2kRwxY2DozQdb3CBbZg3mYL4Vyr3VtBirxtlDLr7lK0wq+HWzKOY6C397DH\ncJIHQO8tR8Lpgb+5EpQGkEBq\n-----END PRIVATE KEY-----\n",
+  "client_email": "diet-file-service@temporal-wares-437514-p7.iam.gserviceaccount.com",
+  "client_id": "104110802322988531606",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/diet-file-service%40temporal-wares-437514-p7.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

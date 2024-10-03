@@ -4,57 +4,64 @@
             width: 100%;
             height: 400px; /* Set height as needed */
         }
-
+.text-start {
+    text-align: left !important;
+}
 
 .image-container {
-    width: 250px; /* Define the size of the image container */
-    height: 250px; /* Square container */
+    width: 150px; /* Define the size of the image container */
+    height: 180px; /* Square container */
     overflow: hidden; /* Crop the overflowing part */
-    border-radius: 50%; /* Keep it circular */
-    margin: 0 auto 2em; /* Center the image container */
+    border-radius: 6px; /* Keep it circular */
+    margin: 0.8em 1em 0 1em; /* Center the image container */
 }
 
 .image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Ensure the image scales and crops properly */
-    object-position: center 0%; /* Adjust the image position: more space at the bottom */
-    transition: transform 0.3s ease; /* Smooth zoom effect */
-}
-
-.image-container:hover img {
-    transform: scale(1.07); /* Slight zoom on hover */
+    object-position: center 0%;
 }
 
 @media (max-width: 768px) {
     .image-container {
-        width: 200px; /* Reduce the size of the image container on tablets */
-        height: 200px;
-    }
-    h3 {
-        font-size: 1.2rem; /* Reduce the font size of the header */
+        width: 150px; /* Reduce the size of the image container on tablets */
+        height: 180px;
+		margin-top: -0px;
     }
     h4 {
-        font-size: 1rem; /* Reduce the subtitle size */
+        font-size: 1rem !important; /* Reduce the font size of the header */
+    }
+    h5 {
+        font-size: 0.8rem !important; /* Reduce the subtitle size */
     }
 }
 
 @media (max-width: 576px) {
     .image-container {
-        width: 150px; /* Reduce the size of the image container on smaller devices */
+        width: 120px; /* Reduce the size of the image container on smaller devices */
         height: 150px;
     }
-    h3 {
-        font-size: 0.7rem; /* Further reduce the font size on mobile */
-    }
     h4 {
-        font-size: 0.5rem; /* Further reduce the subtitle size */
+        font-size: 0.9rem !important; /* Further reduce the font size on mobile */
     }
+    h5 {
+        font-size: 0.8rem !important; /* Further reduce the subtitle size */
+    }
+	.flip-container{
+	position: relative;
+	height: 18rem;
+}
 }
 
 
 
 /*flip card*/
+
+.flip-container{
+	position: relative;
+	height: 20rem;
+}
 
 .card-flip {
     position: relative;
@@ -69,9 +76,6 @@
     height: 100%; /* Ensures both cards take full height */
     backface-visibility: hidden;
     transition: transform 0.6s;
-    display: flex; /* Use flexbox for alignment */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
 }
 
 .front {
@@ -83,22 +87,21 @@
 }
 
 /* Flip effect on container hover */
-.col-lg-4:hover .card-flip .front {
+.flip-container:hover .card-flip .front {
     transform: rotateY(180deg);
 }
 
-.col-lg-4:hover .card-flip .back {
+.flip-container:hover .card-flip .back {
     transform: rotateY(0);
 }
 
+/* No delay for flipping in */
+.card-flip .front, .card-flip .back {
+    transition: transform 0.6s ease-in-out;
+}
+
 .card-body {
-    display: flex;
-    flex-direction: column; /* Stack content vertically */
-    justify-content: space-evenly; /* Center aligns vertically */
-    align-items: center; /* Center aligns horizontally */
     padding: 20px;
-    flex-wrap: wrap;
-    align-content: stretch; /* Optional: Add padding for better spacing */
 }
 
 .contact-info {

@@ -1,43 +1,58 @@
+// Fetch and display data using jQuery
+$(document).ready(function () {
 
+    GetTeamData()
+});
+console.log("allson")
 
+function GetTeamData() {
+    const url = "http://127.0.0.1:5879/team";  // API endpoint
 
-function loadTeamMembers() {
-    
-    const teamContainer = document.getElementById("team-container");
+    $.get(url, function (data) {
+        let teachTeamHtml = '';
+        let nonTeachTeamHtml = '';
 
-    $.get("http://127.0.0.1:5879/team", function (teams) {
-        // Clear existing content
-        teamContainer.innerHTML = '';
+        // const imageURL = team.image
+        // const image = imageElement ? imageElement.value : "https://diettuty.onrender.com/data/img/no-profile.jpg";
 
-        // Loop through the team members
-        teams.forEach((team) => {
-            const teamBox = document.createElement("div");
-            teamBox.className = "col-lg-4 col-md-6 col-6 py-3";
+        // Loop through the team data
+        data.forEach(team => {
+            let teamHtml = `
+            
+            <div id="${team._id}" class="col-lg-3 col-md-4 col-6 py-3 flip-container "> <!-- Column class for Bootstrap -->
+    <div class="card-flip"> <!-- Card flip container -->
+        <div class="card front shadow bg-transparent"> <!-- Front side of the card -->
+            <div> 
+					<br>				<div class="image-container mx-auto"> 
+										<img src="${team.image || 'https://diettuty.onrender.com/data/img/no-profile.jpg'}" alt="...">
+									</div>
+									<div>
+										<h4 class="fw-bold mb-1 text-uppercase h5">${team.name || ''}</h4><br><h5 class="fw-light h6 mb-3">${team.designation || '-'}</h5>
+									</div>									 
+								</div>
+        </div>
+        <div class="card back shadow bg-transparent"> <!-- Back side of the card -->
+    <div class="card-body text-center alert-primary">
+        <h5 class="card-title">Contact Info</h5>
+        <div class="contact-info text-start">
+            <p class="card-text">Address: <br><span>${team.address || '-'}</span></p>
+            <p class="card-text">Mobile no: <br><span>${team.phone1 || ''}</span><br><span>${team.phone1 || ''}</span></p>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+ `;
 
-            teamBox.innerHTML = `
-                <div>
-                    <div class="image-container mx-auto">
-                        <img src="${team.image || 'default_image_url'}" alt="..." class="img-fluid rounded-circle">
-                    </div>
-                    <div>
-                        <h3 class="fw-bold h4 mb-1 text-uppercase">${team.name || 'Name'}</h3><br>
-                        <h4 class="fw-light h6 mb-3">${team.occupation || 'Occupation'}</h4><br>
-                        <p class="fw-light mb-4">${team.address || 'Address'}</p>
-                    </div>
-                </div>
-            `;
-
-            // Append the team box to the container
-            teamContainer.appendChild(teamBox);
+            if (team.teaching === 'yes') {
+                teachTeamHtml += teamHtml;
+            } else {
+                nonTeachTeamHtml += teamHtml;
+            }
         });
-    }).fail(function (error) {
-        console.error("Error fetching team data:", error);
+
+        // Append to the HTML elements
+        document.getElementById('teach-container').innerHTML = teachTeamHtml || '';
+        document.getElementById('non-teach-container').innerHTML = nonTeachTeamHtml || '';
     });
 }
-
-// Call the function to load team members
-
-
-$(document).ready(function() {
-    loadTeamMembers();
-  });
