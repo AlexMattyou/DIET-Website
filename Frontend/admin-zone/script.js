@@ -40,10 +40,14 @@ function GetTeamData() {
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <!-- Image URL Input -->
-                                <div class="image-url-wrapper">
-                                    <input type="text" class="form-control image-url-input" value="${team.image || ''}" placeholder="Paste image URL here" oninput="updateImagePreview('${team._id}')">
-                                    <img class="image-preview img-fluid mt-3" src="${team.image || 'https://diettuty.onrender.com/data/img/no-profile.jpg'}" alt="Team member image preview">
+                                <div class="image-preview-container" onclick="document.getElementById('imageInput-${team._id}').click()">
+                                    <img class="image-preview img-fluid mt-3" 
+                                        src="${team.image || 'https://diettuty.onrender.com/data/img/about-us/district.png'}" 
+                                        alt="Team member image preview">
+                                    <input type="file" id="imageInput-${team._id}" accept="image/*" 
+                                        onchange="previewImage(event, '${team._id}')" style="display:none;">
                                 </div>
+
                             </div>
 
                             <div class="col-md-8">
@@ -150,29 +154,37 @@ function CreateTeam(t){
 
 }
 
-function DeleteTeam(teamID){
-    // Find the team element on the screen
-    const teamElement = document.getElementById(teamID);
+function DeleteTeam(teamID) {
+    // Confirm if the user really wants to delete the team
+    const confirmation = confirm("Are you sure you want to delete this team?");
 
-    if (teamElement) {
-        // Make an AJAX DELETE request to delete the team from the database
-        $.ajax({
-            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
-            type: "DELETE",  // Request method for deleting
-            success: function(response) {
-                console.log("Team deleted successfully:", response);
-                
-                // Remove the team element from the DOM after successful deletion
-                teamElement.remove();
-            },
-            error: function(xhr, status, error) {
-                console.error("Failed to delete team:", error);
-            }
-        });
+    if (confirmation) {
+        // Find the team element on the screen
+        const teamElement = document.getElementById(teamID);
+
+        if (teamElement) {
+            // Make an AJAX DELETE request to delete the team from the database
+            $.ajax({
+                url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+                type: "DELETE",  // Request method for deleting
+                success: function(response) {
+                    console.log("Team deleted successfully:", response);
+                    
+                    // Remove the team element from the DOM after successful deletion
+                    teamElement.remove();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to delete team:", error);
+                }
+            });
+        } else {
+            console.error("Team element not found for ID:", teamID);
+        }
     } else {
-        console.error("Team element not found for ID:", teamID);
+        console.log("Deletion cancelled by the user.");
     }
 }
+
 
 function UpdateTeam(teamID) {
     // Find the team element with the given id

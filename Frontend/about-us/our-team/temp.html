@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File to Google Drive</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Upload File to Google Drive</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="file">Choose a file:</label>
+        <input type="file" id="file" name="file" required>
+        
+        <label for="placeID">Place ID:</label>
+        <input type="text" id="placeID" name="placeID" required>
+
+        <!-- Remove the upload button -->
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#file').on('change', function() {
+                const formData = new FormData($('#uploadForm')[0]);
+
+                $.ajax({
+                    url: 'http://127.0.0.1:5879/drive/our-team', // Your API endpoint
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        // Display the image and placeID returned from the server
+                        $('#result').html(`
+                            <p>File uploaded successfully!</p>
+                            <p>Place ID: ${response.placeID}</p>
+                            <img src="${response.link}" alt="Uploaded Image" width="600"/>
+                        `);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Handle errors
+                        $('#result').html('<p>Error uploading file. Please try again.</p>');
+                        console.error('Upload error:', textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -2,6 +2,7 @@ import express from "express";
 import movieRoutes from "./routes/movie.route.js"
 import adminRoutes from "./routes/admin.route.js"
 import teamRoutes from "./routes/team.route.js"
+import driveRoutes from "./routes/drive.route.js"
 import connectDB from "./lib/db.js"
 import cors from 'cors';
 import {robotsTxt,corsOptions,rateLimiter,helmet} from './lib/middleware.js';
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 app.use('/diet-admin', adminRoutes)
 app.use('/movies', movieRoutes)
 app.use('/team', teamRoutes)
+app.use('/drive', driveRoutes)
 
 app.listen(PORT, () => {
     console.log(`The Server is running...`);
