@@ -51,7 +51,6 @@ export const UpdateTeam = async (req, res) => {
             { _id: req.params.id },
             {
                 name: req.body.name,
-                image: req.body.image,
                 designation: req.body.designation,
                 address: req.body.address,
                 phone1: req.body.phone1,

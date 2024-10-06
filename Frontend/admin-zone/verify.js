@@ -3,11 +3,11 @@ $(document).ready(function () {
       
       if (!token) {
         // Redirect to login page if no token
-        window.location.href = 'http://127.0.0.1:5500/Frontend/admin-zone/login/index.html';
+        window.location.href = 'https://diettuty.onrender.com/admin-zone/login/index.html';
       } else {
         // Verify the token with the server
         $.ajax({
-          url: 'http://127.0.0.1:5879/diet-admin/verify',  // Your API endpoint for token verification
+          url: 'https://diet-api-dm7h.onrender.com/diet-admin/verify',  // Your API endpoint for token verification
           type: 'GET',
           headers: {
             'Authorization': token
@@ -18,7 +18,7 @@ $(document).ready(function () {
           },
           error: function () {
             // Redirect to login if token is invalid
-            window.location.href = 'http://127.0.0.1:5500/Frontend/admin-zone/login/index.html';
+            window.location.href = 'https://diettuty.onrender.com/admin-zone/login/index.html';
           }
         });
       }

@@ -1,1 +1,27 @@
 @import url("https://diettuty.onrender.com/assets/css/master.css");
+
+.institute-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+	
+        }
+
+        .card-body h5 {
+            color: var(--bs-primary);
+        }
+
+        .links-container {
+            margin-top: 20px;
+        }
+
+        .institute-links {
+            margin-top: 20px;
+        }
+
+.inst_container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}

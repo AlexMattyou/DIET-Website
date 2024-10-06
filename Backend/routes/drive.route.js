@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { google } from 'googleapis';
 import fs from 'fs';
+import Team from "../models/team.model.js";
 
 const router = express.Router();
 const upload = multer({
@@ -20,7 +21,7 @@ const upload = multer({
 // Google Drive API setup
 const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 const auth = new google.auth.GoogleAuth({
-    keyFile: 'google-key.json',
+    keyFile: '/etc/secrets/google-key.json',
     scopes: SCOPES,
 });
 const drive = google.drive({ version: 'v3', auth });
@@ -28,25 +29,23 @@ const drive = google.drive({ version: 'v3', auth });
 router.post('/our-team', (req, res) => {
     upload(req, res, async (err) => {
         if (err instanceof multer.MulterError) {
-            // Multer-specific errors
             return res.status(400).json({ error: 'File upload error: ' + err.message });
         } else if (err) {
-            // Custom error (invalid file type)
             return res.status(400).json({ error: err.message });
         }
 
         try {
             const filePath = req.file.path;
-            const fileName = req.body.placeID; // Use placeID as the file name
-            const folderId = '1wwnVAMMvUy53bUf1v8AEp4nG0sAZSVUl'; // Parent folder ID
+            const fileName = req.body.placeID;
+            const folderId = '1wwnVAMMvUy53bUf1v8AEp4nG0sAZSVUl'; // Google Drive folder ID
 
-            // Step 1: Check if a file with the same name already exists in the folder
+            // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
                 q: `name='${fileName}' and '${folderId}' in parents and trashed=false`,
                 fields: 'files(id, name)',
             });
 
-            // Step 2: Delete existing file
+            // Step 2: Delete existing file (if it exists)
             if (fileList.data.files.length > 0) {
                 const existingFileId = fileList.data.files[0].id;
                 await drive.files.delete({ fileId: existingFileId });
@@ -57,7 +56,7 @@ router.post('/our-team', (req, res) => {
                 requestBody: {
                     name: fileName,
                     mimeType: req.file.mimetype,
-                    parents: [folderId], // Parent folder ID
+                    parents: [folderId],
                 },
                 media: {
                     mimeType: req.file.mimetype,
@@ -67,7 +66,7 @@ router.post('/our-team', (req, res) => {
 
             const fileId = response.data.id;
 
-            // Step 4: Make file publicly accessible
+            // Step 4: Make the file publicly accessible
             await drive.permissions.create({
                 fileId: fileId,
                 requestBody: {
@@ -81,14 +80,22 @@ router.post('/our-team', (req, res) => {
             // Delete the local file after upload
             fs.unlinkSync(filePath);
 
-            // Step 5: Send response back
-            res.json({ link: fileLink, placeID: req.body.placeID });
+            // Step 5: Update the Team collection with the new image link
+            const result = await Team.findOneAndUpdate(
+                { _id: req.body.placeID },
+                { image: fileLink },
+                { upsert: true, new: true }
+            );
+
+            // Step 6: Send final response
+            return res.json({ link: fileLink, placeID: req.body.placeID, result });
 
         } catch (error) {
             console.error('Error uploading to Google Drive:', error);
-            res.status(500).json({ error: 'Failed to upload file' });
+            return res.status(500).json({ error: 'Failed to upload file' });
         }
     });
 });
 
 export default router;
+

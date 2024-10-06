@@ -20,10 +20,49 @@ function updateImagePreview(teamID) {
     }
 }
 
+function uploadShowImage(event, teamId) {
+    // Get the image input element and the preview image element
+    const imageInput = document.getElementById(`imageInput-${teamId}`);
+    const imagePreview = document.getElementById(`imagePreview-${teamId}`);
+    
+    // Set the image preview to a spinner while the upload is in progress
+    imagePreview.src = '../data/img/spinner.svg';
+
+    // Get the selected file
+    const file = imageInput.files[0];
+    if (!file) {
+        return; // No file selected
+    }
+
+    // Create a FormData object to send the file
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('placeID', teamId); // Pass the teamId as placeID
+
+    // Perform the AJAX request to upload the file
+    $.ajax({
+        url: 'https://diet-api-dm7h.onrender.com/drive/our-team', // Your API endpoint
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            // Update the preview image with the uploaded image link
+            imagePreview.src = response.link;
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Handle errors by reverting to the default image
+            imagePreview.src = '../data/img/upload.png';
+            console.error('Upload error:', textStatus, errorThrown);
+        }
+    });
+}
+
+
 
 // Fetch and display data using jQuery
 function GetTeamData() {
-    const url = "http://127.0.0.1:5879/team";  // API endpoint
+    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
 
     $.get(url, function (data) {
         let teachTeamHtml = '';
@@ -41,11 +80,11 @@ function GetTeamData() {
                             <div class="col-md-4">
                                 <!-- Image URL Input -->
                                 <div class="image-preview-container" onclick="document.getElementById('imageInput-${team._id}').click()">
-                                    <img class="image-preview img-fluid mt-3" 
-                                        src="${team.image || 'https://diettuty.onrender.com/data/img/about-us/district.png'}" 
+                                    <img id="imagePreview-${team._id}"  class="image-preview img-fluid mt-3"  
+                                        src="${team.image || '../data/img/upload.png'}" 
                                         alt="Team member image preview">
                                     <input type="file" id="imageInput-${team._id}" accept="image/*" 
-                                        onchange="previewImage(event, '${team._id}')" style="display:none;">
+                                        onchange="uploadShowImage(event, '${team._id}')" style="display:none;"> 
                                 </div>
 
                             </div>
@@ -133,7 +172,7 @@ function CreateTeam(t){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "http://127.0.0.1:5879/team", // API URL
+        url: "https://diet-api-dm7h.onrender.com/team", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -165,7 +204,7 @@ function DeleteTeam(teamID) {
         if (teamElement) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+                url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("Team deleted successfully:", response);
@@ -198,10 +237,10 @@ function UpdateTeam(teamID) {
         const phone1 = teamElement.querySelector('.team-phone1').value;
         const phone2 = teamElement.querySelector('.team-phone2').value;
 
-        const imageElement = teamElement.querySelector('.image-url-input');
-        const image = imageElement ? imageElement.value : "https://diettuty.onrender.com/data/img/no-profile.jpg"; // Image URL input
-        const imagePreview = teamElement.querySelector('.image-preview');
-        imageElement.src = image;
+        // const imageElement = teamElement.querySelector('.image-url-input');
+        // const image = imageElement ? imageElement.value : "https://diettuty.onrender.com/data/img/no-profile.jpg"; // Image URL input
+        // const imagePreview = teamElement.querySelector('.image-preview');
+        // imageElement.src = image;
 
 
         // Prepare the data in the required format
@@ -210,8 +249,8 @@ function UpdateTeam(teamID) {
             designation: designation,
             address: address,
             phone1: phone1,
-            phone2: phone2,
-            image: image
+            phone2: phone2
+            // image: image
         };
 
         // Log the data for checking
@@ -219,7 +258,7 @@ function UpdateTeam(teamID) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+            url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(teamData),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
