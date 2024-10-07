@@ -10,7 +10,7 @@ import {robotsTxt,corsOptions,rateLimiter,helmet} from './lib/middleware.js';
 const app = express();
 const PORT = 5879;
 
-app.set('trust proxy', true);
+app.set('trust proxy', ['100.20.92.101', '44.225.181.72', '44.227.217.144']);
 
 app.use(cors({ origin: 'https://diettuty.onrender.com' }));
 // app.use(cors());
