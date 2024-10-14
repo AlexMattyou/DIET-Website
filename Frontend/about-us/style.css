@@ -40,13 +40,16 @@
 @media (max-width: 576px) {
     .image-container {
         width: 120px; /* Reduce the size of the image container on smaller devices */
-        height: 150px;
+        height: 160px;
     }
     h4 {
-        font-size: 0.9rem !important; /* Further reduce the font size on mobile */
+        font-size: 0.8rem !important; /* Further reduce the font size on mobile */
     }
     h5 {
-        font-size: 0.8rem !important; /* Further reduce the subtitle size */
+        font-size: 0.7rem !important; /* Further reduce the subtitle size */
+    }
+    p{
+        font-size: 0.8rem !important;
     }
 	.flip-container{
 	position: relative;

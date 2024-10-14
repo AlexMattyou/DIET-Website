@@ -6,7 +6,7 @@ $(document).ready(function () {
 console.log("allson")
 
 function GetTeamData() {
-    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
+    const url = "http://127.0.0.1:5879/team";  // API endpoint
 
     $.get(url, function (data) {
         let teachTeamHtml = '';
@@ -19,28 +19,28 @@ function GetTeamData() {
         data.forEach(team => {
             let teamHtml = `
             
-            <div id="${team._id}" class="col-lg-3 col-md-4 col-6 py-3 flip-container "> <!-- Column class for Bootstrap -->
-    <div class="card-flip"> <!-- Card flip container -->
-        <div class="card front shadow bg-transparent"> <!-- Front side of the card -->
-            <div> 
-					<br>				<div class="image-container mx-auto"> 
-										<img src="${team.image || 'https://diettuty.onrender.com/data/img/no-profile.jpg'}" alt="...">
-									</div>
-									<div>
-										<h4 class="fw-bold mb-1 text-uppercase h5">${team.name || ''}</h4><br><h5 class="fw-light h6 mb-3">${team.designation || '-'}</h5>
-									</div>									 
-								</div>
-        </div>
-        <div class="card back shadow bg-transparent"> <!-- Back side of the card -->
-    <div class="card-body text-center alert-primary">
-        <h5 class="card-title">Contact Info</h5>
-        <div class="contact-info text-start">
-            <pre class="card-text">Address: <br><span>${team.address || '-'}</span></pre>
-            <p class="card-text">Mobile no: <br><span>${team.phone1 || ''}</span><br><span>${team.phone1 || ''}</span></p>
-        </div>
-    </div>
+<div id="${team._id}" class="col-lg-3 col-md-4 col-6 py-3 flip-container "> <!-- Column class for Bootstrap -->
+<div class="card-flip"> <!-- Card flip container -->
+<div class="card front shadow bg-transparent"> <!-- Front side of the card -->
+<div> 
+<br>				<div class="image-container mx-auto"> 
+<img src="${team.image || 'https://diettuty.onrender.com/data/img/no-profile.jpg'}" alt="...">
+</div><br class="no-desktop">
+<div>
+<h4 class="fw-bold mb-1 text-uppercase h5">${team.name || ''}</h4><br><h5 class="fw-light h6 mb-3">${team.designation || '-'}</h5>
+</div>									 
 </div>
-    </div>
+</div>
+<div class="card back shadow bg-transparent"> <!-- Back side of the card -->
+<div class="card-body text-center alert-primary">
+<h5 class="card-title">Contact Info</h5>
+<div class="contact-info text-start">
+<p class="card-text">Address: <br><span>${team.address || '-'}</span></p    >
+<p class="card-text">Mobile no: <br><span>${team.phone1 || ''}</span><br><span>${team.phone2 || ''}</span></p>
+</div>
+</div>
+</div>
+</div>
 </div>
  `;
 

@@ -8,3 +8,41 @@
     background-color: #ffffff;
 }
 
+/* Events Tab */
+
+  .year-button-container {
+    margin-bottom: 5px; /* Space between each year button row */
+  }
+
+.year-button {
+    width: 100%;
+    margin-left: 0.4em;
+    margin-right: 0.1em;
+}
+
+.svg-buttons {
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+}
+
+/* add data */
+
+.photo-item-container {
+  margin: 10px 0; /* Adds 10px margin around the container */
+}
+
+.photo-item {
+  display: flex;           /* Makes the container a flexbox */
+  flex-direction: column;  /* Aligns children vertically (column layout) */
+  justify-content: space-between; /* Ensures space is distributed and delete button is pushed to the bottom */
+  height: 100%;            /* Ensures the container takes up full height */
+}
+
+.image-preview-container {
+  flex-grow: 1; /* Makes the image container take up available space */
+  text-align: center; /* Centers the image horizontally */
+}
+
+.btn {
+  margin-top: auto; /* Pushes the button to the bottom by taking the remaining space */
+}
