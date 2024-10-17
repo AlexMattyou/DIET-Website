@@ -2,10 +2,7 @@ import { Schema, model } from "mongoose";
 
 // write your schema
 const schema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
+    name: String,
     teaching: String,
     image: String,
     designation: String,

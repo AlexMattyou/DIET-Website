@@ -4,6 +4,7 @@ import adminRoutes from "./routes/admin.route.js"
 import teamRoutes from "./routes/team.route.js"
 import driveRoutes from "./routes/drive.route.js"
 import galleryRoutes from "./routes/gallery.route.js"
+import updateRoutes from "./routes/update.route.js"
 import connectDB from "./lib/db.js"
 import cors from 'cors';
 import {robotsTxt,corsOptions,rateLimiter,helmet} from './lib/middleware.js';
@@ -40,6 +41,7 @@ app.use('/movies', movieRoutes)
 app.use('/team', teamRoutes)
 app.use('/drive', driveRoutes)
 app.use('/gallery', galleryRoutes)
+app.use('/latest-update', updateRoutes)
 
 app.listen(PORT, () => {
     console.log(`The Server is running...`);

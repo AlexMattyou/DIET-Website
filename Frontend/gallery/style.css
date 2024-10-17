@@ -1,1 +1,136 @@
 @import url("https://diettuty.onrender.com/assets/css/master.css");
+
+:root {
+  --container-padding: 1.5em;
+  --container-width: 1260px;
+  --gallery-gap: 1.5em;
+  --gallery-item-height: 250px;
+  --gallery-item-border-radius: 0.4em; /* Already defined in your CSS */
+}
+
+/* Reset and Box Sizing */
+*,
+&::before,
+&::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: 1em/160% sans-serif;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  height: auto;
+}
+
+.page-container {
+  padding: var(--container-padding);
+  max-width: var(--container-width);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Gallery layout */
+.img-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gallery-gap);
+  &::after {
+    content: "";
+    flex-grow: 999;
+    flex-shrink: 1;
+    flex-basis: auto;
+  }
+}
+
+.img-gallery__item {
+  position: relative;
+  flex: auto;
+  overflow: hidden;
+  height: var(--gallery-item-height);
+  border-radius: var(--gallery-item-border-radius);
+  
+  figure {
+    margin: 0;
+    height: 100%;
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* Indicate that the image is clickable */
+  }
+}
+
+/* Lightbox Modal Styles */
+.modal-body {
+  position: relative;
+  text-align: center; /* Center-align content */
+}
+
+#lightboxImg {
+  max-height: 80vh; /* Ensure the image fits within the viewport */
+  width: auto; /* Allow width to adjust proportionally */
+}
+
+/* Button Styles for Navigation */
+.btn-secondary {
+  margin: 5px; /* Add some margin around buttons */
+}
+
+
+/* events boxes */
+
+.box {
+	margin: 1em 0;
+    display: block;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+    opacity: 0.9;
+    padding:0;
+    margin-top:-50px;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+
+.box-content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 10;
+    padding:0;
+    margin:0;
+}
+
+/* Dark overlay over the background image */
+.box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.box h2 {
+    position: relative;
+    z-index: 20;
+    color: white;
+}

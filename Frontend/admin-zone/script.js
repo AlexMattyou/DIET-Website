@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     GetTeamData();
     GetYearData();
+    GetUpdateData()
+
     DataTabSwitch();
 
     $('#year-select').on('change', function() {
@@ -411,7 +413,6 @@ function DisplayEventOfYear(year_id) {
     });
 }
 
-
 function AddEventBlock(event_id, year_id, event_name = '', event_desc = '', event_image = '') {
     console.log(event_image)
     console.log('running')
@@ -692,7 +693,6 @@ function DeletePhoto(year_id, event_id, photo_id){
     }
 }
 
-
 function NewVideoButton(year_id, event_id){
     let element = `
                 <div id="new-video-button-container" class="p-2 col-md-12 border alert-success rounded mb-2"
@@ -728,11 +728,11 @@ function CreateVideo(year_id, event_id){
             video: "" // Empty image for ID generation
         }),
         success: function(newVideo) {
-            const video_id = newVideo._id; // Accessing the newly created photo's ID
-            console.log("Newly created video ID:", video_id);
+            console.log(newVideo)
+            console.log("Newly created video ID:", newVideo._id);
 
             // Call functions using the new photo ID
-            AddVideo(year_id, event_id, video_id);
+            AddVideo(year_id, event_id, newVideo._id);
         },
         error: function(xhr, status, error) {
             console.error("Error creating new video:", error);
@@ -838,5 +838,197 @@ function DeleteVideo(year_id, event_id, video_id){
         }
     } else {
         console.log("Deletion cancelled by the user.");
+    }
+}
+
+//////////////////////// Latest Updates //////////////////////////////
+
+function UploadFile2Drive(event, the_id, parentFolder) {
+    
+    // Get the file input and preview elements using jQuery
+    const fileInput = $(`#fileInput-${the_id}`).get(0);  // Access the raw DOM element
+    const filePreview = $(`#filePreview-${the_id}`);
+    
+    // Set the image preview to a spinner while the upload is in progress
+    filePreview.html('Loading...');
+
+    // Get the selected file from the file input
+    const file = fileInput.files[0];  // Access the files array from the raw DOM element
+    if (!file) {
+        return; // No file selected
+    }
+
+    // Create a FormData object to send the file
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('placeID', the_id); // Pass the teamId as placeID
+
+    console.log([...formData.entries()]);
+
+    // Perform the AJAX request to upload the file
+    $.ajax({
+        url: 'http://127.0.0.1:5879/drive/' + parentFolder, // Your API endpoint
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            // Update the preview image with the uploaded image link
+            filePreview.html(response.link);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Handle errors by reverting to the default image
+            filePreview.html("Error uploading file!");
+            console.error('Upload error:', textStatus, errorThrown);
+        }
+    });
+}
+
+
+
+function AddUpdatesBlock(update){
+    let element = `
+    <div id="update-block-${update._id}" class="row border rounded p-3 shadow-sm mb-2 ">
+              <!-- Image Preview Section -->
+              <div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
+                <div class="file-preview-container break-at-slash" onclick="document.getElementById('fileInput-${update._id}').click()">
+                  <h5 id="filePreview-${update._id}" >${update.file || 'No File Selected!'}</h5>
+                  <input type="file" id="fileInput-${update._id}" accept="image/*, application/pdf"
+       onchange="UploadFile2Drive(event, '${update._id}', 'latest-updates')" style="display:none;">
+                </div>
+              </div>
+
+              <!-- Event Details Section -->
+              <div class="col-12 col-xl-8 col-md-8">
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <input id="update-header-${update._id}" type="text" class="form-control w-100 mb-n2" placeholder="Headline"
+                      value="${update.name || ''}">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <textarea id="update-info-${update._id}" class="form-control w-100 mb-n2" rows="4"
+                      placeholder="Description">${update.desc || ''}</textarea>
+                  </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-outline-info me-2 mr-1" onclick="UpdateUpdate('${update._id}')">Save</button>
+                  <button class="btn btn-outline-danger" onclick="DeleteUpdate('${update._id}')">Delete</button>
+                </div>
+              </div>
+            </div>
+    `
+    $('#update-edit-container').append(element)
+}
+
+function GetUpdateData() {
+    const url = "http://127.0.0.1:5879/latest-update";  // API endpoint
+
+    $.get(url, function (data) {
+        $('#update-edit-container').empty()
+        data.forEach(update => {
+            console.log("update",update)
+            AddUpdatesBlock(update)
+        });
+            
+    });
+}
+
+function GetSingleUpdate(update_id){
+    const url = `http://127.0.0.1:5879/latest-update/${update_id}`
+
+    $.get(url, function (data) {
+        console.log(data);
+    });
+}
+
+function CreateUpdate(){
+    // Prepare the data to send
+    const data = {
+        name: "",
+    };
+
+    // Make an AJAX POST request
+    $.ajax({
+        url: "http://127.0.0.1:5879/latest-update", // API URL
+        type: "POST",  // Request method
+        contentType: "application/json", // Send as JSON
+        data: JSON.stringify(data), // Convert JS object to JSON string
+        success: function(response) {
+            console.log("Update created successfully:", response);
+            AddUpdatesBlock(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to create update:", error);
+        }
+    });
+
+}
+
+function DeleteUpdate(update_id) {
+    // Confirm if the user really wants to delete the team
+    const confirmation = confirm("Are you sure you want to delete this team member?");
+
+    if (confirmation) {
+        // Find the team element on the screen
+        const element = $('#update-block-'+update_id)
+
+        if (element) {
+            // Make an AJAX DELETE request to delete the team from the database
+            $.ajax({
+                url: `http://127.0.0.1:5879/latest-update/${update_id}`,  // API URL with the teamID
+                type: "DELETE",  // Request method for deleting
+                success: function(response) {
+                    console.log("update deleted successfully:", response);
+                    
+                    // Remove the team element from the DOM after successful deletion
+                    element.remove();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to delete update:", error);
+                }
+            });
+        } else {
+            console.error("update element not found for ID:", update_id);
+        }
+    } else {
+        console.log("Deletion cancelled by the user.");
+    }
+}
+
+function UpdateUpdate(update_id) {
+    // Find the team element with the given id
+    const element = $('#update-block-'+update_id);
+
+    if (element) {
+
+        
+        const data = {
+            name: $('#update-header-'+update_id).val(),
+            desc: $('#update-info-'+update_id).val(),
+        };
+
+        // Log the data for checking
+        console.log("Data to be updated:", data);
+
+        // Now make an AJAX PUT request to update the team
+        $.ajax({
+            url: `http://127.0.0.1:5879/latest-update/${update_id}`,  // API URL with the teamID
+            type: "PUT",  // Request method for updating
+            data: JSON.stringify(data),  // Send the team data as JSON
+            contentType: "application/json",  // Set content type as JSON
+            success: function(response) {
+                console.log("Team updated successfully:", response);
+                // Optionally show a success message or update the UI further
+            },
+            error: function(xhr, status, error) {
+                console.error("Failed to update team:", error);
+            }
+        });
+    } else {
+        console.error("Team element not found for ID:", update_id);
     }
 }

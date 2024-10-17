@@ -9,6 +9,28 @@
     --txt2: "Fredoka", system-ui;
 }
 
+/* Base navbar styles */
+.navbar {
+  position: relative;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+.break-at-slash {
+    overflow-wrap: break-word; /* Break long words at appropriate break points */
+    word-wrap: break-word; /* Older syntax for legacy browsers */
+    white-space: normal;   /* Ensure text can wrap to the next line */
+    overflow: hidden;      /* Prevents overflow beyond the parent */
+}
+
 .force-white-text {
   color: #fff !important;
 }

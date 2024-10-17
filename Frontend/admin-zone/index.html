@@ -210,17 +210,12 @@
                 <section>
                   <h5>Photos</h5>
                   <div id="photos-edit-container" class="d-flex flex-row align-content-start flex-wrap">
-                    <!-- First div element -->
-
-
-                    <!-- Second div element -->
-                    <!-- Third div element -->
                   </div>
                 </section>
                 <section>
                   <h5>Videos</h5>
                   <div id="video-edit-container">
-                    
+
                   </div>
                 </section>
               </section>
@@ -233,78 +228,32 @@
       </div>
       <div class="tab-pane fade show active" id="latest-updates" role="tabpanel" aria-labelledby="latest-updates-tab">
         <h4>Latest Updates</h4>
-        
+
         <div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
-          <div id="new-event-button-container" class="p-2 col-md-12 border alert-success rounded mb-2" style="height: 100px;">
-<button id="add-new-event-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateEvent('670bc86f46e0ad8d4a30b824')">
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="var(--success)" class="bi bi-plus-square" viewBox="0 0 16 16">
-<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"></path>
-<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
-</svg>
-</button>
-</div>
-          <div class="col-xl-12 d-flex flex-wrap flex-column-reverse" id="event-edit-container">
-<div id="event-block-670bc87946e0ad8d4a30b82a" class="row border rounded p-3 shadow-sm mb-2">
-<!-- Image Preview Section -->
-<div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
-<div class="image-preview-container" onclick="document.getElementById('imageInput-670bc87946e0ad8d4a30b82a').click()">
-  <img id="imagePreview-670bc87946e0ad8d4a30b82a" class="image-preview img-fluid w-100" src="https://lh3.googleusercontent.com/d/1hn0fvxOCOejwHVnVcxbbg-jTlsq9s7yZ" alt="Event image preview">
-  <input type="file" id="imageInput-670bc87946e0ad8d4a30b82a" accept="image/*" onchange="UploadShowImage(event, '670bc87946e0ad8d4a30b82a', 'gallery-event', '670bc86f46e0ad8d4a30b824')" style="display:none;"> 
-</div>
-</div>
+          <div id="new-update-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 "
+            style="height: 100px;">
+            <button id="add-new-update-button"
+              class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0"
+              onclick="CreateUpdate()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="var(--success)"
+                class="bi bi-plus-square" viewbox="0 0 16 16">
+                <path
+                  d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
+                </path>
+                <path
+                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
+                </path>
+              </svg>
+            </button>
+          </div>
+          <div class="col-xl-12 d-flex flex-wrap flex-column-reverse" id="update-edit-container">
 
-<!-- Event Details Section -->
-<div class="col-12 col-xl-8 col-md-8">
-<div class="row mb-3">
-  <div class="col-12">
-    <input id="event-name-670bc87946e0ad8d4a30b82a" type="text" class="form-control w-100 mb-n2" placeholder="Event name" value="Grace COe">
-  </div>
-</div>
-<div class="row mb-3">
-  <div class="col-12">
-    <textarea id="event-info-670bc87946e0ad8d4a30b82a" class="form-control w-100 mb-n2" rows="4" placeholder="Description">Hello Hi This is GCOE</textarea>
-  </div>
-</div>
 
-<!-- Buttons -->
-<div class="d-flex justify-content-end">
-  <button class="btn btn-outline-info me-2 mr-1" onclick="UpdateEvent('670bc87946e0ad8d4a30b82a', '670bc86f46e0ad8d4a30b824')">Save</button>
-  <button class="btn btn-outline-danger" onclick="DeleteEvent('670bc87946e0ad8d4a30b82a', '670bc86f46e0ad8d4a30b824')">Delete</button>
-</div>
-</div>
-</div>
 
-<div id="event-block-670bc88c46e0ad8d4a30b834" class="row border rounded p-3 shadow-sm mb-2">
-<!-- Image Preview Section -->
-<div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
-<div class="image-preview-container" onclick="document.getElementById('imageInput-670bc88c46e0ad8d4a30b834').click()">
-  <img id="imagePreview-670bc88c46e0ad8d4a30b834" class="image-preview img-fluid w-100" src="https://lh3.googleusercontent.com/d/1wmGOlMDwKpvAF5Ru52ILH9vKHumyVmyO" alt="Event image preview">
-  <input type="file" id="imageInput-670bc88c46e0ad8d4a30b834" accept="image/*" onchange="UploadShowImage(event, '670bc88c46e0ad8d4a30b834', 'gallery-event', '670bc86f46e0ad8d4a30b824')" style="display:none;"> 
-</div>
-</div>
 
-<!-- Event Details Section -->
-<div class="col-12 col-xl-8 col-md-8">
-<div class="row mb-3">
-  <div class="col-12">
-    <input id="event-name-670bc88c46e0ad8d4a30b834" type="text" class="form-control w-100 mb-n2" placeholder="Event name" value="Wallpaper">
-  </div>
-</div>
-<div class="row mb-3">
-  <div class="col-12">
-    <textarea id="event-info-670bc88c46e0ad8d4a30b834" class="form-control w-100 mb-n2" rows="4" placeholder="Description">A wallpaper event</textarea>
-  </div>
-</div>
 
-<!-- Buttons -->
-<div class="d-flex justify-content-end">
-  <button class="btn btn-outline-info me-2 mr-1" onclick="UpdateEvent('670bc88c46e0ad8d4a30b834', '670bc86f46e0ad8d4a30b824')">Save</button>
-  <button class="btn btn-outline-danger" onclick="DeleteEvent('670bc88c46e0ad8d4a30b834', '670bc86f46e0ad8d4a30b824')">Delete</button>
-</div>
-</div>
-</div>
-</div>
+          </div>
 
         </div>
 
@@ -335,6 +284,7 @@
   <script src="https://diettuty.onrender.com/assets/js/jquery.min.js"></script>
   <script src="https://diettuty.onrender.com/assets/js/popper.js"></script>
   <script src="https://diettuty.onrender.com/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://diettuty.onrender.com/assets/js/master.js"></script>
 
 </body>
 

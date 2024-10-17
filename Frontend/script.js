@@ -26,3 +26,4 @@ function generateCarousel() {
 $(document).ready(function() {
   generateCarousel();
 });
+

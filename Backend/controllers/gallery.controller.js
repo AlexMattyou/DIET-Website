@@ -269,14 +269,15 @@ export const AddVideo = async (req, res) => {
         const newVideo = { video: req.body.video };
         event.videos.push(newVideo);
         await gallery.save();
-        res.status(201).json(newVideo);
+        const savedVideo = event.videos[event.videos.length - 1];
+        res.status(201).json(savedVideo);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
 
 
-export const UpdateVideo = async (req, res) => {
+export const UpdateVideo = async (req, res) => { 
     try {
         const gallery = await Gallery.findById(req.params.yearId);
         const event = gallery.events.id(req.params.eventId);
