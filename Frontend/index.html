@@ -18,29 +18,32 @@
 	  <div class="nav-header" data-pgc-define="header-main" data-pgc-edit="header-nav-bar[class, no_content]"><nav class="navbar navbar-light bg-light">
     <div class="container-fluid d-flex justify-content-between mt-n2">
         <div class="d-flex">
-            <a class="nav-link d-inline-block text-dark" href="#">DIET</a>
+            <a class="nav-link d-inline-block text-dark" href="https://diettuty.onrender.com/">DIET</a>
 			<a class="pt-2 text-dark" href="#">|</a>
-            <a class="nav-link d-inline-block text-dark" href="#">SCERT</a>
+            <a class="nav-link d-inline-block text-dark" href="https://scert.tnschools.gov.in/" target="_blank">SCERT</a>
         </div>
 
         <div class="no-mobile">
-            <a class="nav-link d-inline-block ml-2 text-dark" href="#">Screen Reader</a>
-			<a class="pt-2 text-dark" href="#">|</a>
-            <a class="nav-link d-inline-block text-dark" href="#">Skip to Content</a>
+            <!--<a class="nav-link d-inline-block ml-2 text-dark" href="#">Screen Reader</a>-->
+			<!--<a class="pt-2 text-dark" href="#">|</a>-->
+            <!--<a class="nav-link d-inline-block text-dark" href="#" id="skipLink">Skip to Content</a>--><button class="btn btn-sm btn-outline-dark" type="button" onclick="toggleContrast()">C</button>
 
-            <button class="btn btn-sm btn-outline-dark" type="button">-</button>
-            <button class="btn btn-sm btn-outline-dark" type="button">100%</button>
-            <button class="btn btn-sm btn-outline-dark" type="button">+</button>
+            <button class="btn btn-sm btn-outline-dark" type="button" onclick="changeFontSize(-2)">-</button>
 
-            <div class="btn-group ml-2">
-                <button type="button" class="btn btn-sm btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Language
-      </button>
-                <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">English</a>
-        <a class="dropdown-item" href="#">Tamil</a>
-      </div>
-            </div>
+<button id="font-size-display" class="btn btn-sm btn-outline-dark" type="button" onclick="resetFontSize()">100%</button>
+
+<button class="btn btn-sm btn-outline-dark" type="button" onclick="changeFontSize(2)">+</button>
+
+            <!--<div class="btn-group ml-2">
+  <button type="button" class="btn btn-sm btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Language
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" onclick="changeLanguage('en')">English</a>
+    <a class="dropdown-item" href="#" onclick="changeLanguage('ta')">Tamil</a>
+    <a class="dropdown-item" href="#" onclick="changeLanguage('hi')">Hindi</a>
+  </div>
+</div>-->
         </div>
     </div>
 
@@ -52,10 +55,10 @@
         </div>
         <div class="d-flex flex-row sub-logo">
             <img src="https://diettuty.onrender.com/data/logo/logo2.png" alt="Logo 2" class="img-fluid">
-            <img src="https://diettuty.onrender.com/data/logo/logo3.png" alt="Logo 3" class="img-fluid">
+            <!--<img src="https://diettuty.onrender.com/data/logo/logo3.png" alt="Logo 3" class="img-fluid">-->
         </div>
     </div>
-</nav><nav id="navbar" class="navbar navbar-expand-lg font-weight-bold mw-100 bg-primary navbar-dark shadow-lg">
+</nav><nav id="navbar" class="navbar navbar-expand-lg font-weight-bold mw-100 bg-primary navbar-dark shadow-lg fixed-top">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -158,15 +161,12 @@
 	  
 	  
 	  
-        <div id="highlights" class="carousel slide" data-ride="carousel">
-  
-            <!-- Dots/Indicators -->
+        <!--<div id="highlights" class="carousel slide" data-ride="carousel">
+ 
             <ol class="carousel-indicators" id="carouselIndicators">
-              <!-- Indicators will be dynamically added here -->
             </ol>
             
             <div class="carousel-inner" id="carouselContent">
-              <!-- Images will be dynamically added here -->
             </div>
             
             <a class="carousel-control-prev" href="#highlights" role="button" data-slide="prev">
@@ -178,10 +178,10 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-          </div>
+          </div>-->
 	  <nav aria-label="breadcrumb">
 </nav><nav aria-label="breadcrumb">
-			<ol class="breadcrumb mb-n1">
+			<ol class="breadcrumb mb-n1 ">
 				<li class="breadcrumb-item active" aria-current="page">Home</li>
 			</ol>
 		</nav>
@@ -384,7 +384,7 @@
    	<script src="https://diettuty.onrender.com/assets/js/jquery.min.js"></script>
     <script src="https://diettuty.onrender.com/assets/js/popper.js"></script>
     <script src="https://diettuty.onrender.com/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://diettuty.onrender.com/assets/js/master.js"></script>
+<script src="./assets/js/master.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

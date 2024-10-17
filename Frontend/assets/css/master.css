@@ -16,13 +16,20 @@
   transition: all 0.3s ease;
 }
 
+#navbar {
+    transition: all 0.3s ease-in-out; /* Smooth transition for position and other properties */
+  }
+
 .sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 4px 2px -2px gray;
-}
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow for a smoother look */
+    z-index: 1000;
+  }
+
+
+
 
 .break-at-slash {
     overflow-wrap: break-word; /* Break long words at appropriate break points */
@@ -98,3 +105,75 @@
     opacity: 0.5;
 }
 
+
+/* //////////////////    High COntract      /////////////////////////// */
+
+.high-contrast {
+    background-color: black !important;
+    color: yellow !important;
+}
+
+.high-contrast * {
+    background-color: black !important;
+    color: yellow !important;
+    border-color: yellow !important;
+}
+
+.high-contrast a {
+    color: lightblue !important;
+    text-decoration: underline;
+}
+
+.high-contrast a:hover {
+    color: white !important;
+}
+
+.high-contrast button,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+    background-color: black !important;
+    color: yellow !important;
+    border: 1px solid yellow !important;
+}
+
+.high-contrast .btn {
+    background-color: black !important;
+    border-color: yellow !important;
+    color: yellow !important;
+}
+
+.high-contrast .btn:hover {
+    background-color: yellow !important;
+    color: black !important;
+}
+
+.high-contrast table {
+    border-color: yellow !important;
+    background-color: black !important;
+}
+
+.high-contrast th,
+.high-contrast td {
+    border: 1px solid yellow !important;
+    background-color: black !important;
+    color: yellow !important;
+}
+
+.high-contrast .navbar,
+.high-contrast .card,
+.high-contrast .footer {
+    background-color: black !important;
+    color: yellow !important;
+}
+
+.high-contrast .form-control,
+.high-contrast .form-select {
+    background-color: black !important;
+    color: yellow !important;
+    border: 1px solid yellow !important;
+}
+
+.high-contrast img {
+    filter: invert(100%) !important;
+}
