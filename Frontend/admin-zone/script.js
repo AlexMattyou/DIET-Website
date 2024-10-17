@@ -65,7 +65,7 @@ function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 
 
     // Perform the AJAX request to upload the file
     $.ajax({
-        url: 'http://127.0.0.1:5879/drive/'+parentFolder, // Your API endpoint
+        url: 'https://diet-api-dm7h.onrender.com/drive/'+parentFolder, // Your API endpoint
         type: 'POST',
         data: formData,
         contentType: false,
@@ -84,7 +84,7 @@ function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 
 
 // Fetch and display data using jQuery
 function GetTeamData() {
-    const url = "http://127.0.0.1:5879/team";  // API endpoint
+    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
 
     $.get(url, function (data) {
         let teachTeamHtml = '';
@@ -193,7 +193,7 @@ function CreateTeam(t){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "http://127.0.0.1:5879/team", // API URL
+        url: "https://diet-api-dm7h.onrender.com/team", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -225,7 +225,7 @@ function DeleteTeam(teamID) {
         if (teamElement) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+                url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("Team deleted successfully:", response);
@@ -278,7 +278,7 @@ function UpdateTeam(teamID) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
+            url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(teamData),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
@@ -307,7 +307,7 @@ function CreateYear() {
 
     // Make an AJAX POST request
     $.ajax({
-        url: "http://127.0.0.1:5879/gallery/years", // API URL
+        url: "https://diet-api-dm7h.onrender.com/gallery/years", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -344,7 +344,7 @@ function AddYearBlock(the_id, year_input) {
 }
 
 function GetYearData() {
-    const url = "http://127.0.0.1:5879/gallery/years";  // API endpoint
+    const url = "https://diet-api-dm7h.onrender.com/gallery/years";  // API endpoint
 
     $.get(url, function (data) {
 
@@ -366,7 +366,7 @@ function DeleteYear(year_id) {
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `http://127.0.0.1:5879/gallery/years/${year_id}`,  // API URL with the teamID
+                url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("Team deleted successfully:", response);
@@ -392,7 +392,7 @@ function DisplayEventOfYear(year_id) {
     $('.year-button-container .year-button').removeClass('btn-primary').addClass('btn-outline-primary');
     $('#year-button-' + year_id + ' .year-button').removeClass('btn-outline-primary').addClass('btn-primary');
 
-    const url = "http://127.0.0.1:5879/gallery/years/" + year_id;
+    const url = "https://diet-api-dm7h.onrender.com/gallery/years/" + year_id;
 
     $.get(url, function (data) {
         if (data && data.events) {
@@ -473,7 +473,7 @@ function CreateEvent(year_id) {
 
     // Make an AJAX POST request
     $.ajax({
-        url: "http://127.0.0.1:5879/gallery/years/"+ year_id +"/events", // API URL
+        url: "https://diet-api-dm7h.onrender.com/gallery/years/"+ year_id +"/events", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(eventData), // Convert JS object to JSON string
@@ -500,7 +500,7 @@ function DeleteEvent(event_id, year_id) {
         if (eventElement.length > 0) {
             // Make an AJAX DELETE request to delete the event from the database
             $.ajax({
-                url: `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`,  // API URL with yearId and eventId
+                url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`,  // API URL with yearId and eventId
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("Event deleted successfully:", response);
@@ -529,7 +529,7 @@ function UpdateEvent(event_id, year_id){
 
     console.log(eventData)
     $.ajax({
-        url: `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`, // API URL
+        url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`, // API URL
         type: "PUT",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(eventData), // Convert JS object to JSON string
@@ -544,7 +544,7 @@ function UpdateEvent(event_id, year_id){
 }
 
 function UpdateYearChoices(){
-    const url = "http://127.0.0.1:5879/gallery/years";
+    const url = "https://diet-api-dm7h.onrender.com/gallery/years";
 
     $.get(url, function (data) {
         console.log(data)
@@ -563,7 +563,7 @@ function UpdateEventChoices(selectedYear, yearId){
     console.log('Year selected:', selectedYear);
     console.log('Year ID:', yearId);
 
-    const url = `http://127.0.0.1:5879/gallery/years/${yearId}/events`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${yearId}/events`;
 
     $.get(url, function (data) {
         console.log(data)
@@ -581,7 +581,7 @@ function UpdateEventChoices(selectedYear, yearId){
 }
 
 function AddNewPhoto(year_id, event_id) {
-    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/photos`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/photos`;
 
     // Send an empty request to generate a new photo
     $.ajax({
@@ -626,7 +626,7 @@ function NewPhotoFrame(year_id, event_id){
 }
 
 function GetPhotoEditor(year_id, event_id) {
-    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
 
     $.get(url, function (data) {
         $("#photos-edit-container").empty()
@@ -661,7 +661,7 @@ function AddPhoto(photo_id, photo_image, year_id, event_id){
 
 function DeletePhoto(year_id, event_id, photo_id){
 
-    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/photos/${photo_id}`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/photos/${photo_id}`;
 
     const confirmation = confirm("Are you sure you want to remove this photo?");
 
@@ -717,7 +717,7 @@ function NewVideoButton(year_id, event_id){
 }
 
 function CreateVideo(year_id, event_id){
-    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/videos`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos`;
 
     // Send an empty request to generate a new photo
     $.ajax({
@@ -741,7 +741,7 @@ function CreateVideo(year_id, event_id){
 }
 
 function GetVideoEditor(year_id, event_id) {
-    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
 
     container = $('#video-edit-container')
     container.empty()
@@ -788,7 +788,7 @@ function AddVideo(year_id, event_id, video_id, link=''){
 }
 
 function UpdateVideo(year_id, event_id, video_id){
-    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
 
     const videoData = {
         video: $('#video-input-' + video_id).val()
@@ -812,7 +812,7 @@ function UpdateVideo(year_id, event_id, video_id){
 
 function DeleteVideo(year_id, event_id, video_id){
 
-    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
+    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
 
     const confirmation = confirm("Are you sure you want to remove this video?");
 
@@ -867,7 +867,7 @@ function UploadFile2Drive(event, the_id, parentFolder) {
 
     // Perform the AJAX request to upload the file
     $.ajax({
-        url: 'http://127.0.0.1:5879/drive/' + parentFolder, // Your API endpoint
+        url: 'https://diet-api-dm7h.onrender.com/drive/' + parentFolder, // Your API endpoint
         type: 'POST',
         data: formData,
         contentType: false,
@@ -925,7 +925,7 @@ function AddUpdatesBlock(update){
 }
 
 function GetUpdateData() {
-    const url = "http://127.0.0.1:5879/latest-update";  // API endpoint
+    const url = "https://diet-api-dm7h.onrender.com/latest-update";  // API endpoint
 
     $.get(url, function (data) {
         $('#update-edit-container').empty()
@@ -938,7 +938,7 @@ function GetUpdateData() {
 }
 
 function GetSingleUpdate(update_id){
-    const url = `http://127.0.0.1:5879/latest-update/${update_id}`
+    const url = `https://diet-api-dm7h.onrender.com/latest-update/${update_id}`
 
     $.get(url, function (data) {
         console.log(data);
@@ -953,7 +953,7 @@ function CreateUpdate(){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "http://127.0.0.1:5879/latest-update", // API URL
+        url: "https://diet-api-dm7h.onrender.com/latest-update", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(data), // Convert JS object to JSON string
@@ -979,7 +979,7 @@ function DeleteUpdate(update_id) {
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `http://127.0.0.1:5879/latest-update/${update_id}`,  // API URL with the teamID
+                url: `https://diet-api-dm7h.onrender.com/latest-update/${update_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("update deleted successfully:", response);
@@ -1016,7 +1016,7 @@ function UpdateUpdate(update_id) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `http://127.0.0.1:5879/latest-update/${update_id}`,  // API URL with the teamID
+            url: `https://diet-api-dm7h.onrender.com/latest-update/${update_id}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(data),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
