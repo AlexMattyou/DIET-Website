@@ -7,6 +7,8 @@ import galleryRoutes from "./routes/gallery.route.js"
 import updateRoutes from "./routes/update.route.js"
 import eventRoutes from "./routes/activities.route.js"
 import researchRoutes from "./routes/research.route.js"
+import newsletterRoutes from "./routes/newsletter.route.js"
+import publicationRoutes from "./routes/publication.route.js"
 import connectDB from "./lib/db.js"
 import cors from 'cors';
 import {robotsTxt,corsOptions,rateLimiter,helmet} from './lib/middleware.js';
@@ -49,6 +51,8 @@ app.use('/gallery', galleryRoutes)
 app.use('/latest-updates', updateRoutes)
 app.use('/activity', eventRoutes)
 app.use('/research', researchRoutes)
+app.use('/newsletter', newsletterRoutes)
+app.use('/publication', publicationRoutes)
 
 app.listen(PORT, () => {
     console.log(`The Server is running...`);
