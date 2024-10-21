@@ -1,8 +1,10 @@
 $(document).ready(function () {
 
-    GetTeamData();
     GetYearData();
-    GetUpdateData()
+    GetTeamData();
+    GetUpdateData();
+    GetActivityData();
+    GetResearchData();
 
     DataTabSwitch();
 
@@ -31,7 +33,6 @@ function DataTabSwitch(){
 
     UpdateYearChoices()
 }
-
 
 function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 = '', new_one = false) {
 
@@ -65,7 +66,7 @@ function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 
 
     // Perform the AJAX request to upload the file
     $.ajax({
-        url: 'https://diet-api-dm7h.onrender.com/drive/'+parentFolder, // Your API endpoint
+        url: 'http://127.0.0.1:5879/drive/'+parentFolder, // Your API endpoint
         type: 'POST',
         data: formData,
         contentType: false,
@@ -82,9 +83,54 @@ function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 
     });
 }
 
+function UploadFile2Drive(event, the_id, parentFolder) {
+    console.log(the_id, parentFolder);
+    
+    // Get the file input and preview elements using jQuery
+    const fileInput = $(`#fileInput-${the_id}`).get(0);  // Access the raw DOM element
+    const filePreview = $(`#filePreview-${the_id}`);
+    
+    // Set the image preview to a spinner while the upload is in progress
+    filePreview.html('Loading...');
+
+    // Get the selected file from the file input
+    const file = fileInput.files[0];  // Access the files array from the raw DOM element
+    console.log(file);
+    if (!file) {
+        filePreview.html('Click to select file 👆');
+        console.log("no file selected");
+        return; // No file selected
+    }
+
+    // Create a FormData object to send the file
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('placeID', the_id); // Pass the teamId as placeID
+
+    console.log([...formData.entries()]);
+
+    // Perform the AJAX request to upload the file
+    $.ajax({
+        url: 'http://127.0.0.1:5879/drive/' + parentFolder, // Your API endpoint
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            // Update the preview image with the uploaded image link
+            filePreview.html("File uploaded Successfully ✅");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Handle errors by reverting to the default image
+            filePreview.html("Error uploading file ‼️");
+            console.error('Upload error:', textStatus, errorThrown);
+        }
+    });
+}
+
 // Fetch and display data using jQuery
 function GetTeamData() {
-    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
+    const url = "http://127.0.0.1:5879/team";  // API endpoint
 
     $.get(url, function (data) {
         let teachTeamHtml = '';
@@ -193,7 +239,7 @@ function CreateTeam(t){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/team", // API URL
+        url: "http://127.0.0.1:5879/team", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -225,7 +271,7 @@ function DeleteTeam(teamID) {
         if (teamElement) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
+                url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("Team deleted successfully:", response);
@@ -278,7 +324,7 @@ function UpdateTeam(teamID) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
+            url: `http://127.0.0.1:5879/team/${teamID}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(teamData),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
@@ -307,7 +353,7 @@ function CreateYear() {
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/gallery/years", // API URL
+        url: "http://127.0.0.1:5879/gallery/years", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -344,7 +390,7 @@ function AddYearBlock(the_id, year_input) {
 }
 
 function GetYearData() {
-    const url = "https://diet-api-dm7h.onrender.com/gallery/years";  // API endpoint
+    const url = "http://127.0.0.1:5879/gallery/years";  // API endpoint
 
     $.get(url, function (data) {
 
@@ -366,7 +412,7 @@ function DeleteYear(year_id) {
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}`,  // API URL with the teamID
+                url: `http://127.0.0.1:5879/gallery/years/${year_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("Team deleted successfully:", response);
@@ -392,7 +438,7 @@ function DisplayEventOfYear(year_id) {
     $('.year-button-container .year-button').removeClass('btn-primary').addClass('btn-outline-primary');
     $('#year-button-' + year_id + ' .year-button').removeClass('btn-outline-primary').addClass('btn-primary');
 
-    const url = "https://diet-api-dm7h.onrender.com/gallery/years/" + year_id;
+    const url = "http://127.0.0.1:5879/gallery/years/" + year_id;
 
     $.get(url, function (data) {
         if (data && data.events) {
@@ -473,7 +519,7 @@ function CreateEvent(year_id) {
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/gallery/years/"+ year_id +"/events", // API URL
+        url: "http://127.0.0.1:5879/gallery/years/"+ year_id +"/events", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(eventData), // Convert JS object to JSON string
@@ -500,7 +546,7 @@ function DeleteEvent(event_id, year_id) {
         if (eventElement.length > 0) {
             // Make an AJAX DELETE request to delete the event from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`,  // API URL with yearId and eventId
+                url: `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`,  // API URL with yearId and eventId
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("Event deleted successfully:", response);
@@ -529,7 +575,7 @@ function UpdateEvent(event_id, year_id){
 
     console.log(eventData)
     $.ajax({
-        url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`, // API URL
+        url: `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`, // API URL
         type: "PUT",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(eventData), // Convert JS object to JSON string
@@ -544,7 +590,7 @@ function UpdateEvent(event_id, year_id){
 }
 
 function UpdateYearChoices(){
-    const url = "https://diet-api-dm7h.onrender.com/gallery/years";
+    const url = "http://127.0.0.1:5879/gallery/years";
 
     $.get(url, function (data) {
         console.log(data)
@@ -563,7 +609,7 @@ function UpdateEventChoices(selectedYear, yearId){
     console.log('Year selected:', selectedYear);
     console.log('Year ID:', yearId);
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${yearId}/events`;
+    const url = `http://127.0.0.1:5879/gallery/years/${yearId}/events`;
 
     $.get(url, function (data) {
         console.log(data)
@@ -581,7 +627,7 @@ function UpdateEventChoices(selectedYear, yearId){
 }
 
 function AddNewPhoto(year_id, event_id) {
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/photos`;
+    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/photos`;
 
     // Send an empty request to generate a new photo
     $.ajax({
@@ -626,7 +672,7 @@ function NewPhotoFrame(year_id, event_id){
 }
 
 function GetPhotoEditor(year_id, event_id) {
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
+    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`;
 
     $.get(url, function (data) {
         $("#photos-edit-container").empty()
@@ -661,7 +707,7 @@ function AddPhoto(photo_id, photo_image, year_id, event_id){
 
 function DeletePhoto(year_id, event_id, photo_id){
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/photos/${photo_id}`;
+    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/photos/${photo_id}`;
 
     const confirmation = confirm("Are you sure you want to remove this photo?");
 
@@ -717,7 +763,7 @@ function NewVideoButton(year_id, event_id){
 }
 
 function CreateVideo(year_id, event_id){
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos`;
+    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/videos`;
 
     // Send an empty request to generate a new photo
     $.ajax({
@@ -741,7 +787,7 @@ function CreateVideo(year_id, event_id){
 }
 
 function GetVideoEditor(year_id, event_id) {
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
+    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}`;
 
     container = $('#video-edit-container')
     container.empty()
@@ -788,7 +834,7 @@ function AddVideo(year_id, event_id, video_id, link=''){
 }
 
 function UpdateVideo(year_id, event_id, video_id){
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
+    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
 
     const videoData = {
         video: $('#video-input-' + video_id).val()
@@ -812,7 +858,7 @@ function UpdateVideo(year_id, event_id, video_id){
 
 function DeleteVideo(year_id, event_id, video_id){
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
+    const url = `http://127.0.0.1:5879/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
 
     const confirmation = confirm("Are you sure you want to remove this video?");
 
@@ -843,56 +889,19 @@ function DeleteVideo(year_id, event_id, video_id){
 
 //////////////////////// Latest Updates //////////////////////////////
 
-function UploadFile2Drive(event, the_id, parentFolder) {
-    
-    // Get the file input and preview elements using jQuery
-    const fileInput = $(`#fileInput-${the_id}`).get(0);  // Access the raw DOM element
-    const filePreview = $(`#filePreview-${the_id}`);
-    
-    // Set the image preview to a spinner while the upload is in progress
-    filePreview.html('Loading...');
-
-    // Get the selected file from the file input
-    const file = fileInput.files[0];  // Access the files array from the raw DOM element
-    if (!file) {
-        return; // No file selected
-    }
-
-    // Create a FormData object to send the file
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('placeID', the_id); // Pass the teamId as placeID
-
-    console.log([...formData.entries()]);
-
-    // Perform the AJAX request to upload the file
-    $.ajax({
-        url: 'https://diet-api-dm7h.onrender.com/drive/' + parentFolder, // Your API endpoint
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            // Update the preview image with the uploaded image link
-            filePreview.html(response.link);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // Handle errors by reverting to the default image
-            filePreview.html("Error uploading file!");
-            console.error('Upload error:', textStatus, errorThrown);
-        }
-    });
-}
-
 
 
 function AddUpdatesBlock(update){
+    file_link = 'No File Selected❕'
+    if (update.file){
+        file_link = "File Selected ✅"
+    }
     let element = `
     <div id="update-block-${update._id}" class="row border rounded p-3 shadow-sm mb-2 ">
               <!-- Image Preview Section -->
               <div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
-                <div class="file-preview-container break-at-slash" onclick="document.getElementById('fileInput-${update._id}').click()">
-                  <h5 id="filePreview-${update._id}" >${update.file || 'No File Selected!'}</h5>
+                <div style="overflow: hidden;" class="file-preview-container break-at-slash" onclick="document.getElementById('fileInput-${update._id}').click()">
+                  <h5 id="filePreview-${update._id}" >${file_link}</h5>
                   <input type="file" id="fileInput-${update._id}" accept="image/*, application/pdf"
        onchange="UploadFile2Drive(event, '${update._id}', 'latest-updates')" style="display:none;">
                 </div>
@@ -925,7 +934,7 @@ function AddUpdatesBlock(update){
 }
 
 function GetUpdateData() {
-    const url = "https://diet-api-dm7h.onrender.com/latest-update";  // API endpoint
+    const url = "http://127.0.0.1:5879/latest-updates";  // API endpoint
 
     $.get(url, function (data) {
         $('#update-edit-container').empty()
@@ -938,7 +947,7 @@ function GetUpdateData() {
 }
 
 function GetSingleUpdate(update_id){
-    const url = `https://diet-api-dm7h.onrender.com/latest-update/${update_id}`
+    const url = `http://127.0.0.1:5879/latest-updates/${update_id}`
 
     $.get(url, function (data) {
         console.log(data);
@@ -953,7 +962,7 @@ function CreateUpdate(){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/latest-update", // API URL
+        url: "http://127.0.0.1:5879/latest-updates", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(data), // Convert JS object to JSON string
@@ -979,7 +988,7 @@ function DeleteUpdate(update_id) {
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/latest-update/${update_id}`,  // API URL with the teamID
+                url: `http://127.0.0.1:5879/latest-updates/${update_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     console.log("update deleted successfully:", response);
@@ -1016,7 +1025,7 @@ function UpdateUpdate(update_id) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `https://diet-api-dm7h.onrender.com/latest-update/${update_id}`,  // API URL with the teamID
+            url: `http://127.0.0.1:5879/latest-updates/${update_id}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(data),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
@@ -1030,5 +1039,367 @@ function UpdateUpdate(update_id) {
         });
     } else {
         console.error("Team element not found for ID:", update_id);
+    }
+}
+
+
+///////////////// FC events //////////////
+
+function AddActivityBlock(activity){
+    console.log(activity)
+    let element = `
+    <div id="activity-block-${activity._id}" class="row border rounded p-3 shadow-sm mb-2">
+  
+  <div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
+    <div class="image-preview-container" onclick="document.getElementById('imageInput-${activity._id}').click()">
+      <img id="imagePreview-${activity._id}" class="image-preview img-fluid w-100" src="${activity.image || 'https://diettuty.onrender.com/data/img/empty-file.svg'}" alt="Event image preview"/>
+      <input type="file" id="imageInput-${activity._id}" accept="image/*" onchange="UploadShowImage(event, '${activity._id}', 'activity')" style="display:none;"> 
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-8 col-md-8">
+    <div class="row mb-3">
+      <div class="col-12">
+        <input id="activity-name-${activity._id}" type="text" class="form-control w-100 mb-n2" placeholder="Event name" value="${activity.name || ''}">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <textarea id="activity-info-${activity._id}" class="form-control w-100 mb-n2" rows="4" placeholder="Description">${activity.desc || ''}</textarea>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-12 col-md-6 mb-2">
+        <label for="activity-date-${activity._id}" class="ml-2">Event Date:</label>
+        <input id="activity-date-${activity._id}" type="date" class="form-control" value="${activity.event_date || ''}">
+      </div>
+      <div class="col-12 col-md-6 mb-2">
+        <label for="activity-time-${activity._id}" class="ml-2">Event Time:</label>
+        <input id="activity-time-${activity._id}" type="time" class="form-control" value="${activity.event_time || ''}">
+      </div>
+      <div class="col-12">
+        <label for="activity-venue-${activity._id}" class="ml-2">Venue:</label>
+        <input id="activity-venue-${activity._id}" type="text" class="form-control" placeholder="Venue" value="${activity.venue || ''}">
+      </div>
+    </div>
+    
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-info me-2 mr-1" onclick="UpdateActivity('${activity._id}')">Save</button>
+      <button class="btn btn-outline-danger" onclick="DeleteActivity('${activity._id}')">Delete</button>
+    </div>
+  </div>
+</div>
+    `
+    $('#activity-edit-container').append(element)
+}
+
+function GetActivityData() {
+    const url = "http://127.0.0.1:5879/activity";  // API endpoint
+
+    $.get(url, function (data) {
+        container = $('#activity-edit-container');
+        container.empty()
+        data.forEach(activity => {
+            console.log("update",activity)
+            AddActivityBlock(activity)
+        });
+            
+    });
+}
+
+function GetSingleActivity(activity_id){
+    const url = `http://127.0.0.1:5879/activity/${activity_id}`
+
+    $.get(url, function (data) {
+        console.log(data);
+    });
+}
+
+function CreateActivity(){
+    // Prepare the data to send
+    const data = {
+        name: "",
+    };
+
+    // Make an AJAX POST request
+    $.ajax({
+        url: "http://127.0.0.1:5879/activity", // API URL
+        type: "POST",  // Request method
+        contentType: "application/json", // Send as JSON
+        data: JSON.stringify(data), // Convert JS object to JSON string
+        success: function(response) {
+            console.log("Update created successfully:", response);
+            AddActivityBlock(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to create update:", error);
+        }
+    });
+
+}
+
+function DeleteActivity(activity_id) {
+    // Confirm if the user really wants to delete the team
+    const confirmation = confirm("Are you sure you want to delete this team member?");
+
+    if (confirmation) {
+        console.log(`Requesting deletion for: http://127.0.0.1:5879/activity/${activity_id}`);
+        // Find the team element on the screen
+        const element = $('#activity-block-'+activity_id)
+
+        if (element) {
+            // Make an AJAX DELETE request to delete the team from the database
+            $.ajax({
+                url: `http://127.0.0.1:5879/activity/${activity_id}`,  // API URL with the teamID
+                type: "DELETE",  // Request method for deleting
+                success: function(response) {
+                    console.log("activity deleted successfully:", response);
+                    
+                    // Remove the team element from the DOM after successful deletion
+                    element.remove();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to delete update:", error);
+                }
+            });
+        } else {
+            console.error("update element not found for ID:", activity_id);
+        }
+    } else {
+        console.log("Deletion cancelled by the user.");
+    }
+}
+
+function UpdateActivity(activity_id) {
+    const element = $('#activity-block-' + activity_id);
+
+    if (element) {
+        const data = {
+            name: $('#activity-name-' + activity_id).val(),
+            desc: $('#activity-info-' + activity_id).val(),
+            venue: $('#activity-venue-' + activity_id).val(),
+            event_date: $('#activity-date-' + activity_id).val(),
+            event_time:  $('#activity-time-' + activity_id).val()  // Use the time string directly
+        };
+
+        console.log("Data to be updated:", data);
+
+        $.ajax({
+            url: `http://127.0.0.1:5879/activity/${activity_id}`,
+            type: "PUT",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function(response) {
+                console.log("Event updated successfully:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Failed to update event:", error);
+            }
+        });
+    } else {
+        console.error("Event element not found for ID:", activity_id);
+    }
+}
+
+////////////////////// research ////////////////////
+
+function AddResearchBlock(research) {
+    console.log(research);
+
+    // Set default values if properties are missing or undefined
+    let title = research.title || '';
+    let author = research.author || '';
+    let pubDate = research.meta && research.meta.pub_date ? research.meta.pub_date.split('T')[0] : ''; // Formatting date
+    let category = research.meta && research.meta.category ? research.meta.category : '';
+    let department = research.meta && research.meta.department ? research.meta.department : '';
+    let abstract = research.content && research.content.abstract ? research.content.abstract : '';
+    // let doc = research.content.doc;
+    let doc = undefined;
+    if (research.content && research.content.doc ? research.content.doc : ''){
+        doc = research.content.doc
+    }
+    let link = research.content && research.content.link ? research.content.link : '';
+    let keywords = research.add && research.add.keywords ? research.add.keywords : '';
+    let contributors = research.add && research.add.contributors ? research.add.contributors : '';
+
+    let element = `
+    <div id="research-block-${research._id}" class="container mb-2 mt-2">
+        <div class="row border rounded p-3 shadow-sm mb-2">
+        
+            <!-- Research Title -->
+            <div class="col-12 mb-3">
+                <input id="research-title-${research._id}" type="text" class="form-control" placeholder="Research Title" value="${title}">
+            </div>
+            
+            <!-- Research Author -->
+            <div class="col-12 mb-3">
+                <input id="research-author-${research._id}" type="text" class="form-control" placeholder="Author" value="${author}">
+            </div>
+    
+            <!-- Research Abstract -->
+            <div class="row mb-auto w-100 ml-1">
+                <div class="col-md-4 col-12 mb-3">
+                    <input id="research-pub-date-${research._id}" type="date" class="form-control ml-auto" value="${pubDate}">
+                </div>
+                <div class="col-md-4 col-12 mb-3">
+                    <input id="research-category-${research._id}" type="text" class="form-control ml-auto" placeholder="Category" value="${category}">
+                </div>
+                <div class="col-md-4 col-12 mb-3">
+                    <input id="research-department-${research._id}" type="text" class="form-control ml-auto" placeholder="Department" value="${department}">
+                </div>
+            </div>
+            
+            <div class="col-12 mb-3">
+                <textarea id="research-abstract-${research._id}" class="form-control" rows="3" placeholder="Abstract">${abstract}</textarea>
+            </div>
+    
+            <!-- Document Upload and External Link -->
+            <div class="row mb-auto w-100 ml-1">
+                <div class="col-12 mb-3 col-md-5">
+                    <div style="overflow: hidden;" class="file-preview-container break-at-slash border rounded" onclick="document.getElementById('fileInput-${research._id}').click()">
+                        <h5 id="filePreview-${research._id}" class="mb-auto w-100 pt-1 d-flex justify-content-center pb-2">${doc ? 'File Selected ✅' : 'Click to select file 👆'}</h5>
+                        <input type="file" id="fileInput-${research._id}" accept= application/pdf" onchange="UploadFile2Drive(event, '${research._id}', 'research')" style="display:none;">
+                    </div>
+                </div>
+                
+                <div class="col-12 mb-3 col-md-7">
+                    <input id="research-link-${research._id}" type="text" class="form-control ml-auto" placeholder="External Link (URL)" value="${link}">
+                </div>
+            </div>
+    
+            <!-- Keywords (String Input) -->
+            <div class="col-12 mb-3">
+                <input id="research-keywords-${research._id}" type="text" class="form-control" placeholder="Keywords" value="${keywords}">
+            </div>
+    
+            <!-- Contributors -->
+            <div class="col-12 mb-3">
+                <input id="research-contributors-${research._id}" type="text" class="form-control" placeholder="Contributors" value="${contributors}">
+            </div>
+    
+            <!-- Save/Update Buttons -->
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-outline-info me-2 mr-2" onclick="SaveResearch('${research._id}')">Save</button>
+                <button class="btn btn-outline-danger" onclick="DeleteResearch('${research._id}')">Delete</button>
+            </div>
+        </div>
+    </div>
+    `;
+
+    $('#research-edit-container').append(element);
+}
+
+
+function GetResearchData() {
+    const url = "http://127.0.0.1:5879/research";  // API endpoint
+
+    $.get(url, function (data) {
+        container = $('#research-edit-container');
+        container.empty()
+        data.forEach(research => {
+            console.log("research",research)
+            AddResearchBlock(research)
+        });
+            
+    });
+}
+
+function CreateResearch(){
+    // Prepare the data to send
+    const data = {
+        title: "",
+    };
+
+    // Make an AJAX POST request
+    $.ajax({
+        url: "http://127.0.0.1:5879/research", // API URL
+        type: "POST",  // Request method
+        contentType: "application/json", // Send as JSON
+        data: JSON.stringify(data), // Convert JS object to JSON string
+        success: function(response) {
+            console.log("Update created successfully:", response);
+            AddResearchBlock(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to create update:", error);
+        }
+    });
+
+}
+
+function DeleteResearch(research_id) {
+    // Confirm if the user really wants to delete the team
+    const confirmation = confirm("Are you sure you want to delete this research detailes?");
+
+    if (confirmation) {
+        console.log(`Requesting deletion for: http://127.0.0.1:5879/research/${research_id}`);
+        // Find the team element on the screen
+        const element = $('#research-block-'+research_id)
+
+        if (element) {
+            // Make an AJAX DELETE request to delete the team from the database
+            $.ajax({
+                url: `http://127.0.0.1:5879/research/${research_id}`,  // API URL with the teamID
+                type: "DELETE",  // Request method for deleting
+                success: function(response) {
+                    console.log("activity deleted successfully:", response);
+                    
+                    // Remove the team element from the DOM after successful deletion
+                    element.remove();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to delete Research:", error);
+                }
+            });
+        } else {
+            console.error("update element not found for ID:", research_id);
+        }
+    } else {
+        console.log("Deletion cancelled by the user.");
+    }
+}
+
+function SaveResearch(research_id) {
+    const element = $('#research-block-' + research_id);
+
+    if (element) {
+        const pubDateString = $(`#research-pub-date-${research_id}`).val();
+        const pubDate = pubDateString ? new Date(pubDateString) : null; // Convert to Date object
+
+        const data = {
+            title: $(`#research-title-${research_id}`).val(),
+            author: $(`#research-author-${research_id}`).val(),
+            content: {
+                abstract: $(`#research-abstract-${research_id}`).val(),
+                link: $(`#research-link-${research_id}`).val(),
+            },
+            meta: {
+                pub_date: pubDate, // Pass the Date object here
+                category: $(`#research-category-${research_id}`).val(),
+                department: $(`#research-department-${research_id}`).val(),
+            },
+            add: {
+                keywords: $(`#research-keywords-${research_id}`).val(),
+                contributors: $(`#research-contributors-${research_id}`).val(),
+            }
+        };
+
+        console.log("Data to be updated:", data);
+
+        $.ajax({
+            url: `http://127.0.0.1:5879/research/${research_id}`,  // API endpoint for update
+            type: "PUT",
+            data: JSON.stringify(data),                           // Send JSON data
+            contentType: "application/json",                      // Ensure the data is sent as JSON
+            success: function(response) {
+                console.log("Research updated successfully:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Failed to update research:", error);
+            }
+        });
+    } else {
+        console.error("Event element not found for ID:", research_id);
     }
 }

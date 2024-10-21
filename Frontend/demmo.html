@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Query Parameter with jQuery</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function getQueryParamValue() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('p');  // Extract the 'key' parameter's value
+        }
+
+        // Display the value in the console
+        window.onload = () => {
+            const keyValue = getQueryParamValue();
+            console.log("Key value:", keyValue);  // Logs the value to the console
+        };
+    </script>
+</head>
+<body>
+    <h1>Query Parameter Value</h1>
+    <p id="output">Loading...</p>
+</body>
+</html>

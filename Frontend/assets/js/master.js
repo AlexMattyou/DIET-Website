@@ -19,7 +19,7 @@ const navbar = document.getElementById("navbar");
   };
 
  // Utility function to manage cookies
- function setCookie(name, value, hours) {
+function setCookie(name, value, hours) {
   const date = new Date();
   date.setTime(date.getTime() + (hours * 60 * 60 * 1000)); // Set expiry time
   const expires = "expires=" + date.toUTCString();
@@ -41,10 +41,19 @@ function getCookie(name) {
 function changeFontSize(value) {
   const root = document.documentElement;
   const currentSize = parseFloat(window.getComputedStyle(root).fontSize);
+  
+  // Set minimum and maximum sizes (50% and 150% of 16px)
+  const minSize = 16 * 0.75; // 50% of default size
+  const maxSize = 16 * 1.5; // 150% of default size
+  
   const newSize = currentSize + value;
-  root.style.fontSize = newSize + "px";
-  updateFontSizeDisplay(newSize);
-  setCookie('fontSize', newSize, 1); // Store font size for 1 hour
+  
+  // Ensure the new size is within bounds
+  if (newSize >= minSize && newSize <= maxSize) {
+    root.style.fontSize = newSize + "px";
+    updateFontSizeDisplay(newSize);
+    setCookie('fontSize', newSize, 1); // Store font size for 1 hour
+  }
 }
 
 // Function to reset font size and update cookie
@@ -61,6 +70,7 @@ function updateFontSizeDisplay(size) {
   const percentage = Math.round((size / 16) * 100); // Assuming 16px is default size
   displayButton.textContent = percentage + "%";
 }
+
 
 // Toggle high contrast mode and store in cookie
 function toggleContrast() {
@@ -87,8 +97,3 @@ function loadSettings() {
 window.onload = loadSettings;
 
 ///////////// change language //////////////////
-
-
-function changeLanguage(lang) {
-  window.location.href = `/${lang}/`; // Navigate to the corresponding language version
-}

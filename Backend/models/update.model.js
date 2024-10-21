@@ -1,13 +1,14 @@
 import { Schema, model } from "mongoose";
 
-// write your schema
+// Define the schema
 const schema = new Schema({
     name: String,
     desc: String,
-    file: String
+    file: String,
+    time: Date
 });
 
-// create your model
+// Create the model
 const Update = model("Update", schema);
 
-export default Update; 
+export default Update;

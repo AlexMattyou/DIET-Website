@@ -33,8 +33,7 @@
   <div class="container mt-4">
 
     <div class="d-md-none text-end">
-      <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu"
-        aria-expanded="false" aria-controls="mobileMenu">
+      <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-expanded="false" aria-controls="mobileMenu">
         &#9776; <!-- Hamburger Icon -->
       </button>
     </div>
@@ -59,32 +58,25 @@
 
     <ul class="nav nav-tabs d-none d-md-flex" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab"
-          aria-controls="dashboard" aria-selected="true">Dashboard</a>
+        <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="our-teams-tab" data-bs-toggle="tab" href="#our-teams" role="tab"
-          aria-controls="our-teams" aria-selected="false">Our Teams</a>
+        <a class="nav-link" id="our-teams-tab" data-bs-toggle="tab" href="#our-teams" role="tab" aria-controls="our-teams" aria-selected="false">Our Teams</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="gallery-tab" data-bs-toggle="tab" href="#gallery" role="tab"
-          aria-controls="gallery" aria-selected="false">Gallery</a>
+        <a class="nav-link" id="gallery-tab" data-bs-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false">Gallery</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="latest-updates-tab" data-bs-toggle="tab" href="#latest-updates" role="tab"
-          aria-controls="latest-updates" aria-selected="false">Latest Updates</a>
+        <a class="nav-link" id="latest-updates-tab" data-bs-toggle="tab" href="#latest-updates" role="tab" aria-controls="latest-updates" aria-selected="false">Latest Updates</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="forthcoming-activities-tab" data-bs-toggle="tab" href="#forthcoming-activities"
-          role="tab" aria-controls="forthcoming-activities" aria-selected="false">Forthcoming Activities</a>
+        <a class="nav-link" id="forthcoming-activities-tab" data-bs-toggle="tab" href="#forthcoming-activities" role="tab" aria-controls="forthcoming-activities" aria-selected="false">Forthcoming Activities</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="news-letters-tab" data-bs-toggle="tab" href="#news-letters" role="tab"
-          aria-controls="news-letters" aria-selected="false">News Letters</a>
+        <a class="nav-link" id="news-letters-tab" data-bs-toggle="tab" href="#news-letters" role="tab" aria-controls="news-letters" aria-selected="false">News Letters</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="project-abstracts-tab" data-bs-toggle="tab" href="#project-abstracts" role="tab"
-          aria-controls="project-abstracts" aria-selected="false">Project Abstracts</a>
+        <a class="nav-link active" id="project-abstracts-tab" data-bs-toggle="tab" href="#project-abstracts" role="tab" aria-controls="project-abstracts" aria-selected="false">Research & Projects</a>
       </li>
     </ul>
 
@@ -115,12 +107,10 @@
         <div class="col-md-12">
           <ul class="nav nav-tabs" id="Gallery-tabs" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button"
-                role="tab" aria-controls="events" aria-selected="true">Events</button>
+              <button class="nav-link active" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab" aria-controls="events" aria-selected="true">Events</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="add-data-tab" data-bs-toggle="tab" data-bs-target="#add-data"
-                type="button" role="tab" aria-controls="add-data" aria-selected="false" onclick="DataTabSwitch()">Add
+              <button class="nav-link" id="add-data-tab" data-bs-toggle="tab" data-bs-target="#add-data" type="button" role="tab" aria-controls="add-data" aria-selected="false" onclick="DataTabSwitch()">Add
                 Data</button>
             </li>
           </ul>
@@ -128,7 +118,7 @@
           <!-- Tab panes -->
           <div class="tab-content" id="myTabContent">
             <!-- Events Tab Pane -->
-            <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">
+            <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
               <div class="row mt-3">
                 <div class="col-12 col-md-4 mb-3">
                   <h5>
@@ -143,16 +133,12 @@
                       <!-- New Year Container -->
                       <div class="col-12" id="new-year-container">
                         <div class="year-button-container d-flex">
-                          <input id="new-year-input" type="text" class="new-year-input form-control "
-                            placeholder="New One">
+                          <input id="new-year-input" type="text" class="new-year-input form-control " placeholder="New One">
                           <button class="btn svg-buttons btn-outline-primary" onclick="CreateYear()">
                             <!-- Delete SVG icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                              class="bi bi-trash-fill" viewbox="0 0 16 16">
-                              <path
-                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                              <path
-                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash-fill" viewbox="0 0 16 16">
+                              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                             </svg>
 
                           </button>
@@ -165,8 +151,7 @@
                   <h5>Event List</h5>
                   <div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
                     <!-- Button to add new event -->
-                    <div id="new-event-button-container" class="p-2 col-md-12 border alert-success rounded mb-2"
-                      style="height: 100px;">
+                    <div id="new-event-button-container" class="p-2 col-md-12 border alert-success rounded mb-2" style="height: 100px;">
 
                     </div>
                     <div class="col-xl-12 d-flex flex-wrap flex-column-reverse" id="event-edit-container">
@@ -180,7 +165,7 @@
             </div>
 
             <!-- Add Data Tab Pane -->
-            <div class="tab-pane fade show active" id="add-data" role="tabpanel" aria-labelledby="add-data-tab">
+            <div class="tab-pane fade" id="add-data" role="tabpanel" aria-labelledby="add-data-tab">
               <!-- Content for the 'Add Data' tab -->
 
 
@@ -203,7 +188,7 @@
                       </select>
                     </section>
                   </div>
-                  <br />
+                  <br/>
                 </section>
               </div>
               <section>
@@ -226,23 +211,17 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade show active" id="latest-updates" role="tabpanel" aria-labelledby="latest-updates-tab">
+      <div class="tab-pane fade" id="latest-updates" role="tabpanel" aria-labelledby="latest-updates-tab">
         <h4>Latest Updates</h4>
 
         <div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
-          <div id="new-update-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 "
-            style="height: 100px;">
-            <button id="add-new-update-button"
-              class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0"
-              onclick="CreateUpdate()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="var(--success)"
-                class="bi bi-plus-square" viewbox="0 0 16 16">
-                <path
-                  d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
+          <div id="new-update-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">
+            <button id="add-new-update-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateUpdate()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="var(--success)" class="bi bi-plus-square" viewbox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
                 </path>
-                <path
-                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
                 </path>
               </svg>
             </button>
@@ -258,18 +237,69 @@
         </div>
 
       </div>
-      <div class="tab-pane fade" id="forthcoming-activities" role="tabpanel"
-        aria-labelledby="forthcoming-activities-tab">
+      <div class="tab-pane fade" id="forthcoming-activities" role="tabpanel" aria-labelledby="forthcoming-activities-tab">
         <h4>Forthcoming Activities</h4>
         <p>Check out our upcoming events and activities.</p>
-      </div>
+      <div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
+          <!-- Button to add new event -->
+          <div id="new-activity-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">
+            <button id="add-new-activity-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateActivity()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="var(--success)" class="bi bi-plus-square" viewbox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
+                </path>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
+                </path>
+              </svg>
+            </button>
+          </div>
+          <div class="col-xl-12 d-flex flex-wrap flex-column-reverse" id="activity-edit-container">
+	
+	
+
+
+
+
+          </div>
+
+        </div>
+        </div>
       <div class="tab-pane fade" id="news-letters" role="tabpanel" aria-labelledby="news-letters-tab">
         <h4>News Letters</h4>
         <p>Read our latest newsletters for updates and insights.</p>
       </div>
-      <div class="tab-pane fade" id="project-abstracts" role="tabpanel" aria-labelledby="project-abstracts-tab">
-        <h4>Project Abstracts</h4>
-        <p>Learn about various projects we are working on.</p>
+      <div class="tab-pane fade show active" id="project-abstracts" role="tabpanel" aria-labelledby="project-abstracts-tab">
+        <h4 class="">Research / Project Details</h4>
+        <div class="row d-flex flex-row flex-wrap mr-auto ml-auto mt-4">
+          <!-- Button to add new event -->
+          <div class="col-xl-12 d-flex flex-wrap flex-column-reverse" id="update-edit-container" style="height: 100px;"><div style="height: 100px;" id="new-research-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 mt-auto">
+            <button id="add-new-research-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateResearch()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="var(--success)" class="bi bi-plus-square" viewbox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
+                </path>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
+                </path>
+              </svg>
+            </button>
+          </div>
+
+
+
+
+
+
+          </div>
+          <div class="col-xl-12 d-flex flex-wrap flex-column-reverse" id="research-edit-container">
+
+
+<h3 class="text-center">
+	Loading...
+	</h3>
+
+
+
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -279,13 +309,12 @@
 
   <!-- <script src="verify.js"></script> -->
   <script src="script.js"></script>
-  <script src="verify.js"></script>
+  <!-- <script src="verify.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="https://diettuty.onrender.com/assets/js/jquery.min.js"></script>
   <script src="https://diettuty.onrender.com/assets/js/popper.js"></script>
   <script src="https://diettuty.onrender.com/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://diettuty.onrender.com/assets/js/master.js"></script>
 
 </body>
 
