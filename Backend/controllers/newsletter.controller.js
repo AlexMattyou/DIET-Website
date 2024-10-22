@@ -1,4 +1,4 @@
-import { Newsletter } from "../models/newsletter.model.js";
+import Newsletter from "../models/newsletter.model.js";
 
 export const ReadNewsletters = async (req, res) => {
   try {
@@ -24,10 +24,9 @@ export const GetNewsletter = async (req, res) => {
 export const CreateNewsletter = async (req, res) => {
   // Validate data (consider implementing validation middleware)
   const newNewsletter = new Newsletter({
-    pub_date: req.body.pub_date || new Date(), // Use provided pub_date or current date
-    thumb: req.body.thumb,
-    doc: req.body.doc,
-    createdAt: new Date(), // Add current date on creation
+    pub_date: new Date(), // Use provided pub_date or current date
+    thumb: '',
+    doc: '',
   });
 
   try {
@@ -46,7 +45,6 @@ export const UpdateNewsletter = async (req, res) => {
         pub_date: req.body.pub_date, // Update pub_date if provided
         thumb: req.body.thumb,
         doc: req.body.doc,
-        updatedAt: new Date(), // Update the updatedAt field on update
       },
       { new: true } // Return the updated document
     );

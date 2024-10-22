@@ -7,6 +7,8 @@ import Gallery from "../models/gallery.model.js";
 import Update from "../models/update.model.js";
 import Activity from "../models/activities.model.js";
 import Research from "../models/research.model.js";
+import Newsletter from "../models/newsletter.model.js"
+import Publication from "../models/publication.model.js"
 
 const router = express.Router();
 const upload = multer({
@@ -478,6 +480,149 @@ router.post('/research', (req, res) => {
 
             return res.json({ link: fileLink, placeID: req.body.placeID, result });
             
+        } catch (error) {
+            console.error('Error uploading to Google Drive:', error);
+            return res.status(500).json({ error: 'Failed to upload file' });
+        }
+    });
+});
+
+router.post('/newsletter-doc', (req, res) => {
+    upload(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+            return res.status(400).json({ error: 'File upload error: ' + err.message });
+        } else if (err) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        try {
+            const filePath = req.file.path;
+            const fileName = req.body.placeID;
+            const folderId = '1ZDvl81n5E9XIM0Tpj2jenJGdfbbc6Ntd'; // Google Drive folder ID
+
+            // Step 1: Check for existing file with the same name
+            const fileList = await drive.files.list({
+                q: `name='${fileName}' and '${folderId}' in parents and trashed=false`,
+                fields: 'files(id, name)',
+            });
+
+            // Step 2: Delete existing file (if it exists)
+            if (fileList.data.files.length > 0) {
+                const existingFileId = fileList.data.files[0].id;
+                await drive.files.delete({ fileId: existingFileId });
+            }
+
+            // Step 3: Upload new file to Google Drive
+            const response = await drive.files.create({
+                requestBody: {
+                    name: fileName,
+                    mimeType: req.file.mimetype,
+                    parents: [folderId],
+                },
+                media: {
+                    mimeType: req.file.mimetype,
+                    body: fs.createReadStream(filePath),
+                },
+            });
+
+            const fileId = response.data.id;
+
+            // Step 4: Make the file publicly accessible
+            await drive.permissions.create({
+                fileId: fileId,
+                requestBody: {
+                    role: 'reader',
+                    type: 'anyone',
+                },
+            });
+
+            const fileLink = `${fileId}`;
+
+            // Delete the local file after upload
+            fs.unlinkSync(filePath);
+
+            console.log(filePath);
+
+            // Step 5: Update the Team collection with the new image link
+            const result = await Newsletter.findOneAndUpdate(
+                { _id: req.body.placeID },
+                { doc: fileLink },
+                { upsert: true, new: true }
+            );
+
+            return res.json({ link: fileLink, placeID: req.body.placeID, result });
+            
+        } catch (error) {
+            console.error('Error uploading to Google Drive:', error);
+            return res.status(500).json({ error: 'Failed to upload file' });
+        }
+    });
+});
+
+router.post('/newsletter-img', (req, res) => {
+    upload(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+            return res.status(400).json({ error: 'File upload error: ' + err.message });
+        } else if (err) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        try {
+            const filePath = req.file.path;
+            const fileName = req.body.placeID;
+            const folderId = '1hlm3nRYTXp-ThiVTGuRxrKycRF7mtxJw'; // Google Drive folder ID
+
+            // Step 1: Check for existing file with the same name
+            const fileList = await drive.files.list({
+                q: `name='${fileName}' and '${folderId}' in parents and trashed=false`,
+                fields: 'files(id, name)',
+            });
+
+            // Step 2: Delete existing file (if it exists)
+            if (fileList.data.files.length > 0) {
+                const existingFileId = fileList.data.files[0].id;
+                await drive.files.delete({ fileId: existingFileId });
+            }
+
+            // Step 3: Upload new file to Google Drive
+            const response = await drive.files.create({
+                requestBody: {
+                    name: fileName,
+                    mimeType: req.file.mimetype,
+                    parents: [folderId],
+                },
+                media: {
+                    mimeType: req.file.mimetype,
+                    body: fs.createReadStream(filePath),
+                },
+            });
+
+            const fileId = response.data.id;
+
+            // Step 4: Make the file publicly accessible
+            await drive.permissions.create({
+                fileId: fileId,
+                requestBody: {
+                    role: 'reader',
+                    type: 'anyone',
+                },
+            });
+
+            const fileLink = `https://lh3.googleusercontent.com/d/${fileId}`;
+
+            // Delete the local file after upload
+            fs.unlinkSync(filePath);
+
+            // Step 5: Update the Team collection with the new image link
+            const result = await Newsletter.findOneAndUpdate(
+                { _id: req.body.placeID },
+                { thumb: fileLink },
+                { upsert: true, new: true }
+            );
+
+            // Step 6: Send final response
+            return res.json({ link: fileLink, placeID: req.body.placeID, result });
+
         } catch (error) {
             console.error('Error uploading to Google Drive:', error);
             return res.status(500).json({ error: 'Failed to upload file' });

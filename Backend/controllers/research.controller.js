@@ -1,32 +1,5 @@
 import Research from "../models/research.model.js";
 
-export const LoadPage = async (req, res) => {
-    try {
-        // Get the 'page' value from the query parameters
-        const pageId = req.query.page;
-
-        // Find the research page by ID (or any other field you want)
-        const research = await Research.findById(pageId);
-
-        if (research) {
-            // If the page is found, render the EJS template and pass the data
-            res.render('research.template', {
-                title: research.title,
-                author: research.author,
-                content: research.content,   // The content object
-                meta: research.meta,         // The meta object
-                add: research.add            // The additional info object
-            });
-        } else {
-            // If no page is found, send a 404 error
-            res.status(404).send('Page not found');
-        }
-    } catch (error) {
-        // Handle server errors
-        res.status(500).json({ message: error.message });
-    }
-};
-
 export const ReadResearch = async (req, res) => {
     try {
         const teams = await Research.find();

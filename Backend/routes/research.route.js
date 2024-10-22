@@ -1,9 +1,7 @@
 import express from 'express';
-import {LoadPage, ReadResearch, GetResearch, CreateResearch, UpdateResearch, DeleteResearch } from "../controllers/research.controller.js"
+import {ReadResearch, GetResearch, CreateResearch, UpdateResearch, DeleteResearch } from "../controllers/research.controller.js"
 
 const router = express.Router();
-
-router.get("/page", LoadPage);
 
 // Create a new team
 router.post("/", CreateResearch); // C

@@ -5,6 +5,7 @@ $(document).ready(function () {
     GetUpdateData();
     GetActivityData();
     GetResearchData();
+    GetNewsletterData()
 
     DataTabSwitch();
 
@@ -1401,5 +1402,166 @@ function SaveResearch(research_id) {
         });
     } else {
         console.error("Event element not found for ID:", research_id);
+    }
+}
+
+
+//////////////////////// news letter /////////////////////////
+
+function formatDateJS(isoString) {
+    // Create a new Date object from the ISO string
+    const date = new Date(isoString);
+    
+    // Get the year, month, and day from the date
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    // Return the formatted string in yyyy-MM-dd format
+    return `${year}-${month}-${day}`;
+}
+
+
+function AddNewsletterBlock(newsletter){
+    console.log(newsletter)
+    let file_link = 'No File Selected❕'
+    if (newsletter.doc){
+        file_link = "File Selected ✅"
+    }
+    let thumb_image = "../data/img/upload.png"
+    if (newsletter.thumb){
+        console.log("I found it!")
+        thumb_image = newsletter.thumb
+    }else if (newsletter.doc){
+        thumb_image = `https://lh3.googleusercontent.com/d/${newsletter.doc}`
+    }
+    let element = `
+    <div id="newsletter-block-${newsletter._id}" class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-img-top image-preview-container position-relative" onclick="document.getElementById('imageInput-${newsletter._id}').click()">
+                    <img id="imagePreview-${newsletter._id}" class="img-fluid rounded-top" src="${thumb_image}" alt="Event image preview">
+                    <input type="file" id="imageInput-${newsletter._id}" accept="image/*" onchange="UploadShowImage(event, '${newsletter._id}', 'newsletter-img')" style="display:none;">
+                </div>
+             
+                <div class="card-body">
+                    <div class="mb-3 file-preview-container border rounded p-2 text-center" style="cursor: pointer;" onclick="document.getElementById('fileInput-${newsletter._id}').click()">
+                        <h5 id="filePreview-${newsletter._id}" class="mb-0">${file_link}</h5>
+                        <input type="file" id="fileInput-${newsletter._id}" accept="application/pdf&quot;" onchange="UploadFile2Drive(event, '${newsletter._id}', 'newsletter-doc')" style="display:none;">
+                    </div>
+             
+                    <div class="mb-3">
+                        <label for="newsletter-date-${newsletter._id}" class="form-label">Published Date:</label>
+                        <input id="newsletter-date-${newsletter._id}" type="date" class="form-control" value="${formatDateJS(newsletter.pub_date)}">
+                    </div>
+            
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-info" onclick="UpdateNewsletter('${newsletter._id}')">Save</button>
+                        <button class="btn btn-outline-danger" onclick="DeleteNewsletter('${newsletter._id}')">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+    $('#newsletter-edit-container').append(element)
+}
+
+function GetNewsletterData() {
+    const url = "http://127.0.0.1:5879/newsletter";  // API endpoint
+
+    $.get(url, function (data) {
+        $('#newsletter-edit-container').empty()
+        data.forEach(chunk => {
+            AddNewsletterBlock(chunk)
+        });
+            
+    });
+}
+
+function CreateNewsletter(){
+    // Prepare the data to send
+    const data = {
+        doc: "",
+    };
+
+    // Make an AJAX POST request
+    $.ajax({
+        url: "http://127.0.0.1:5879/newsletter", // API URL
+        type: "POST",  // Request method
+        contentType: "application/json", // Send as JSON
+        data: JSON.stringify(data), // Convert JS object to JSON string
+        success: function(response) {
+            console.log("Update created successfully:", response);
+            AddNewsletterBlock(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to create newsletter:", error);
+        }
+    });
+
+}
+
+function DeleteNewsletter(the_id) {
+    // Confirm if the user really wants to delete the team
+    const confirmation = confirm("Are you sure you want to delete this team member?");
+
+    if (confirmation) {
+        // Find the team element on the screen
+        const element = $('#newsletter-block-'+the_id)
+
+        if (element) {
+            // Make an AJAX DELETE request to delete the team from the database
+            $.ajax({
+                url: `http://127.0.0.1:5879/newsletter/${the_id}`,  // API URL with the teamID
+                type: "DELETE",  // Request method for deleting
+                success: function(response) {
+                    console.log("update deleted successfully:", response);
+                    
+                    // Remove the team element from the DOM after successful deletion
+                    element.remove();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to delete update:", error);
+                }
+            });
+        } else {
+            console.error("update element not found for ID:", the_id);
+        }
+    } else {
+        console.log("Deletion cancelled by the user.");
+    }
+}
+
+function UpdateNewsletter(the_id) {
+    // Find the team element with the given id
+    const element = $('#newsletter-block-'+the_id);
+
+    if (element) {
+
+        
+        const data = {
+            doc: $('#fileInput-'+the_id).val(),
+            thumb: $('#imageInput-'+the_id).val(),
+            pub_date: $('#newsletter-date-'+the_id).val()
+        };
+
+        // Log the data for checking
+        console.log("Data to be updated:", data);
+
+        // Now make an AJAX PUT request to update the team
+        $.ajax({
+            url: `http://127.0.0.1:5879/newsletter/${the_id}`,  // API URL with the teamID
+            type: "PUT",  // Request method for updating
+            data: JSON.stringify(data),  // Send the team data as JSON
+            contentType: "application/json",  // Set content type as JSON
+            success: function(response) {
+                console.log("Team updated successfully:", response);
+                // Optionally show a success message or update the UI further
+            },
+            error: function(xhr, status, error) {
+                console.error("Failed to update team:", error);
+            }
+        });
+    } else {
+        console.error("Team element not found for ID:", the_id);
     }
 }
