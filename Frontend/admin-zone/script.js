@@ -1422,7 +1422,7 @@ function formatDateJS(isoString) {
 }
 
 
-function AddNewsletterBlock(newsletter){
+function AddNewsletterBlock(newsletter, place="newsletter"){
     console.log(newsletter)
     let file_link = 'No File Selected❕'
     if (newsletter.doc){
@@ -1436,7 +1436,7 @@ function AddNewsletterBlock(newsletter){
         thumb_image = `https://lh3.googleusercontent.com/d/${newsletter.doc}`
     }
     let element = `
-    <div id="newsletter-block-${newsletter._id}" class="col-md-6 col-lg-4 mb-4">
+    <div id="newsletter-block-${newsletter._id}" class="col-md-6 col-lg-4 mb-4 h-100">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-img-top image-preview-container position-relative" onclick="document.getElementById('imageInput-${newsletter._id}').click()">
                     <img id="imagePreview-${newsletter._id}" class="img-fluid rounded-top" src="${thumb_image}" alt="Event image preview">
@@ -1462,7 +1462,7 @@ function AddNewsletterBlock(newsletter){
             </div>
         </div>
     `
-    $('#newsletter-edit-container').append(element)
+    $(`#${place}-edit-container`).prepend(element)
 }
 
 function GetNewsletterData() {
@@ -1470,17 +1470,22 @@ function GetNewsletterData() {
 
     $.get(url, function (data) {
         $('#newsletter-edit-container').empty()
+        $('#publication-edit-container').empty()
         data.forEach(chunk => {
-            AddNewsletterBlock(chunk)
+            if (chunk.category == 'newsletter'){
+                AddNewsletterBlock(chunk, "newsletter");
+            } else if (chunk.category == "publication"){
+                AddNewsletterBlock(chunk, "publication");
+            }
         });
             
     });
 }
 
-function CreateNewsletter(){
+function CreateNewsletter(c = "newsletter"){
     // Prepare the data to send
     const data = {
-        doc: "",
+        category: c,
     };
 
     // Make an AJAX POST request
@@ -1491,7 +1496,11 @@ function CreateNewsletter(){
         data: JSON.stringify(data), // Convert JS object to JSON string
         success: function(response) {
             console.log("Update created successfully:", response);
-            AddNewsletterBlock(response);
+            if (c == 'newsletter'){
+                AddNewsletterBlock(response, "newsletter");
+            } else if (c == "publication"){
+                AddNewsletterBlock(response, "publication");
+            }
         },
         error: function(xhr, status, error) {
             console.error("Failed to create newsletter:", error);

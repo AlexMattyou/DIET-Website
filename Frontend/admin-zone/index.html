@@ -81,7 +81,7 @@
         <a class="nav-link" id="project-abstracts-tab" data-bs-toggle="tab" href="#project-abstracts" role="tab" aria-controls="project-abstracts" aria-selected="false">Research & Projects</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="publications-tab" data-bs-toggle="tab" href="#publications" role="tab" aria-controls="publications" aria-selected="false">Research & Projects</a>
+        <a class="nav-link" id="publications-tab" data-bs-toggle="tab" href="#publications" role="tab" aria-controls="publications" aria-selected="false">Publication</a>
       </li>
     </ul>
 
@@ -270,8 +270,7 @@
         </div>
       <div class="tab-pane fade show active" id="news-letters" role="tabpanel" aria-labelledby="news-letters-tab">
         <h4>News Letters</h4>
-        <p>Read our latest newsletters for updates and insights.</p>
-      </div><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
+        <p>Read our latest newsletters for updates and insights.</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
           <div id="new-newsletter-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">
             <button id="add-new-newsletter-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateNewsletter()">
@@ -284,10 +283,11 @@
             </button>
           </div>
           <div class="container">
-            <div class="row d-flex justify-content-start flex-wrap" id="newsletter-edit-container"></div>
+            <div class="row d-flex flex-row" id="newsletter-edit-container"></div>
 </div>
 
         </div>
+      </div>
       <div class="tab-pane fade" id="project-abstracts" role="tabpanel" aria-labelledby="project-abstracts-tab">
         <h4 class="">Research / Project Details</h4>
         <div class="row d-flex flex-row flex-wrap mr-auto ml-auto mt-4">
@@ -324,7 +324,23 @@
       </div>
       <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
         <h4>New</h4>
-        <p>Read our latest newsletters for updates and insights.</p>
+        <p>Read our latest newsletters for updates and insights.</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
+          <!-- Button to add new event -->
+          <div id="new-publication-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">
+            <button id="add-new-newsletter-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateNewsletter('publication')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="var(--success)" class="bi bi-plus-square" viewbox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
+                </path>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
+                </path>
+              </svg>
+            </button>
+          </div>
+          <div class="container">
+            <div class="row d-flex flex-row" id="publication-edit-container"></div>
+</div>
+
+        </div>
       </div>
     </div>
   </div>

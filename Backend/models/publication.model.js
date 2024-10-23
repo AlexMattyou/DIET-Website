@@ -9,4 +9,4 @@ const publicationSchema = new Schema({
 
 const Publication = model("Publication", publicationSchema);
 
-export default Publication;
+export default Publication; 

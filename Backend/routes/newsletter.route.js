@@ -4,7 +4,7 @@ import { CreateNewsletter, ReadNewsletters, GetNewsletter, UpdateNewsletter, Del
 const router = express.Router();
 
 // Create a new newsletter
-router.post("/", CreateNewsletter); // C
+router.post("/", CreateNewsletter); // C 
 
 // Get all newsletters
 router.get("/", ReadNewsletters); // R

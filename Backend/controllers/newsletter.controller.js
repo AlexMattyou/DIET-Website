@@ -27,6 +27,7 @@ export const CreateNewsletter = async (req, res) => {
     pub_date: new Date(), // Use provided pub_date or current date
     thumb: '',
     doc: '',
+    category: req.body.category,
   });
 
   try {

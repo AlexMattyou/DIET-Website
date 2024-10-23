@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    GetPublicationData();
+    GetNewsletterData();
 });
 
 function formatMongoDate(mongoDateStr) {
@@ -17,15 +17,15 @@ function formatMongoDate(mongoDateStr) {
     return `${month} ${year}`;
 }
 
-function AddNewsletterCard(newsletter){
-    const container = $('#newsletter-card-container');
+function AddNewsletterCard(chunk){
+    const container = $(`#${chunk.category}-card-container`);
     var element = `
     <div class="col-lg-4 mb-3 mt-3">
-        <a href="${newsletter.thumb}" class="text-decoration-none">
+        <a href="${chunk.thumb}" class="text-decoration-none">
             <div class="card">
-                <img src="${newsletter.thumb}" alt="Sample Image" class="card-img-top img-fluid">
+                <img src="${chunk.thumb}" alt="Sample Image" class="card-img-top img-fluid">
                 <div class="card-body">
-                    <p class="card-text text-center">${formatMongoDate(newsletter.pub_date)}</p>
+                    <p class="card-text text-center">${formatMongoDate(chunk.pub_date)}</p>
                 </div>
             </div>
         </a>
@@ -39,6 +39,7 @@ function GetNewsletterData(){
 
     $.get(url, function (data) {
         $('#newsletter-card-container').empty();
+        $('#publication-card-container').empty();
         data.forEach(chunk => {
             console.log(chunk);
             AddNewsletterCard(chunk);
