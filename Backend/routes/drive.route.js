@@ -8,7 +8,6 @@ import Update from "../models/update.model.js";
 import Activity from "../models/activities.model.js";
 import Research from "../models/research.model.js";
 import Newsletter from "../models/newsletter.model.js"
-import Publication from "../models/publication.model.js"
 
 const router = express.Router();
 const upload = multer({

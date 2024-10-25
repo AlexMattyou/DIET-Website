@@ -1,1 +1,13 @@
 @import url("https://diettuty.onrender.com/assets/css/master.css");
+
+.card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-top {
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .section-heading {
+            margin-bottom: 20px;
+            font-weight: 700;
+        }

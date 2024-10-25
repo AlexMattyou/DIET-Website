@@ -15,6 +15,11 @@
   <!-- Custom styles for this template -->
   <link href="style.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  emailjs.init('7Q-0m1Oj9CQpogq-M')
+</script>
 </head>
 
 <body>
@@ -40,7 +45,7 @@
 
     <div class="collapse d-md-none" id="mobileMenu">
       <ul class="list-group">
-        <li class="list-group-item"><a class="nav-link" data-bs-toggle="tab" href="#dashboard">Dashboard</a>
+        <li class="list-group-item"><a class="nav-link" data-bs-toggle="tab" href="#overview">Overview</a>
         </li>
         <li class="list-group-item"><a class="nav-link" data-bs-toggle="tab" href="#our-teams">Our Teams</a>
         </li>
@@ -53,14 +58,13 @@
             Letters</a></li>
         <li class="list-group-item"><a class="nav-link" data-bs-toggle="tab" href="#project-abstracts">Project
             Abstracts</a></li>
-        <li class="list-group-item"><a class="nav-link" data-bs-toggle="tab" href="#publications">Project
-          Abstracts</a></li>
+        <li class="list-group-item"><a class="nav-link" data-bs-toggle="tab" href="#publications">Publications</a></li>
       </ul>
     </div>
 
     <ul class="nav nav-tabs d-none d-md-flex" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
+        <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
       </li>
       <li class="nav-item" role="presentation">
         <a class="nav-link" id="our-teams-tab" data-bs-toggle="tab" href="#our-teams" role="tab" aria-controls="our-teams" aria-selected="false">Our Teams</a>
@@ -75,7 +79,7 @@
         <a class="nav-link" id="forthcoming-activities-tab" data-bs-toggle="tab" href="#forthcoming-activities" role="tab" aria-controls="forthcoming-activities" aria-selected="false">Forthcoming Activities</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="news-letters-tab" data-bs-toggle="tab" href="#news-letters" role="tab" aria-controls="news-letters" aria-selected="false">News Letters</a>
+        <a class="nav-link" id="news-letters-tab" data-bs-toggle="tab" href="#news-letters" role="tab" aria-controls="news-letters" aria-selected="false">News Letters</a>
       </li>
       <li class="nav-item" role="presentation">
         <a class="nav-link" id="project-abstracts-tab" data-bs-toggle="tab" href="#project-abstracts" role="tab" aria-controls="project-abstracts" aria-selected="false">Research & Projects</a>
@@ -86,9 +90,66 @@
     </ul>
 
     <div class="tab-content " id="myTabContent">
-      <div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-        <h4>Dashboard</h4>
-        <p>Welcome to the admin dashboard! Here you can see an overview of your application.</p>
+      <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+        <h4>Overview</h4><p>Welcome to the admin overview! Here you can see an overview of your application.</p><div class="pg-lib-item-box" data-pgc-field="component">
+						<section class="pg-lib-item text-center text-secondary">
+							<div class="container pb-5 pt-5"> 
+								<div class="row justify-content-center"> 
+									<div class="pb-3 pt-3 col-sm-12 shadow bg-light m-3 col-lg-8 d-flex justify-content-around">
+										<div>
+											<h2 id="total_views" class="display-3 fw-bold mb-0 text-primary font-weight-normal">-</h2>
+											<p class="font-weight-bold mb-4">Total Views</p>
+										</div><div>
+											<h2 id="month_views" class="display-3 fw-bold mb-0 text-primary font-weight-normal">-</h2>
+											<p class="font-weight-bold mb-4">Monthly Views</p>
+										</div>										 
+									</div>
+									<div class="pb-3 pt-3 col-sm-12 shadow bg-light m-3 col-lg-8">
+										<div>
+											
+											<a class="btn btn-outline-primary btn-lg btn-block" target="_blank" href="https://stats.uptimerobot.com/SqI6VZ4TOF/797804707">View Server Stats &nbsp;
+
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-up-right mb-2" viewbox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+</svg>
+
+</a><p class="mb-4 font-weight-normal">To view Uptime, Overall Uptime Response Time, Recent incidents like up and down events</p>
+										</div>										 
+									</div><div class="pb-3 pt-3 col-sm-12 shadow bg-light m-3 col-lg-8 rounded">
+										<div class="card border-0 bg-light">
+      <div class="card-body">
+        <h5 class="card-title text-center">Message the developer</h5>
+        <form id="form">
+          <div class="mb-3 text-left">
+            <label for="from_email" class="form-label ml-1">Contact Email</label>
+            <input type="email" class="form-control bg-light" name="from_email" id="from_email" placeholder="Enter your email">
+          </div>
+          <div class="mb-3 text-left">
+            <label for="category" class="form-label ml-1">Category</label>
+            <select class="form-control bg-light" name="category" id="category">
+  <option value="">Select a category</option>
+  <option value="Bug Report">Bug Report</option>
+  <option value="Feedback">Feedback</option>
+  <option value="Others">Others</option>
+</select>
+          </div>
+          <div class="mb-3 text-left">
+            <label for="message" class="form-label ml-1">Message</label>
+            <textarea class="form-control bg-light" name="message" id="message" rows="3" placeholder="Enter your message"></textarea>
+          </div>
+          <div class="d-grid">
+            <input type="submit" class="btn btn-primary" id="button" value="Send Email">
+          </div>
+        </form>
+      </div>
+    </div>										 
+									</div>									 
+								</div>								 
+							</div>
+						</section>
+					</div>
+        
       </div>
       <div class="tab-pane fade" id="our-teams" role="tabpanel" aria-labelledby="our-teams-tab">
         <div class="row">
@@ -268,7 +329,7 @@
 
         </div>
         </div>
-      <div class="tab-pane fade show active" id="news-letters" role="tabpanel" aria-labelledby="news-letters-tab">
+      <div class="tab-pane fade" id="news-letters" role="tabpanel" aria-labelledby="news-letters-tab">
         <h4>News Letters</h4>
         <p>Read our latest newsletters for updates and insights.</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
@@ -323,7 +384,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
-        <h4>New</h4>
+        <h4>Publications</h4>
         <p>Read our latest newsletters for updates and insights.</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
           <div id="new-publication-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">

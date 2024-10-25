@@ -15,7 +15,7 @@ $(document).ready(function () {
             // Set the token as a cookie
             setCookie('Authorization', `Bearer ${data.token}`, 1);  // Expires in 1 day
             alert('Login successful!');
-            window.location.href = '../';  // Redirect to dashboard after login success
+            window.location.href = '../';  // Redirect to overview after login success
           } else {
             alert('Login failed');
           }
