@@ -11,9 +11,18 @@ const loginSchema = new Schema({
         type: String,
         required: true,
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    resetToken: String,
+    tokenExpiry: Date,
 });
 
-// create your model
-const Login = model("Login", loginSchema);
 
-export default Login;
+
+// create your model
+const Admin = model("Admin", loginSchema);
+
+export default Admin;

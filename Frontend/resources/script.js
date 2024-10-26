@@ -46,7 +46,6 @@ function GetNewsletterData(){
 function getQueryParamValue() {
     const params = new URLSearchParams(window.location.search);
     return params.get('p');
-    console.log("Getting parameters")
 }
 
 function formatMongoDate(mongoDateStr) {

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIET - Password Reset</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.light.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.dark.css" media="(prefers-color-scheme: dark)">
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background: url('../../data/img/bg/1.jpeg') no-repeat center center fixed;
+        background-size: cover;
+      }
+      .access-denied {
+        font-size: 2em;
+        font-weight: bold;
+        color: #dc3545;
+        text-align: center;
+      }
+      .code {
+        font-size: 1.5em;
+        color: #6c757d;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  
+  <body class="d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%; opacity: 90%;">
+      <!-- Access Denied Message (hidden by default) -->
+      <div id="accessDenied" class="text-center" style="display: none;">
+        <div class="access-denied">Access Denied</div>
+        <div class="code">Error Code: 403</div>
+      </div>
+      
+      <!-- Password Reset Form -->
+      <div id="resetFormContainer" style="display: none;">
+        <div class="text-center mb-4">
+          <img src="../../data/logo/main-logo.png" alt="Logo" style="width: 100px;">
+        </div>
+        <form id="resetForm">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Updated Username" value="" required>
+          </div><div class="mb-3">
+            <label for="email" class="form-label">email</label>
+            <input type="text" class="form-control" id="email" placeholder="Updated email" value="" required>
+          </div>
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" value="" required>
+            <div id="passwordStrength" class="form-text mt-1">Strength: Weak</div>
+          </div>
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" value="" required>
+            <div id="passwordHint" class="form-text text-danger mt-1" style="display: none;">Passwords do not match</div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100" id="resetButton" disabled>Reset Password</button>
+          <div class="text-center mt-3">
+            <a href="../login.html" class="text-decoration-none btn-block btn btn-outline-primary">Return to Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- JavaScript (jQuery and Bootstrap) -->
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/popper.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+    const token = getQueryParamValue("c");
+
+    if (token) {
+        $.ajax({
+            url: "http://127.0.0.1:5879/diet-admin/verify-reset-token",
+            type: "POST",  // Changed to POST
+            contentType: 'application/json',
+            data: JSON.stringify({ token: token }),
+            success: function(response) {
+                alert(response.user.username);
+                $('#username').val(response.user.username);
+                $('#email').val(response.user.email);
+                $("#accessDenied").hide();
+                $("#resetFormContainer").show();
+            },
+            error: function() {
+                $("#accessDenied").show();
+            }
+        });
+    } else {
+        $("#accessDenied").show();
+    }
+
+    $("#resetFormContainer").show();
+
+    // Password validation for strength and match
+    const passwordInput = $('#newPassword');
+    const confirmPasswordInput = $('#confirmPassword');
+    const resetButton = $('#resetButton');
+    const strengthIndicator = $('#passwordStrength');
+    const passwordHint = $('#passwordHint');
+
+    // Password strength checker
+    passwordInput.on('input', function() {
+        const value = passwordInput.val();
+        let strength = 'Weak';
+        let color = 'var(--danger)';
+
+        if (value.length >= 8 && /[A-Z]/.test(value) && /[0-9]/.test(value) && /[^A-Za-z0-9]/.test(value)) {
+            strength = 'Strong';
+            color = 'var(--success)';
+        } else if (value.length >= 6) {
+            strength = 'Medium';
+            color = 'var(--warning)';
+        }
+
+        strengthIndicator.text(`Strength: ${strength}`).css('color', color);
+        validatePasswordMatch();
+    });
+
+    $('#resetButton').on('click', function (e) {
+    e.preventDefault(); // Prevent any default action (if needed)
+    resetPassword();    // Call the resetPassword function
+});
+
+    function resetPassword() {
+        const token = getQueryParamValue("c");
+        const username = $('#username').val();
+        const email = $('#email').val();
+        const newPassword = $('#newPassword').val();
+        alert(token, username, email, newPassword);
+
+        $.ajax({
+            url: `http://127.0.0.1:5879/diet-admin/reset-password`,
+            type: "POST",  // Changed to POST
+            contentType: 'application/json',
+            data: JSON.stringify({
+                token: token,
+                username: username,
+                email: email,
+                password: newPassword
+            }),
+            success: function(response) {
+                alert(response)
+            },
+            error: function() {
+                alert("fail")
+            }
+        });
+}
+
+
+        // Enable button if passwords match, and show/hide hint
+        confirmPasswordInput.on('input', validatePasswordMatch);
+
+        function validatePasswordMatch() {
+          const passwordsMatch = passwordInput.val() && passwordInput.val() === confirmPasswordInput.val();
+          resetButton.prop('disabled', !passwordsMatch);
+          passwordHint.toggle(!passwordsMatch);
+        }
+
+        // Extract URL query parameter
+        function getQueryParamValue(param) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(param);
+        }
+      });
+    </script>
+  </body>
+</html>

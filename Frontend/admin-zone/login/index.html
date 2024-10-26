@@ -1,58 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIET - Login</title>
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.light.css"> <!-- Base Bootstrap file -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.light.css">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.dark.css" media="(prefers-color-scheme: dark)">
-    <!-- Custom styles for this template -->
-    <link href="style.css" rel="stylesheet">
+    
+    <!-- Background Image Style Only -->
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background: url('../../data/img/bg/1.jpeg') no-repeat center center fixed;
+        background-size: cover;
+      }
+    </style>
   </head>
-
-  <body class="vh-100">
-
-    <section class="area vh-100 position-absolute overflow-hidden">
-        <ul class="cubes">
-            <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-        </ul>
-    </section>
-    
-
-    <div class="login-container d-flex justify-content-center align-items-center position-relative top-50 start-50 translate-middle w-100 h-100">
-      <div class="login-card p-4 shadow-lg">
-        <!-- Logo -->
-        <div class="logo mb-4">
-          <img src="../../data/logo/main-logo.png" class="img-fluid">
+  
+  <body>
+    <div class="card shadow-sm p-4 mx-auto col-lg-10" style="max-width: 400px; opacity: 90%;">
+      <div class="text-center mb-4">
+        <img src="../../data/logo/main-logo.png" alt="Logo" class="img-fluid" style="width: 100px;">
+      </div>
+      
+      <!-- Login Form -->
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
         </div>
-    
-        <!-- Login Form -->
-        <form id="loginForm">
-          <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
-          </div>
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Login</button>
-          </div>
-        </form>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+        </div>
+        <div class="d-flex justify-content-end">
+          <a onclick="forgotPassword()" class="text-decoration-none text-primary">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+      </form>
+
+      <!-- Recovery Email Panel (Hidden initially) -->
+<form id="recoveryEmail" class="d-none">
+  <div class="mb-3">
+    <label for="email" class="form-label">Recovery Email</label>
+    <input 
+      type="email" 
+      class="form-control" 
+      id="email" 
+      placeholder="Enter your recovery email" 
+      required 
+      oninput="validateEmail()"
+    >
+    <div class="form-text mt-2">
+      Enter the email associated with your username. A recovery link will be sent if the email is correct.
+    </div>
+  </div>
+  <button 
+    type="button" 
+    id="sendRecoveryBtn" 
+    onclick="sendRecoveryEmail()" 
+    class="btn btn-primary w-100" 
+    disabled
+  >
+    Send Recovery Email
+  </button>
+</form>
+
+      <!-- Recovery Notice Panel (Hidden initially) -->
+      <div id="recoveryNotice" class="d-none">
+        <div class="alert alert-success text-center p-3 rounded border" role="alert">
+          Email sent, check your inbox.
+        </div>
+        <button onclick="goToLogin()" class="btn btn-secondary w-100">Go To Login</button>
       </div>
     </div>
-    
 
+    <!-- Bootstrap and JavaScript -->
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/popper.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
     
-
   </body>
 </html>
