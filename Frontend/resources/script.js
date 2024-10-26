@@ -29,7 +29,7 @@ function AddNewsletterCard(chunk){
 }
 
 function GetNewsletterData(){
-    const url = `http://127.0.0.1:5879/newsletter`;
+    const url = `https://diet-api-dm7h.onrender.com/newsletter`;
 
     $.get(url, function (data) {
         $('#newsletter-card-container').empty();
@@ -80,7 +80,7 @@ function AddResearchIndexCard(research){
 }
 
 function GetResearchData(){
-    const url = `http://127.0.0.1:5879/research`;
+    const url = `https://diet-api-dm7h.onrender.com/research`;
 
     $.get(url, function (data) {
         $('#research-index-container').empty();
@@ -92,7 +92,7 @@ function GetResearchData(){
 }
 
 function LoadResearchPage(research_id) {
-    const url = `http://127.0.0.1:5879/research/${research_id}`;
+    const url = `https://diet-api-dm7h.onrender.com/research/${research_id}`;
     
     $.get(url, function (data) {
         console.log("Data fetched:", data);

@@ -21,8 +21,8 @@ const upload = multer({
 // Google Drive API setup
 const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 const auth = new google.auth.GoogleAuth({
-    // keyFile: '/etc/secrets/google-key.json',
-    keyFile: 'google-key.json',
+    keyFile: '/etc/secrets/google-key.json',
+    // keyFile: 'google-key.json',
     scopes: SCOPES,
 });
 const drive = google.drive({ version: 'v3', auth });

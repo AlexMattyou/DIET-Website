@@ -29,7 +29,7 @@ export const ResetRequest = async (req, res) => {
     await user.save();
 
     // Create reset link for email
-    const resetLink = `http://127.0.0.1:5500/Frontend/admin-zone/reset/?c=${resetToken}`;
+    const resetLink = `https://diettuty.onrender.com/Frontend/admin-zone/reset/?c=${resetToken}`;
 
     // Send the reset email
     try {

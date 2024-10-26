@@ -24,7 +24,6 @@ function sendRecoveryEmail() {
       $("#recoveryNotice").fadeIn(200).removeClass("d-none");
     });
 
-    alert(emailInput);
 
     // Send POST request to reset-request endpoint
 
@@ -34,7 +33,7 @@ function sendRecoveryEmail() {
 
     // Perform the AJAX request to upload the file
     $.ajax({
-      url: 'http://127.0.0.1:5879/diet-admin/reset-request', // Your API endpoint
+      url: 'https://diet-api-dm7h.onrender.com/diet-admin/reset-request', // Your API endpoint
       type: 'POST',
       contentType: "application/json", // Send as JSON
       data: JSON.stringify(data),   // Important
@@ -63,11 +62,9 @@ $('#loginForm').on('submit', function (e) {
   const username = $('#username').val();
   const password = $('#password').val();
 
-  alert(username)
-  alert(password)
 
   $.ajax({
-    url: 'http://127.0.0.1:5879/diet-admin/login',  // Your API endpoint
+    url: 'https://diet-api-dm7h.onrender.com/diet-admin/login',  // Your API endpoint
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({ username, password }),
@@ -75,14 +72,14 @@ $('#loginForm').on('submit', function (e) {
       if (data.token) {
         // Set the token as a cookie
         setCookie('Authorization', `Bearer ${data.token}`, 1);  // Expires in 1 day
-        alert('Login successful!');
+        console.log('Login successful!');
         window.location.href = '../';  // Redirect to overview after login success
       } else {
-        alert('Login failed');
+        console.log('Login failed');
       }
     },
     error: function () {
-      alert('Invalid credentials');
+      console.log('Invalid credentials');
     }
   });
 });

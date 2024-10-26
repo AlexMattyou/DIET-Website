@@ -6,7 +6,7 @@ $(document).ready(function () {
 console.log("allson")
 
 function GetTeamData() {
-    const url = "http://127.0.0.1:5879/team";  // API endpoint
+    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
 
     $.get(url, function (data) {
         let teachTeamHtml = '';

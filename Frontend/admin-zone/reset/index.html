@@ -79,12 +79,11 @@
 
     if (token) {
         $.ajax({
-            url: "http://127.0.0.1:5879/diet-admin/verify-reset-token",
+            url: "https://diet-api-dm7h.onrender.com/diet-admin/verify-reset-token",
             type: "POST",  // Changed to POST
             contentType: 'application/json',
             data: JSON.stringify({ token: token }),
             success: function(response) {
-                alert(response.user.username);
                 $('#username').val(response.user.username);
                 $('#email').val(response.user.email);
                 $("#accessDenied").hide();
@@ -135,10 +134,9 @@
         const username = $('#username').val();
         const email = $('#email').val();
         const newPassword = $('#newPassword').val();
-        alert(token, username, email, newPassword);
 
         $.ajax({
-            url: `http://127.0.0.1:5879/diet-admin/reset-password`,
+            url: `https://diet-api-dm7h.onrender.com/diet-admin/reset-password`,
             type: "POST",  // Changed to POST
             contentType: 'application/json',
             data: JSON.stringify({
@@ -148,10 +146,8 @@
                 password: newPassword
             }),
             success: function(response) {
-                alert(response)
             },
             error: function() {
-                alert("fail")
             }
         });
 }

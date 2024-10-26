@@ -20,7 +20,7 @@ $(document).ready(function() {
             $('#fileViewFrame').attr('src', embedUrl);
             $('#viewBoxModal').modal('show');
         } else {
-            alert('Unable to extract the file ID. Please check the URL.');
+            console.log('Unable to extract the file ID. Please check the URL.');
         }
     });
 });
@@ -60,7 +60,7 @@ function AddUpdateCard(update){
 
 function GetUpdatesData(){
     console.log("Running -> GetUpdatesData()");
-    const url = `http://127.0.0.1:5879/latest-updates`;
+    const url = `https://diet-api-dm7h.onrender.com/latest-updates`;
 
     $.get(url, function (data) {
         const container = $('#accordion');
@@ -94,7 +94,7 @@ $(document).ready(function() {
             $('#fileViewFrame').attr('src', embedUrl);
             $('#viewBoxModal').modal('show');
         } else {
-            alert('Unable to extract the file ID. Please check the URL.');
+            aleconsole.log('Unable to extract the file ID. Please check the URL.');
         }
     });
 });
@@ -174,7 +174,7 @@ function AddActivityCard(activity){
 
 function GetActivityData(){
     console.log("Running -> GetUpdatesData()");
-    const url = `http://127.0.0.1:5879/activity`;
+    const url = `https://diet-api-dm7h.onrender.com/activity`;
 
     $.get(url, function (data) {
         $('#activity-container').empty();

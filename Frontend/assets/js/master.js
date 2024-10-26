@@ -165,7 +165,7 @@ function timeDifference(storedTime) {
 }
 
 function GetOverview(param) {
-  const url = "http://127.0.0.1:5879/overview"; // Your API endpoint to get the overview data
+  const url = "https://diet-api-dm7h.onrender.com/overview"; // Your API endpoint to get the overview data
 
   return fetch(url)
       .then(response => response.json())
@@ -189,7 +189,7 @@ function GetOverview(param) {
 
 // Custom function to handle new user logic
 function NewUser() {
-  const url = "http://127.0.0.1:5879/overview/new_user"; // URL for PostUser endpoint
+  const url = "https://diet-api-dm7h.onrender.com/overview/new_user"; // URL for PostUser endpoint
   
   fetch(url, {
       method: "PUT", // Use "POST" if you're sticking with POST
