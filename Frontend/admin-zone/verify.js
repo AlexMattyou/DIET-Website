@@ -3,7 +3,7 @@ $(document).ready(function () {
       
       if (!token) {
         // Redirect to login page if no token
-        window.location.href = 'https://diettuty.onrender.com/Frontend/admin-zone/login/';
+        window.location.href = 'https://diettuty.onrender.com/admin-zone/login/';
       } else {
         // Verify the token with the server
         $.ajax({
@@ -17,7 +17,7 @@ $(document).ready(function () {
           },
           error: function () {
             // Redirect to login if token is invalid
-            window.location.href = 'https://diettuty.onrender.com/Frontend/admin-zone/login/';
+            window.location.href = 'https://diettuty.onrender.com/admin-zone/login/';
           }
         });
       }
