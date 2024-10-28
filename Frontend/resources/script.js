@@ -96,6 +96,7 @@ function LoadResearchPage(research_id) {
     
     $.get(url, function (data) {
         console.log("Data fetched:", data);
+		$('#page-id').html(data.title);
         $('#show-research-title').html(data.title);
         $('#show-research-author').html(data.author);
         $('#show-research-abstract').html(data.content.abstract);

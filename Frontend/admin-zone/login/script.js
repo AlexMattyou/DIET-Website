@@ -38,10 +38,12 @@ function sendRecoveryEmail() {
       contentType: "application/json", // Send as JSON
       data: JSON.stringify(data),   // Important
       success: function(response) {
+        DisplayAlert(response.message, "success");
         $("#recoveryNotice").text(response.message).css("color", "green");
       },
       error: function(jqXHR, textStatus, errorThrown) {
         const errorMessage = jqXHR.responseJSON?.message || "Error sending recovery email";
+        DisplayAlert(errorMessage, "danger");
         $("#recoveryNotice").text(errorMessage).css("color", "red");
       }
     });
@@ -72,14 +74,18 @@ $('#loginForm').on('submit', function (e) {
       if (data.token) {
         // Set the token as a cookie
         setCookie('Authorization', `Bearer ${data.token}`, 1);  // Expires in 1 day
-        console.log('Login successful!');
-        window.location.href = '../';  // Redirect to overview after login success
+        DisplayAlert("Login Successful.", "success");
+        setTimeout(() => {
+          window.location.href = '../';
+      }, 1000);
+       // Redirect to overview after login success
       } else {
-        console.log('Login failed');
+        DisplayAlert("Login failed!", "danger");
       }
     },
     error: function () {
       console.log('Invalid credentials');
+      DisplayAlert("Invalid credentials!", "danger");
     }
   });
 });
@@ -93,4 +99,48 @@ function setCookie(name, value, days) {
     expires = "; expires=" + date.toUTCString();
   }
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function DisplayAlert(message, type = 'success') {
+  // Create alert element
+  const alertElement = document.createElement('div');
+  alertElement.className = `alert alert-${type} alert-dismissible fade show d-flex justify-content-between align-items-center border`;
+  alertElement.role = 'alert';
+  alertElement.style.position = 'fixed';
+  alertElement.style.top = '10px';
+  alertElement.style.right = '-400px'; // Start off-screen
+  alertElement.style.transition = 'right 0.6s ease'; // Transition for sliding effect
+  alertElement.style.zIndex = '9999'; // Ensure it's on top
+  alertElement.style.width = 'auto'; // Adjust width if necessary
+
+  // Set inner HTML for message and close button with flex spacing
+  alertElement.innerHTML = `
+      <button type="button" class="btn-close p-0 border-0 bg-transparent" data-bs-dismiss="alert" aria-label="Close">
+          <span>${message}</span>
+      </button>
+  `;
+
+  // Append to body
+  document.body.appendChild(alertElement);
+
+  // Trigger a reflow to enable the CSS transition
+  requestAnimationFrame(() => {
+      alertElement.style.right = '10px'; // Slide into view
+  });
+
+  // Close button functionality
+  alertElement.querySelector('.btn-close').addEventListener('click', () => {
+      alertElement.style.right = '-400px'; // Slide out of view on close
+      setTimeout(() => {
+          alertElement.remove(); // Remove the element after transition
+      }, 500); // Match the duration of the slide out
+  });
+
+  // Automatically remove the alert after 5 seconds
+  setTimeout(() => {
+      alertElement.style.right = '-400px'; // Slide out of view
+      setTimeout(() => {
+          alertElement.remove(); // Remove the element after transition
+      }, 500); // Match the duration of the slide out
+  }, 5000); // 5 seconds before it disappears
 }

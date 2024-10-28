@@ -25,6 +25,8 @@ $(document).ready(function() {
           scrollTop: $breadcrumb.offset().top
       }, 500); // 500ms for smooth scrolling
   });
+
+  GetOverview()
 });
 
 function checkLogCookie() {
@@ -164,27 +166,20 @@ function timeDifference(storedTime) {
   }
 }
 
-function GetOverview(param) {
-  const url = "https://diet-api-dm7h.onrender.com/overview"; // Your API endpoint to get the overview data
 
-  return fetch(url)
-      .then(response => response.json())
-      .then(overview => {
-          switch (param) {
-              case 'total_views':
-                  return overview.total_views; // Return total views from overview
-              case 'month_views':
-                  return overview.month_views.views; // Return views for the current month
-              case 'last_updated':
-                  return timeDifference(overview.last_updated); // Calculate and return the time difference
-              default:
-                  return null; // If the param doesn't match, return null
-          }
-      })
-      .catch(error => {
+function GetOverview() {
+  return $.ajax({
+      url: "https://diet-api-dm7h.onrender.com/overview",
+      type: "GET",
+      success: function(overview) {
+          $('#total-views').html(String(overview.total_views));
+          $('#last-updated').html(timeDifference(overview.last_updated));
+      },
+      error: function(error) {
           console.error("Error:", error);
           return null;
-      });
+      }
+  });
 }
 
 // Custom function to handle new user logic
@@ -204,4 +199,50 @@ function NewUser() {
   .catch((error) => {
       console.error("Error:", error);
   });
+}
+
+////////////////// alert ///////////////////////////
+
+function DisplayAlert(message, type = 'success') {
+    // Create alert element
+    const alertElement = document.createElement('div');
+    alertElement.className = `alert alert-${type} alert-dismissible fade show d-flex justify-content-between align-items-center border`;
+    alertElement.role = 'alert';
+    alertElement.style.position = 'fixed';
+    alertElement.style.top = '10px';
+    alertElement.style.right = '-400px'; // Start off-screen
+    alertElement.style.transition = 'right 0.6s ease'; // Transition for sliding effect
+    alertElement.style.zIndex = '9999'; // Ensure it's on top
+    alertElement.style.width = 'auto'; // Adjust width if necessary
+
+    // Set inner HTML for message and close button with flex spacing
+    alertElement.innerHTML = `
+        <button type="button" class="btn-close p-0 border-0 bg-transparent" data-bs-dismiss="alert" aria-label="Close">
+            <span>${message}</span>
+        </button>
+    `;
+
+    // Append to body
+    document.body.appendChild(alertElement);
+
+    // Trigger a reflow to enable the CSS transition
+    requestAnimationFrame(() => {
+        alertElement.style.right = '10px'; // Slide into view
+    });
+
+    // Close button functionality
+    alertElement.querySelector('.btn-close').addEventListener('click', () => {
+        alertElement.style.right = '-400px'; // Slide out of view on close
+        setTimeout(() => {
+            alertElement.remove(); // Remove the element after transition
+        }, 500); // Match the duration of the slide out
+    });
+
+    // Automatically remove the alert after 5 seconds
+    setTimeout(() => {
+        alertElement.style.right = '-400px'; // Slide out of view
+        setTimeout(() => {
+            alertElement.remove(); // Remove the element after transition
+        }, 500); // Match the duration of the slide out
+    }, 5000); // 5 seconds before it disappears
 }
