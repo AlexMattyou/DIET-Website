@@ -1,5 +1,5 @@
 import express from 'express';
-import {ResetRequest, RegisterAdmin, LoginAdmin, VerifyAdmin, VerifyResetToken, ResetPassword} from "../controllers/admin.controller.js"
+import {sendFeedback, ResetRequest, RegisterAdmin, LoginAdmin, VerifyAdmin, VerifyResetToken, ResetPassword} from "../controllers/admin.controller.js"
 
 const router = express.Router()
 
@@ -9,6 +9,8 @@ router.post("/login", LoginAdmin);
 router.get("/verify", VerifyAdmin)
 
 router.post("/reset-password", ResetPassword);
+
+router.post("/send-feedback", sendFeedback);
 
 router.post("/reset-request", ResetRequest);
 

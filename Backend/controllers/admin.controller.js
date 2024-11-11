@@ -202,3 +202,60 @@ export const VerifyAdmin = async (req, res) => {
       res.json({ message: 'Token is valid', userId: decoded.userId });
     });
   };
+
+
+  export const sendFeedback = async (req, res) => {
+    const { userName, userEmail, userPhone, userMessage } = req.body;
+
+    // Configure the transporter
+    const transporter2 = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USERNAME,  
+            pass: process.env.EMAIL_PASSWORD   
+        }
+    });
+
+    // Email options
+    const mailOptions = {
+        from: process.env.EMAIL_USERNAME,
+        to: process.env.EMAIL_USERNAME,
+        subject: 'New Message from DIET Website',
+        html: `
+        <link rel="stylesheet" href="https://diettuty.onrender.com/bootstrap/css/bootstrap.min.light.css">
+        <div class="container mt-5">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h4 class="mb-4">Hello,</h4>
+                    <p>You received a new message from your website:</p>
+                    
+                    <div class="bg-light p-3 rounded-3 mb-3">
+                        <p><strong>Name:</strong> ${userName}</p>
+                        <p><strong>Email:</strong> ${userEmail}</p>
+                        <p><strong>Mobile:</strong> ${userPhone}</p>
+                    </div>
+
+                    <div class="bg-light p-3 rounded-3">
+                        <p><strong>Message:</strong></p>
+                        <p>${userMessage}</p>
+                    </div>
+
+                    <hr class="my-4">
+                    <p class="text-muted">Best regards,<br>This email was sent from your website</p>
+                </div>
+            </div>
+        </div>
+        `
+    };
+
+    // Send the email
+    try {
+        const response = await transporter2.sendMail(mailOptions);
+        console.log('Feedback email sent:', response);
+        // Sending structured JSON response
+        res.json({ message: 'Success!' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ success: false, message: 'Error sending email' });
+    }
+};

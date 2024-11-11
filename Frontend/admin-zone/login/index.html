@@ -91,25 +91,12 @@
 <form id="recoveryEmail" class="d-none">
   <div class="mb-3">
     <label for="email" class="form-label">Recovery Email</label>
-    <input 
-      type="email" 
-      class="form-control" 
-      id="email" 
-      placeholder="Enter your recovery email" 
-      required 
-      oninput="validateEmail()"
-    >
+    <input type="email" class="form-control" id="email" placeholder="Enter your recovery email" required oninput="validateEmail()">
     <div class="form-text mt-2">
       Enter the email associated with your username. A recovery link will be sent if the email is correct.
     </div>
   </div>
-  <button 
-    type="button" 
-    id="sendRecoveryBtn" 
-    onclick="sendRecoveryEmail()" 
-    class="btn btn-primary w-100" 
-    disabled
-  >
+  <button type="button" id="sendRecoveryBtn" onclick="sendRecoveryEmail()" class="btn btn-primary w-100" disabled>
     Send Recovery Email
   </button>
 </form>

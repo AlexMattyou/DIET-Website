@@ -13,7 +13,7 @@ $(document).ready(function () {
             'Authorization': token
           },
           success: function (response) {
-            // Token is valid
+            $('body').removeClass('no-mobile no-desktop d-none');
           },
           error: function () {
             // Redirect to login if token is invalid
