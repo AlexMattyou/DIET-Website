@@ -22,17 +22,15 @@
 </script>
 </head>
 
-<body class="d-none">
+<body>
   <nav class="navbar navbar-light bg-light">
     <img src="../data/logo/main-logo.png" alt="DIET-logo" class="rounded img-fluid" width="150em">
     <h1 class="font-weight-bolder text-uppercase text-primary">
       Admin Zone
     </h1>
   </nav>
-  <div class="alert mb-auto alert-danger" role="alert">
-    &#9888;&#65039; Caution: Changes will be permanent, and no backup is available. Please proceed
-    carefully when updating!
-  </div>
+  <div class="alert mb-auto alert-warning" role="alert">⚠️ Caution: Changes will be permanent, and no backup is available. Please proceed
+    carefully when updating!</div>
 
 
   <div class="container mt-4">
@@ -284,7 +282,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="latest-updates" role="tabpanel" aria-labelledby="latest-updates-tab">
-        <h4>Latest Updates</h4>
+        <h4>Latest Updates</h4><p>Latest news, updates or any information can be added here.</p>
 
         <div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
@@ -311,7 +309,7 @@
       </div>
       <div class="tab-pane fade" id="forthcoming-activities" role="tabpanel" aria-labelledby="forthcoming-activities-tab">
         <h4>Forthcoming Activities</h4>
-        <p>Check out our upcoming events and activities.</p>
+        <p>Add upcomming activities and events that are planned.</p>
       <div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
           <div id="new-activity-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">
@@ -337,7 +335,7 @@
         </div>
       <div class="tab-pane fade" id="news-letters" role="tabpanel" aria-labelledby="news-letters-tab">
         <h4>News Letters</h4>
-        <p>Read our latest newsletters for updates and insights.</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
+        <p>Latest newsletters for updates and insights.</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
           <div id="new-newsletter-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">
             <button id="add-new-newsletter-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateNewsletter()">
@@ -356,7 +354,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="project-abstracts" role="tabpanel" aria-labelledby="project-abstracts-tab">
-        <h4 class="">Research / Project Details</h4>
+        <h4 class="">Research / Project Details</h4><p>Add research activities, project abstracts and details.</p>
         <div class="row d-flex flex-row flex-wrap mr-auto ml-auto mt-4">
           <!-- Button to add new event -->
           <div class="col-xl-12 d-flex flex-wrap flex-column-reverse" id="update-edit-container" style="height: 100px;"><div style="height: 100px;" id="new-research-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 mt-auto">
@@ -391,7 +389,7 @@
       </div>
       <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
         <h4>Publications</h4>
-        <p>Read our latest newsletters for updates and insights.</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
+        <p>Add Publication information (can be added as links)</p><div class="row mt-3 d-flex flex-row flex-wrap mr-auto ml-auto">
           <!-- Button to add new event -->
           <div id="new-publication-button-container" class="p-2 col-md-12 border alert-success rounded mb-2 " style="height: 100px;">
             <button id="add-new-newsletter-button" class="d-flex justify-content-center align-items-center p-3 h-100 w-100 alert-success border-0" onclick="CreateNewsletter('publication')">
