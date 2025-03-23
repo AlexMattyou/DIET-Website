@@ -30,7 +30,8 @@ export const CreateActivity = async (req, res) => {
 
     // Validate data
     const newActivity = new Activity({
-        name: ''
+        name: "",
+        event_date: new Date().toISOString().split("T")[0], // Format: yyyy-MM-dd
     });
 
     try {
@@ -50,7 +51,7 @@ export const UpdateActivity = async (req, res) => {
                 name: req.body.name,
                 desc: req.body.desc,
                 event_date: req.body.event_date,
-                event_time: req.body.event_time,
+                event_date_end: req.body.event_date_end,
                 venue: req.body.venue
             },
             {

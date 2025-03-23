@@ -16,9 +16,11 @@ import {robotsTxt,corsOptions,rateLimiter,helmet} from './lib/middleware.js';
 const app = express();
 const PORT = 5879;
 
-app.set('trust proxy', ['100.20.92.101', '44.225.181.72', '44.227.217.144']);
+app.set('trust proxy', ['13.228.225.19', '18.142.128.26', '54.254.162.138']);
 
-app.use(cors({ origin: 'https://diettuty.onrender.com' }));
+const allowedOrigins = ['https://diettut.org', 'https://diettut.onrender.com', 'https://www.diettut.org'];
+app.use(cors({ origin: allowedOrigins }));
+
 // app.use(cors());
 
 // MIDDLEVERSE
@@ -40,7 +42,7 @@ app.set('views', './views');
 
 
 app.get('/', (req, res) => {
-    res.json({ msg: "Hello students!"});
+    res.json({ msg: "The Render service is running!"});
 });
 
 app.use('/diet-admin', adminRoutes)

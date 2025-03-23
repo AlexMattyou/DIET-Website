@@ -12,7 +12,7 @@ import Newsletter from "../models/newsletter.model.js"
 const router = express.Router();
 const upload = multer({
     dest: 'uploads/',
-    limits: { fileSize: 30 * 1024 * 1024 }, // Set file size limit (5MB)
+    limits: { fileSize: 128 * 1024 * 1024 }, // 128 mb limit for uploading
     fileFilter: (req, file, cb) => {
         cb(null, true);
     }
@@ -38,7 +38,7 @@ router.post('/our-team', (req, res) => {
         try {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
-            const folderId = '1wwnVAMMvUy53bUf1v8AEp4nG0sAZSVUl'; // Google Drive folder ID
+            const folderId = '17w1utIPcz3FKcKZHqbCDKM5Tf_vKJatj'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
@@ -110,7 +110,7 @@ router.post('/gallery-event', (req, res) => {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
             const otherID1 = req.body.otherID1;
-            const folderId = '1CFCUg3RzZvvtTXB3M4VLmcB4Cu0iQY5T'; // Google Drive folder ID
+            const folderId = '1qfHCD0LTjWymq6BFL7QU9ZRmP7JYRVl-'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
@@ -196,7 +196,7 @@ router.post('/gallery-images', (req, res) => {
         try {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
-            const folderId = '1_RoyCb68noGK_z2XkbuVVRRY68wIFnbn'; // Google Drive folder ID
+            const folderId = '1CetjE_Z06op6WWkCGUa6NF4An6jUdoYx'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
@@ -284,7 +284,7 @@ router.post('/latest-updates', (req, res) => {
         try {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
-            const folderId = '1j3TAzXI0Veix05qaQa4U4CpB-eE0WHcY'; // Google Drive folder ID
+            const folderId = '1TBrmhzi3dcs1x9snJ1HTW68KnAwb5wJP'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
@@ -354,7 +354,7 @@ router.post('/activity', (req, res) => {
         try {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
-            const folderId = '1XfUxxucAaSftAuSFgF5Bs93myNrXIMjI'; // Google Drive folder ID
+            const folderId = '1BqliZiB3JlaCFGHClnDOPiuIykr7KKoQ'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
@@ -425,7 +425,7 @@ router.post('/research', (req, res) => {
         try {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
-            const folderId = '1OPOel70FHjg3ekuRuSYIL1foWuyVvPih'; // Google Drive folder ID
+            const folderId = '1ybVQJcFt_zQaDevOsaCVPnCCqBCBfWW8'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
@@ -497,7 +497,7 @@ router.post('/newsletter-doc', (req, res) => {
         try {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
-            const folderId = '1ZDvl81n5E9XIM0Tpj2jenJGdfbbc6Ntd'; // Google Drive folder ID
+            const folderId = '1QgNLs1j97xrGdX6eIoEKF1SKnxR2l2kR'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({
@@ -569,7 +569,7 @@ router.post('/newsletter-img', (req, res) => {
         try {
             const filePath = req.file.path;
             const fileName = req.body.placeID;
-            const folderId = '1hlm3nRYTXp-ThiVTGuRxrKycRF7mtxJw'; // Google Drive folder ID
+            const folderId = '12dgpVYgrBn6OIi5Kx93B-__sWMlViZbx'; // Google Drive folder ID
 
             // Step 1: Check for existing file with the same name
             const fileList = await drive.files.list({

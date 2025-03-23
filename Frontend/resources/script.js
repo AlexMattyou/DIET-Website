@@ -5,31 +5,43 @@ $(document).ready(function() {
     P_parameter = getQueryParamValue()
     LoadResearchPage(P_parameter);
 
-    LoadLatestNewsletter();
-    LoadLatestPublication();
-    LoadLatestResearch();
 });
 
 
-function AddNewsletterCard(chunk){
+function AddNewsletterCard(chunk) {
     const container = $(`#${chunk.category}-card-container`);
-    var element = `
-    <div class="col-lg-4 mb-3 mt-3">
-        <a href="${chunk.thumb}" class="text-decoration-none">
-            <div class="card">
-                <img src="${chunk.thumb}" alt="Sample Image" class="card-img-top img-fluid">
-                <div class="card-body">
-                    <p class="card-text text-center">${formatMongoDate(chunk.pub_date)}</p>
+
+    if (!chunk.thumb){
+        chunk.thumb = "https://diettut.org/data/img/template/cloud.jpeg"
+    }
+
+    if (chunk.category === "newsletter") {
+        if (chunk.doc){
+            if (!chunk.thumb){
+                chunk.thumb = `https://lh3.googleusercontent.com/d/${chunk.doc}`
+            }
+            chunk.doc = `https://drive.google.com/file/d/${chunk.doc}/view`;
+        }
+    }
+
+    const element = `
+        <div class="col-lg-4 mb-3 mt-3">
+            <a href="${chunk.doc}" class="text-decoration-none" target="_blank">
+                <div class="card">
+                    <img src="${chunk.thumb}" alt="Thumbnail" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <p class="card-text text-center">${formatMongoDate(chunk.pub_date)}</p>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
-    `
-    container.prepend(element)
+            </a>
+        </div>
+    `;
+
+    container.prepend(element);
 }
 
 function GetNewsletterData(){
-    const url = `https://diet-api-dm7h.onrender.com/newsletter`;
+    const url = `https://diettutapi.onrender.com/newsletter`;
 
     $.get(url, function (data) {
         $('#newsletter-card-container').empty();
@@ -80,7 +92,7 @@ function AddResearchIndexCard(research){
 }
 
 function GetResearchData(){
-    const url = `https://diet-api-dm7h.onrender.com/research`;
+    const url = `https://diettutapi.onrender.com/research`;
 
     $.get(url, function (data) {
         $('#research-index-container').empty();
@@ -92,11 +104,12 @@ function GetResearchData(){
 }
 
 function LoadResearchPage(research_id) {
-    const url = `https://diet-api-dm7h.onrender.com/research/${research_id}`;
+    const url = `https://diettutapi.onrender.com/research/${research_id}`;
     
     $.get(url, function (data) {
         console.log("Data fetched:", data);
 		$('#page-id').html(data.title);
+        document.title = data.title + " | District Institute of Education and Training, Vanaramutti"
         $('#show-research-title').html(data.title);
         $('#show-research-author').html(data.author);
         $('#show-research-abstract').html(data.content.abstract);

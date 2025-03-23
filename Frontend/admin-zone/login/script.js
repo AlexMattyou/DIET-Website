@@ -2,6 +2,11 @@ $(document).ready(function () {
 
 });
 
+$('#recoveryEmail').on('submit', function (e) {
+  e.preventDefault(); // Prevent form from redirecting
+  sendRecoveryEmail(); // Trigger the recovery email function
+});
+
 function forgotPassword() {
   $("#loginForm").fadeOut(200, function() {
     $("#recoveryEmail").fadeIn(200).removeClass("d-none");
@@ -33,18 +38,20 @@ function sendRecoveryEmail() {
 
     // Perform the AJAX request to upload the file
     $.ajax({
-      url: 'https://diet-api-dm7h.onrender.com/diet-admin/reset-request', // Your API endpoint
+      url: 'https://diettutapi.onrender.com/diet-admin/reset-request', // Your API endpoint
       type: 'POST',
       contentType: "application/json", // Send as JSON
       data: JSON.stringify(data),   // Important
       success: function(response) {
-        DisplayAlert(response.message, "success");
-        $("#recoveryNotice").text(response.message).css("color", "green");
+        // DisplayAlert(response.message, "success");
+        $('#notice_text').removeClass('alert-danger').addClass('alert-success');
+        $('#notice_text').html(response.message);
       },
       error: function(jqXHR, textStatus, errorThrown) {
         const errorMessage = jqXHR.responseJSON?.message || "Error sending recovery email";
-        DisplayAlert(errorMessage, "danger");
-        $("#recoveryNotice").text(errorMessage).css("color", "red");
+        // DisplayAlert(errorMessage, "danger");
+        $('#notice_text').removeClass('alert-success').addClass('alert-danger');
+        $('#notice_text').html(errorMessage);
       }
     });
   }
@@ -66,7 +73,7 @@ $('#loginForm').on('submit', function (e) {
 
 
   $.ajax({
-    url: 'https://diet-api-dm7h.onrender.com/diet-admin/login',  // Your API endpoint
+    url: 'https://diettutapi.onrender.com/diet-admin/login',  // Your API endpoint
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({ username, password }),

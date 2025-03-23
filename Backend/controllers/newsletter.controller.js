@@ -44,8 +44,6 @@ export const UpdateNewsletter = async (req, res) => {
       { _id: req.params.id },
       {
         pub_date: req.body.pub_date, // Update pub_date if provided
-        thumb: req.body.thumb,
-        doc: req.body.doc,
       },
       { new: true } // Return the updated document
     );

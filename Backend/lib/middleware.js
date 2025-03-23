@@ -10,7 +10,7 @@ const robotsTxt = (req, res) => {
 
 // CORS Options
 const corsOptions = { 
-  origin: 'https://diettuty.onrender.com', 
+  origin: 'https://diettut.org', 
   methods: 'GET,POST,PUT,DELETE', 
   allowedHeaders: 'Content-Type,Authorization',
   optionsSuccessStatus: 200,
@@ -19,7 +19,7 @@ const corsOptions = {
 // Rate Limiting
 const rateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests
+  max: 300, // limit each IP to 100 requests
 });
 
 export {

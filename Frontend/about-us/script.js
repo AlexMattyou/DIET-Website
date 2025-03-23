@@ -6,14 +6,14 @@ $(document).ready(function () {
 console.log("allson")
 
 function GetTeamData() {
-    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
+    const url = "https://diettutapi.onrender.com/team";  // API endpoint
 
     $.get(url, function (data) {
         let teachTeamHtml = '';
         let nonTeachTeamHtml = '';
 
         // const imageURL = team.image
-        // const image = imageElement ? imageElement.value : "https://diettuty.onrender.com/data/img/no-profile.jpg";
+        // const image = imageElement ? imageElement.value : "https://diettut.org/data/img/no-profile.jpg";
 
         // Loop through the team data
         data.forEach(team => {
@@ -24,7 +24,7 @@ function GetTeamData() {
 <div class="card front shadow bg-transparent"> <!-- Front side of the card -->
 <div> 
 <br>				<div class="image-container mx-auto"> 
-<img src="${team.image || 'https://diettuty.onrender.com/data/img/no-profile.jpg'}" alt="...">
+<img src="${team.image || 'https://diettut.org/data/img/no-profile.jpg'}" alt="...">
 </div><br class="no-desktop">
 <div>
 <h4 class="fw-bold mb-1 text-uppercase h5">${team.name || ''}</h4><br><h5 class="fw-light h6 mb-3">${team.designation || '-'}</h5>

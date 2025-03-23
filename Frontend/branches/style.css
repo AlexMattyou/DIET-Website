@@ -1,4 +1,4 @@
-@import url("https://diettuty.onrender.com/assets/css/master.css");
+@import url("https://diettut.org/assets/css/master.css");
 
 body {
     background-color: white;
@@ -59,32 +59,24 @@ body {
 }
 
 /* Background images for each class */
-.pste {
-    background-image: url('../data/img/branches/PSTE.jpeg');
+.branch1 {
+    background-image: url('../data/img/branches/branch1.jpeg');
 }
 
-.we {
-    background-image: url('../data/img/branches/WE.jpeg');
+.branch2 {
+    background-image: url('../data/img/branches/branch2.jpeg');
 }
 
-.dru {
-    background-image: url('../data/img/branches/DRU.jpeg');
+.branch3 {
+    background-image: url('../data/img/branches/branch3.jpeg');
 }
 
-.ific {
-    background-image: url('../data/img/branches/IFIC.jpeg');
+.branch4 {
+    background-image: url('../data/img/branches/branch4.jpeg');
 }
 
-.cmde {
-    background-image: url('../data/img/branches/CMDE.jpeg');
-}
-
-.et {
-    background-image: url('../data/img/branches/ET.jpeg');
-}
-
-.pm {
-    background-image: url('../data/img/branches/PM.jpeg');
+.branch5 {
+    background-image: url('../data/img/branches/branch5.jpeg');
 }
 
 

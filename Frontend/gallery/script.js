@@ -30,7 +30,7 @@ function ShowInsideEvent(year_id, event_id) {
 }
 
 function GetYearData() {
-    const url = "https://diet-api-dm7h.onrender.com/gallery/years";  // API endpoint
+    const url = "https://diettutapi.onrender.com/gallery/years";  // API endpoint
 
     $.get(url, function (data) {
         const container = $('#yearSelector');
@@ -56,7 +56,7 @@ function UpdateEventList(year_name, year_id){
     console.log('Year selected:', year_name);
     console.log('Year ID:', year_id);
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events`;
 
     $.get(url, function (data) {
         console.log(data)
@@ -66,9 +66,9 @@ function UpdateEventList(year_name, year_id){
         data.forEach(event => {
             let element = `
             <div class="box p-3 col-md-4 col-xl-3 col-12 d-flex flex-column align-items-center p-0" onclick="ShowInsideEvent('${year_id}', '${event._id}')" style="height: 400px; width: 200px">
-		<div class="box-content image-container position-relative w-100" style="height: 10000px; background-image: url('${event.image || '../data/img/empty-file.svg'}'); background-size: cover; background-position: center center; border-radius: 10px;">
+		<div class="box-content image-container position-relative w-100" style="height: 10000px; background-image: url('${event.image || '../data/img/template/cloud.jpeg'}'); background-size: cover; background-position: center center; border-radius: 10px;">
 		</div><br>
-      <h5 class="text-center mt-2 font-weight-bolder">${event.name || ' '}</h5>
+      <h5 class="text-center mt-2 font-weight-bolder"><br>${event.name || ' '}</h5>
     </div>
             `
             container.append(element)
@@ -78,7 +78,7 @@ function UpdateEventList(year_name, year_id){
 
 function LoadMetaData(year_id, event_id){
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}`;
 
     $.get(url, function (data) {
         $('#event-headline').html(data.name)
@@ -87,7 +87,7 @@ function LoadMetaData(year_id, event_id){
 }
 
 function LoadPhotos(year_id, event_id){
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}`;
 
     $.get(url, function (data) {
         console.log(data)
@@ -137,7 +137,7 @@ function LoadPhotos(year_id, event_id){
 }
 
 function LoadVideos(year_id, event_id){
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}`;
 
     $.get(url, function (data) {
         console.log(data)

@@ -3,11 +3,11 @@ $(document).ready(function () {
       
       if (!token) {
         // Redirect to login page if no token
-        window.location.href = 'https://diettuty.onrender.com/admin-zone/login/';
+        window.location.href = 'https://diettut.org/admin-zone/login/';
       } else {
         // Verify the token with the server
         $.ajax({
-          url: 'https://diet-api-dm7h.onrender.com/diet-admin/verify',  // Your API endpoint for token verification
+          url: 'https://diettutapi.onrender.com/diet-admin/verify',  // Your API endpoint for token verification
           type: 'GET',
           headers: {
             'Authorization': token
@@ -17,7 +17,7 @@ $(document).ready(function () {
           },
           error: function () {
             // Redirect to login if token is invalid
-            window.location.href = 'https://diettuty.onrender.com/admin-zone/login/';
+            window.location.href = 'https://diettut.org/admin-zone/login/';
           }
         });
       }

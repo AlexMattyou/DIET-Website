@@ -35,6 +35,11 @@ function extractFileInfo(url) {
 
 function AddUpdateCard(update){
     const container = $('#accordion');
+    if (update.file){
+        attachment_button = `<button class="btn btn-outline-primary text-nowrap align-self-end pl-4 pr-4 view-file-btn" data-file="${update.file}">View Attached File</button>`
+    }else{
+        attachment_button = ' '
+    }
     let element = `
     <div class="card mb-3 shadow">
         <div class="card-header toggle-collapse d-flex justify-content-between" data-target="#u-${update._id}">
@@ -42,14 +47,14 @@ function AddUpdateCard(update){
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down mr-2 mt-1" viewbox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
                 </svg>
-                <h5 class="mb-0">${update.name}</h5>
+                <h5 class="mb-0">${update.name || " "}</h5>
             </div>
             <p class="mb-n1 font-italic font-weight-light">${timeDifference(update.time)}</p>
         </div>
         <div id="u-${update._id}" class="collapse">
             <div class="card-body d-flex flex-column">
-                <p class="mr-3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${update.desc}</span>&nbsp; &nbsp;</p>
-                <button class="btn btn-outline-primary text-nowrap align-self-end pl-4 pr-4 view-file-btn" data-file="${update.file}">View Attached File</button>
+                <p class="mr-3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${update.desc || ' '}</span>&nbsp; &nbsp;</p>
+                ${attachment_button}
             </div>
         </div>
     </div>
@@ -60,7 +65,7 @@ function AddUpdateCard(update){
 
 function GetUpdatesData(){
     console.log("Running -> GetUpdatesData()");
-    const url = `https://diet-api-dm7h.onrender.com/latest-updates`;
+    const url = `https://diettutapi.onrender.com/latest-updates`;
 
     $.get(url, function (data) {
         const container = $('#accordion');
@@ -112,6 +117,11 @@ function ReturnTimeData(data) {
 }
 
 function ReturnDateData(data) {
+    // Check if data is undefined, null, or empty
+    if (!data) {
+        return ""; // Return an empty string if data is invalid
+    }
+    
     // Split the date string into day, month, and year
     let [day, month, year] = data.split("-");
     
@@ -126,11 +136,28 @@ function ReturnDateData(data) {
 }
 
 function AddBetaActivityCard(activity) {
+    let date_data = ReturnDateData(activity.event_date)
+    let date_data_end = ReturnDateData(activity.event_date_end)
+
+    if (activity.event_date_end){
+        if (new Date(date_data_end) < new Date(new Date().setDate(new Date().getDate() - 2))) {
+            return;
+        }
+    }else{
+        if (new Date(date_data) < new Date(new Date().setDate(new Date().getDate() - 2))) {
+            return;
+        }
+    }
+
+    if (!activity.image){
+        activity.image = `https://diettut.org/data/img/template/cloud.jpeg`
+    }
+
     let element = `
     <div class="col-md-3 mb-4">
         <div class="card h-100 border-0 shadow-sm">
-            <a href="${activity.image || '#'}" target="_blank">
-                <img src="${activity.image || 'https://diettuty.onrender.com/data/img/empty-file.svg'}" class="card-img-top img-fluid" alt="Flyer" style="border-radius: 10px;">
+            <a href="https://diettut.org/whats-new/forthcoming-activties/#block-${activity._id}">
+                <img src="${activity.image}" class="card-img-top img-fluid" alt="Flyer" style="border-radius: 10px;">
             </a>
         </div>
     </div>
@@ -139,31 +166,60 @@ function AddBetaActivityCard(activity) {
     container.append(element);
 }
 
-
 function AddActivityCard(activity){
     let date_data = ReturnDateData(activity.event_date)
-    let time_data = ReturnTimeData(activity.event_time)
+    let date_data_end = ReturnDateData(activity.event_date_end)
+
+    let attachment = ' ';
+    if (activity.image){
+        attachment = `<a class="btn btn-outline-primary" target="_blank" href="${activity.image}">View File</a>`
+    }else{
+        activity.image = `https://diettut.org/data/img/template/cloud.jpeg`
+    }
+
+    let end_scene = ''
+    if (activity.event_date_end){
+        end_scene = `
+        <h2 class="mt-4 mb-4 mr-2 ml-n2">to</h2>
+            <div class="date-box border me-2 text-center pt-2 pb-2 pl-4 pr-4 mr-3 rounded bg-secondary text-light">
+                <h2 class="m-0">${date_data_end[2]}</h2>
+                <p class="mb-n1">${date_data_end[1]} ${date_data_end[0]}</p>
+            </div>
+        `
+        if (new Date(date_data_end) < new Date(new Date().setDate(new Date().getDate() - 2))) {
+            return;
+        }
+    }else{
+        if (new Date(date_data) < new Date(new Date().setDate(new Date().getDate() - 2))) {
+            return;
+        }
+    }
     let element = `
-    <div class="d-flex flex-md-row event-box flex-column shadow mb-4 border bg-light" style="width: 100%; max-width: 900px; border-radius: 10px;">
+    <div id="block-${activity._id}" class="d-flex flex-md-row event-box flex-column shadow mb-4 border bg-light" style="width: 100%; max-width: 900px; border-radius: 10px;">
     <!-- Image Column -->
     <div class="col-md-4 p-0 m-0 no-mobile">
-      <img src="${activity.image || 'https://diettuty.onrender.com/data/img/empty-file.svg'}" class="img-fluid" style="width: 100%; height: auto; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt="Flyer">
+      <img src="${activity.image} " class="img-fluid" style="width: 100%; height: auto; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt="Flyer">
     </div>
     <!-- Content Column -->
     <div class="col-md-8 p-3 d-flex flex-column justify-content-between col-12">
       <div>
         <h3 class="text-secondary event-title mt-n1 font-weight-bold">${activity.name}</h3>
-        <p class="activity-description">${activity.desc}</p><a class="btn btn-outline-primary" target="_blank" href="${activity.image}">View File</a>
+        <p class="activity-description">${activity.desc}</p>
+        ${attachment}
       </div>
-      <div class="event-date-time mt-3 d-flex align-items-end justify-content-start">
-        <div class="date-box border me-2 text-center pt-2 pb-2 pl-4 pr-4 mr-3 rounded bg-secondary text-light">
-          <h2 class="m-0">${date_data[2]}</h2>
-          <p class="mb-n1">${date_data[1]} ${date_data[0]}</p>
+
+        <div class="event-date-time mt-3 d-flex align-items-end justify-content-start">
+            <div class="date-box border me-2 text-center pt-2 pb-2 pl-4 pr-4 mr-3 rounded bg-secondary text-light">
+                <h2 class="m-0">${date_data[2]}</h2>
+                <p class="mb-n1">${date_data[1]} ${date_data[0]}</p>
+                
+            </div>
+            ${end_scene}
+            
         </div>
         <div class="time-box p-2 text-center rounded text-secondary d-flex flex-column align-items-start justify-content-between">
-          <strong class="mb-2">Venue: auditorium</strong><strong>Time: ${time_data}</strong>
-        </div>
-      </div>
+                <strong class="mb-2">Venue: ${activity.venue}</strong>
+            </div>
     </div>
   </div>
     `;
@@ -174,7 +230,7 @@ function AddActivityCard(activity){
 
 function GetActivityData(){
     console.log("Running -> GetUpdatesData()");
-    const url = `https://diet-api-dm7h.onrender.com/activity`;
+    const url = `https://diettutapi.onrender.com/activity`;
 
     $.get(url, function (data) {
         $('#activity-container').empty();

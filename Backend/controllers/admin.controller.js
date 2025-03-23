@@ -29,7 +29,7 @@ export const ResetRequest = async (req, res) => {
     await user.save();
 
     // Create reset link for email
-    const resetLink = `https://diettuty.onrender.com/admin-zone/reset/?c=${resetToken}`;
+    const resetLink = `https://diettut.org/admin-zone/reset/?c=${resetToken}`;
 
     // Send the reset email
     try {
@@ -100,9 +100,9 @@ const ResetEmail = async (username, userEmail, reset_link) => {
         to: userEmail,
         subject: 'Password Reset Request',
         html: `
-        <link rel="stylesheet" href="https://diettuty.onrender.com/bootstrap/css/bootstrap.min.light.css">
+        <link rel="stylesheet" href="https://diettut.org/bootstrap/css/bootstrap.min.light.css">
 <div class="container mt-5">
-  <img src="https://placeholdit.img/600x150" alt="DIET Website Banner" class="img-fluid">
+  <img src="https://diettut.org/data/banner.jpg" alt="DIET Website Banner" class="img-fluid">
   <div class="card mt-4">
     <div class="card-body">
       <p class="card-text">Dear ${username},</p>
@@ -222,8 +222,9 @@ export const VerifyAdmin = async (req, res) => {
         to: process.env.EMAIL_USERNAME,
         subject: 'New Message from DIET Website',
         html: `
-        <link rel="stylesheet" href="https://diettuty.onrender.com/bootstrap/css/bootstrap.min.light.css">
+        <link rel="stylesheet" href="https://diettut.org/bootstrap/css/bootstrap.min.light.css">
         <div class="container mt-5">
+            <img src="https://diettut.org/data/banner.jpg" alt="DIET Website Banner" class="img-fluid">
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-body p-4">
                     <h4 class="mb-4">Hello,</h4>

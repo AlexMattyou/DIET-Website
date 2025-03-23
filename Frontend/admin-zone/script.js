@@ -61,7 +61,7 @@ document.getElementById('form')
   
 function GetOverview() {
     return $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/overview",
+        url: "https://diettutapi.onrender.com/overview",
         type: "GET",
         success: function(overview) {
             $('#total_views').html(String(overview.total_views));
@@ -142,7 +142,7 @@ function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 
     // Get the selected file
     const file = imageInput.files[0];
     if (!file) {
-        imagePreview.src = '../data/img/upload.png'
+        imagePreview.src = '../data/img/upload-template/image-x-x.png'
         DisplayAlert("Image selection cancled.", "warning");
         return; // No file selected
     }
@@ -158,7 +158,7 @@ function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 
 
     // Perform the AJAX request to upload the file
     $.ajax({
-        url: 'https://diet-api-dm7h.onrender.com/drive/'+parentFolder, // Your API endpoint
+        url: 'https://diettutapi.onrender.com/drive/'+parentFolder, // Your API endpoint
         type: 'POST',
         data: formData,
         contentType: false,
@@ -170,7 +170,7 @@ function UploadShowImage(event, the_id, parentFolder, other_id1 = '', other_id2 
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Handle errors by reverting to the default image
-            imagePreview.src = '../data/img/upload.png';
+            imagePreview.src = '../data/img/upload-template/image-x-x.png';
             DisplayAlert('Error uploading Image!', "danger");
         }
     });
@@ -190,7 +190,7 @@ function UploadFile2Drive(event, the_id, parentFolder) {
     const file = fileInput.files[0];  // Access the files array from the raw DOM element
     console.log(file);
     if (!file) {
-        filePreview.html('Click to select file 👆');
+        filePreview.html('👆 Click to upload<br>pdf / doc');
         DisplayAlert('no file selected', "warning");
         return; // No file selected
     }
@@ -204,7 +204,7 @@ function UploadFile2Drive(event, the_id, parentFolder) {
 
     // Perform the AJAX request to upload the file
     $.ajax({
-        url: 'https://diet-api-dm7h.onrender.com/drive/' + parentFolder, // Your API endpoint
+        url: 'https://diettutapi.onrender.com/drive/' + parentFolder, // Your API endpoint
         type: 'POST',
         data: formData,
         contentType: false,
@@ -232,7 +232,7 @@ function AddTeamBlock(team){
                     <!-- Image URL Input -->
                     <div class="image-preview-container" onclick="document.getElementById('imageInput-${team._id}').click()">
                         <img id="imagePreview-${team._id}"  class="image-preview img-fluid mt-3"  
-                            src="${team.image || '../data/img/upload.png'}" 
+                            src="${team.image || '../data/img/upload-template/image-3-4.png'}" 
                             alt="Team member image preview">
                         <input type="file" id="imageInput-${team._id}" accept="image/*" 
                             onchange="UploadShowImage(event,'${team._id}', 'our-team')" style="display:none;"> 
@@ -318,7 +318,7 @@ function RealignAddNewButtone(){
 
 // Fetch and display data using jQuery
 function GetTeamData() {
-    const url = "https://diet-api-dm7h.onrender.com/team";  // API endpoint
+    const url = "https://diettutapi.onrender.com/team";  // API endpoint
 
     $.get(url, function (data) {
         // Loop through the team data
@@ -338,7 +338,7 @@ function CreateTeam(t){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/team", // API URL
+        url: "https://diettutapi.onrender.com/team", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -367,7 +367,7 @@ function DeleteTeam(teamID) {
         if (teamElement) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
+                url: `https://diettutapi.onrender.com/team/${teamID}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     UpdateTimeChange()
@@ -420,7 +420,7 @@ function UpdateTeam(teamID) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `https://diet-api-dm7h.onrender.com/team/${teamID}`,  // API URL with the teamID
+            url: `https://diettutapi.onrender.com/team/${teamID}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(teamData),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
@@ -453,7 +453,7 @@ function CreateYear() {
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/gallery/years", // API URL
+        url: "https://diettutapi.onrender.com/gallery/years", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(teamData), // Convert JS object to JSON string
@@ -493,7 +493,7 @@ function AddYearBlock(the_id, year_input) {
 }
 
 function GetYearData() {
-    const url = "https://diet-api-dm7h.onrender.com/gallery/years";  // API endpoint
+    const url = "https://diettutapi.onrender.com/gallery/years";  // API endpoint
 
     $.get(url, function (data) {
 
@@ -515,7 +515,7 @@ function DeleteYear(year_id) {
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}`,  // API URL with the teamID
+                url: `https://diettutapi.onrender.com/gallery/years/${year_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     UpdateTimeChange()
@@ -546,7 +546,7 @@ function DisplayEventOfYear(year_id) {
     $('.year-button-container .year-button').removeClass('btn-primary').addClass('btn-outline-primary');
     $('#year-button-' + year_id + ' .year-button').removeClass('btn-outline-primary').addClass('btn-primary');
 
-    const url = "https://diet-api-dm7h.onrender.com/gallery/years/" + year_id;
+    const url = "https://diettutapi.onrender.com/gallery/years/" + year_id;
 
     $.get(url, function (data) {
         if (data && data.events) {
@@ -576,7 +576,7 @@ function AddEventBlock(event_id, year_id, event_name = '', event_desc = '', even
         <!-- Image Preview Section -->
         <div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
           <div class="image-preview-container" onclick="document.getElementById('imageInput-${event_id}').click()">
-            <img id="imagePreview-${event_id}" class="image-preview img-fluid w-100" src="${event_image || '../data/img/upload.png'}" alt="Event image preview"/>
+            <img id="imagePreview-${event_id}" class="image-preview img-fluid w-100" src="${event_image || '../data/img/upload-template/image-any.png'}" alt="Event image preview"/>
             <input type="file" id="imageInput-${event_id}" accept="image/*" onchange="UploadShowImage(event, '${event_id}', 'gallery-event', '${year_id}')" style="display:none;"> 
           </div>
         </div>
@@ -627,7 +627,7 @@ function CreateEvent(year_id) {
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/gallery/years/"+ year_id +"/events", // API URL
+        url: "https://diettutapi.onrender.com/gallery/years/"+ year_id +"/events", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(eventData), // Convert JS object to JSON string
@@ -657,7 +657,7 @@ function DeleteEvent(event_id, year_id) {
         if (eventElement.length > 0) {
             // Make an AJAX DELETE request to delete the event from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`,  // API URL with yearId and eventId
+                url: `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}`,  // API URL with yearId and eventId
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     UpdateTimeChange()
@@ -690,7 +690,7 @@ function UpdateEvent(event_id, year_id){
 
     console.log(eventData)
     $.ajax({
-        url: `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`, // API URL
+        url: `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}`, // API URL
         type: "PUT",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(eventData), // Convert JS object to JSON string
@@ -708,7 +708,7 @@ function UpdateEvent(event_id, year_id){
 }
 
 function UpdateYearChoices(){
-    const url = "https://diet-api-dm7h.onrender.com/gallery/years";
+    const url = "https://diettutapi.onrender.com/gallery/years";
 
     $.get(url, function (data) {
         console.log(data)
@@ -727,7 +727,7 @@ function UpdateEventChoices(selectedYear, yearId){
     console.log('Year selected:', selectedYear);
     console.log('Year ID:', yearId);
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${yearId}/events`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${yearId}/events`;
 
     $.get(url, function (data) {
         console.log(data)
@@ -745,7 +745,7 @@ function UpdateEventChoices(selectedYear, yearId){
 }
 
 function AddNewPhoto(year_id, event_id) {
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/photos`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}/photos`;
 
     // Send an empty request to generate a new photo
     $.ajax({
@@ -781,19 +781,21 @@ function AddNewPhoto(year_id, event_id) {
 
 function NewPhotoFrame(year_id, event_id){
     let element = `
-        <div id="new-photo-item" class="photo-item p-2 mr-2 d-flex flex-column h-100 justify-content-between align-items-center">
-                      <div class="image-preview-container" onclick="document.getElementById('imageInput-new').click()">
-                        <img id="imagePreview-new" class="image-preview img-fluid mt-3" src="../data/img/upload.png">
-                        <input type="file" id="imageInput-new" accept="image/*"
-                          onchange="AddNewPhoto('${year_id}', '${event_id}')" style="display:none;">
-                      </div>
-                    </div>
+                    <div class="photo-item-container">
+    <div id="new-photo-item" class="photo-item p-2 mr-2 border round d-flex flex-column">
+        <div class="image-preview-container" onclick="document.getElementById('imageInput-new').click()">
+            <img width="100em" class="image-preview img-fluid mt-3" src="../data/img/upload-template/image-any.png" alt="Preview">
+            <input type="file" id="imageInput-new" accept="image/*" onchange="AddNewPhoto('${year_id}', '${event_id}')" style="display:none;">
+        </div>
+        
+    </div>
+</div>
     `;
     $("#photos-edit-container").prepend(element);
 }
 
 function GetPhotoEditor(year_id, event_id) {
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}`;
 
     $.get(url, function (data) {
         $("#photos-edit-container").empty()
@@ -815,7 +817,7 @@ function AddPhoto(photo_id, photo_image, year_id, event_id){
                 <div class="photo-item-container">
     <div class="photo-item p-2 mr-2 border round d-flex flex-column">
         <div class="image-preview-container" onclick="document.getElementById('imageInput-${photo_id}').click()">
-            <img width="100em" id="imagePreview-${photo_id}" class="image-preview img-fluid mt-3" src="${photo_image || '../data/img/upload.png'}">
+            <img width="100em" id="imagePreview-${photo_id}" class="image-preview img-fluid mt-3" src="${photo_image || '../data/img/upload-template/image-any.png'}">
             <input type="file" id="imageInput-${photo_id}" accept="image/*" onchange="UploadShowImage(event, '${photo_id}', 'gallery-images', '${year_id}', '${event_id}')" style="display:none;">
         </div>
         <button onClick="DeletePhoto('${year_id}', '${event_id}', '${photo_id}')" type="button" class="btn btn-outline-danger mt-3 w-100">Delete</button>
@@ -828,7 +830,7 @@ function AddPhoto(photo_id, photo_image, year_id, event_id){
 
 function DeletePhoto(year_id, event_id, photo_id){
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/photos/${photo_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}/photos/${photo_id}`;
 
     const confirmation = confirm("Are you sure you want to remove this photo?");
 
@@ -889,7 +891,7 @@ function NewVideoButton(year_id, event_id){
 }
 
 function CreateVideo(year_id, event_id){
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}/videos`;
 
     // Send an empty request to generate a new photo
     $.ajax({
@@ -916,7 +918,7 @@ function CreateVideo(year_id, event_id){
 }
 
 function GetVideoEditor(year_id, event_id) {
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}`;
 
     container = $('#video-edit-container')
     container.empty()
@@ -963,7 +965,7 @@ function AddVideo(year_id, event_id, video_id, link=''){
 }
 
 function UpdateVideo(year_id, event_id, video_id){
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
 
     const videoData = {
         video: $('#video-input-' + video_id).val()
@@ -990,7 +992,7 @@ function UpdateVideo(year_id, event_id, video_id){
 
 function DeleteVideo(year_id, event_id, video_id){
 
-    const url = `https://diet-api-dm7h.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
+    const url = `https://diettutapi.onrender.com/gallery/years/${year_id}/events/${event_id}/videos/${video_id}`;
 
     const confirmation = confirm("Are you sure you want to remove this video?");
 
@@ -1029,7 +1031,7 @@ function DeleteVideo(year_id, event_id, video_id){
 
 
 function AddUpdatesBlock(update){
-    file_link = 'No File Selected❕'
+    file_link = '👆 Click to upload<br>pdf / doc / png / jpg'
     if (update.file){
         file_link = "File Selected ✅"
     }
@@ -1037,7 +1039,7 @@ function AddUpdatesBlock(update){
     <div id="update-block-${update._id}" class="row border rounded p-3 shadow-sm mb-2 ">
               <!-- Image Preview Section -->
               <div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
-                <div style="overflow: hidden;" class="file-preview-container break-at-slash" onclick="document.getElementById('fileInput-${update._id}').click()">
+                <div style="overflow: hidden;" class="file-preview-container break-at-slash border rounded" onclick="document.getElementById('fileInput-${update._id}').click()">
                   <h5 id="filePreview-${update._id}" >${file_link}</h5>
                   <input type="file" id="fileInput-${update._id}" accept="image/*, application/pdf"
        onchange="UploadFile2Drive(event, '${update._id}', 'latest-updates')" style="display:none;">
@@ -1071,7 +1073,7 @@ function AddUpdatesBlock(update){
 }
 
 function GetUpdateData() {
-    const url = "https://diet-api-dm7h.onrender.com/latest-updates";  // API endpoint
+    const url = "https://diettutapi.onrender.com/latest-updates";  // API endpoint
 
     $.get(url, function (data) {
         $('#update-edit-container').empty()
@@ -1084,7 +1086,7 @@ function GetUpdateData() {
 }
 
 function GetSingleUpdate(update_id){
-    const url = `https://diet-api-dm7h.onrender.com/latest-updates/${update_id}`
+    const url = `https://diettutapi.onrender.com/latest-updates/${update_id}`
 
     $.get(url, function (data) {
         console.log(data);
@@ -1099,7 +1101,7 @@ function CreateUpdate(){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/latest-updates", // API URL
+        url: "https://diettutapi.onrender.com/latest-updates", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(data), // Convert JS object to JSON string
@@ -1129,7 +1131,7 @@ function DeleteUpdate(update_id) {
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/latest-updates/${update_id}`,  // API URL with the teamID
+                url: `https://diettutapi.onrender.com/latest-updates/${update_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     UpdateTimeChange()
@@ -1172,7 +1174,7 @@ function UpdateUpdate(update_id) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `https://diet-api-dm7h.onrender.com/latest-updates/${update_id}`,  // API URL with the teamID
+            url: `https://diettutapi.onrender.com/latest-updates/${update_id}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(data),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
@@ -1197,13 +1199,12 @@ function UpdateUpdate(update_id) {
 ///////////////// FC events //////////////
 
 function AddActivityBlock(activity){
-    console.log(activity)
     let element = `
     <div id="activity-block-${activity._id}" class="row border rounded p-3 shadow-sm mb-2">
   
   <div class="d-flex justify-content-center align-items-center col-12 mb-2 col-md-4 col-xl-4">
     <div class="image-preview-container" onclick="document.getElementById('imageInput-${activity._id}').click()">
-      <img id="imagePreview-${activity._id}" class="image-preview img-fluid w-100" src="${activity.image || 'https://diettuty.onrender.com/data/img/empty-file.svg'}" alt="Event image preview"/>
+      <img id="imagePreview-${activity._id}" class="image-preview img-fluid w-100" src="${activity.image || '../data/img/upload-template/image-3-4.png'}" alt="Event image preview"/>
       <input type="file" id="imageInput-${activity._id}" accept="image/*" onchange="UploadShowImage(event, '${activity._id}', 'activity')" style="display:none;"> 
     </div>
   </div>
@@ -1222,13 +1223,14 @@ function AddActivityBlock(activity){
 
     <div class="row mb-3">
       <div class="col-12 col-md-6 mb-2">
-        <label for="activity-date-${activity._id}" class="ml-2">Event Date:</label>
+        <label for="activity-date-${activity._id}" class="ml-2">Event Start Date:</label>
         <input id="activity-date-${activity._id}" type="date" class="form-control" value="${activity.event_date || ''}">
       </div>
       <div class="col-12 col-md-6 mb-2">
-        <label for="activity-time-${activity._id}" class="ml-2">Event Time:</label>
-        <input id="activity-time-${activity._id}" type="time" class="form-control" value="${activity.event_time || ''}">
+        <label for="activity-date-end-${activity._id}" class="ml-2">Event End Date:</label>
+        <input id="activity-date-end-${activity._id}" type="date" class="form-control" value="${activity.event_date_end || ''}">
       </div>
+
       <div class="col-12">
         <label for="activity-venue-${activity._id}" class="ml-2">Venue:</label>
         <input id="activity-venue-${activity._id}" type="text" class="form-control" placeholder="Venue" value="${activity.venue || ''}">
@@ -1245,14 +1247,47 @@ function AddActivityBlock(activity){
     $('#activity-edit-container').append(element)
 }
 
+function ReturnDateData(data) {
+    // Check if data is undefined, null, or empty
+    if (!data) {
+        return ""; // Return an empty string if data is invalid
+    }
+    
+    // Split the date string into day, month, and year
+    let [day, month, year] = data.split("-");
+    
+    // Convert the month number to the month name
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+    ];
+    
+    // Return an array with the formatted day, month name, and year
+    return [parseInt(day).toString(), monthNames[parseInt(month) - 1], year];
+}
+
 function GetActivityData() {
-    const url = "https://diet-api-dm7h.onrender.com/activity";  // API endpoint
+    const url = "https://diettutapi.onrender.com/activity";  // API endpoint
 
     $.get(url, function (data) {
         container = $('#activity-edit-container');
         container.empty()
         data.forEach(activity => {
             console.log("update",activity)
+            let date_data = ReturnDateData(activity.event_date)
+            let date_data_end = ReturnDateData(activity.event_date_end)
+            if (activity.event_date_end){
+        
+                if (new Date(date_data_end) < new Date(new Date().setDate(new Date().getDate() - 2))) {
+                    DeleteActivity(activity._id, confff = true);
+                    return;
+                }
+            }else if (activity.event_date){
+                if (new Date(date_data) < new Date(new Date().setDate(new Date().getDate() - 2))) {
+                    DeleteActivity(activity._id, confff = true);
+                    return;
+                }
+            }
             AddActivityBlock(activity)
         });
             
@@ -1260,7 +1295,7 @@ function GetActivityData() {
 }
 
 function GetSingleActivity(activity_id){
-    const url = `https://diet-api-dm7h.onrender.com/activity/${activity_id}`
+    const url = `https://diettutapi.onrender.com/activity/${activity_id}`
 
     $.get(url, function (data) {
         console.log(data);
@@ -1271,11 +1306,15 @@ function CreateActivity(){
     // Prepare the data to send
     const data = {
         name: "",
+        event_date: new Date().toISOString().split("T")[0], // Current date in YYYY-MM-DD format
+        event_time: new Date().toTimeString().split(" ")[0], // Current time in HH:MM:SS format
+        event_date_end: new Date().toISOString().split("T")[0], // Same as event_date
+        event_time_end: new Date().toTimeString().split(" ")[0], // Same as event_time
     };
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/activity", // API URL
+        url: "https://diettutapi.onrender.com/activity", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(data), // Convert JS object to JSON string
@@ -1293,19 +1332,24 @@ function CreateActivity(){
 
 }
 
-function DeleteActivity(activity_id) {
+function DeleteActivity(activity_id, confff = false) {
     // Confirm if the user really wants to delete the team
-    const confirmation = confirm("Are you sure you want to delete this team member?");
+    let confirmation;
+    if (confff){
+        confirmation = true
+    }else{
+        confirmation = confirm("Are you sure you want to delete this team member?");
+    }
 
     if (confirmation) {
-        console.log(`Requesting deletion for: https://diet-api-dm7h.onrender.com/activity/${activity_id}`);
+        console.log(`Requesting deletion for: https://diettutapi.onrender.com/activity/${activity_id}`);
         // Find the team element on the screen
         const element = $('#activity-block-'+activity_id)
 
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/activity/${activity_id}`,  // API URL with the teamID
+                url: `https://diettutapi.onrender.com/activity/${activity_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     UpdateTimeChange()
@@ -1339,13 +1383,15 @@ function UpdateActivity(activity_id) {
             desc: $('#activity-info-' + activity_id).val(),
             venue: $('#activity-venue-' + activity_id).val(),
             event_date: $('#activity-date-' + activity_id).val(),
-            event_time:  $('#activity-time-' + activity_id).val()  // Use the time string directly
+            event_time:  $('#activity-time-' + activity_id).val(),  // Use the time string directly
+            event_date_end: $('#activity-date-end-' + activity_id).val(),
+            event_time_end:  $('#activity-time-end-' + activity_id).val()
         };
 
         console.log("Data to be updated:", data);
 
         $.ajax({
-            url: `https://diet-api-dm7h.onrender.com/activity/${activity_id}`,
+            url: `https://diettutapi.onrender.com/activity/${activity_id}`,
             type: "PUT",
             data: JSON.stringify(data),
             contentType: "application/json",
@@ -1422,7 +1468,7 @@ function AddResearchBlock(research) {
             <div class="row mb-auto w-100 ml-1">
                 <div class="col-12 mb-3 col-md-5">
                     <div style="overflow: hidden;" class="file-preview-container break-at-slash border rounded" onclick="document.getElementById('fileInput-${research._id}').click()">
-                        <h5 id="filePreview-${research._id}" class="mb-auto w-100 pt-1 d-flex justify-content-center pb-2">${doc ? 'File Selected ✅' : 'Click to select file 👆'}</h5>
+                        <h5 id="filePreview-${research._id}" class="mb-auto w-100 pt-1 d-flex justify-content-center pb-2">${doc ? 'File Selected ✅' : '👆 Click to upload pdf / doc'}</h5>
                         <input type="file" id="fileInput-${research._id}" accept= application/pdf" onchange="UploadFile2Drive(event, '${research._id}', 'research')" style="display:none;">
                     </div>
                 </div>
@@ -1456,7 +1502,7 @@ function AddResearchBlock(research) {
 
 
 function GetResearchData() {
-    const url = "https://diet-api-dm7h.onrender.com/research";  // API endpoint
+    const url = "https://diettutapi.onrender.com/research";  // API endpoint
 
     $.get(url, function (data) {
         container = $('#research-edit-container');
@@ -1477,7 +1523,7 @@ function CreateResearch(){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/research", // API URL
+        url: "https://diettutapi.onrender.com/research", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(data), // Convert JS object to JSON string
@@ -1500,14 +1546,14 @@ function DeleteResearch(research_id) {
     const confirmation = confirm("Are you sure you want to delete this research detailes?");
 
     if (confirmation) {
-        console.log(`Requesting deletion for: https://diet-api-dm7h.onrender.com/research/${research_id}`);
+        console.log(`Requesting deletion for: https://diettutapi.onrender.com/research/${research_id}`);
         // Find the team element on the screen
         const element = $('#research-block-'+research_id)
 
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/research/${research_id}`,  // API URL with the teamID
+                url: `https://diettutapi.onrender.com/research/${research_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     UpdateTimeChange()
@@ -1560,7 +1606,7 @@ function SaveResearch(research_id) {
         console.log("Data to be updated:", data);
 
         $.ajax({
-            url: `https://diet-api-dm7h.onrender.com/research/${research_id}`,  // API endpoint for update
+            url: `https://diettutapi.onrender.com/research/${research_id}`,  // API endpoint for update
             type: "PUT",
             data: JSON.stringify(data),                           // Send JSON data
             contentType: "application/json",                      // Ensure the data is sent as JSON
@@ -1599,11 +1645,11 @@ function formatDateJS(isoString) {
 
 function AddNewsletterBlock(newsletter, place="newsletter"){
     console.log(newsletter)
-    let file_link = 'No File Selected❕'
+    let file_link = '👆 Click to upload<br>pdf / doc'
     if (newsletter.doc){
         file_link = "File Selected ✅"
     }
-    let thumb_image = "../data/img/upload.png"
+    let thumb_image = "../data/img/upload-template/image-7-5.png"
     if (newsletter.thumb){
         console.log("I found it!")
         thumb_image = newsletter.thumb
@@ -1653,7 +1699,7 @@ function AddNewsletterBlock(newsletter, place="newsletter"){
 }
 
 function GetNewsletterData() {
-    const url = "https://diet-api-dm7h.onrender.com/newsletter";  // API endpoint
+    const url = "https://diettutapi.onrender.com/newsletter";  // API endpoint
 
     $.get(url, function (data) {
         $('#newsletter-edit-container').empty()
@@ -1677,7 +1723,7 @@ function CreateNewsletter(c = "newsletter"){
 
     // Make an AJAX POST request
     $.ajax({
-        url: "https://diet-api-dm7h.onrender.com/newsletter", // API URL
+        url: "https://diettutapi.onrender.com/newsletter", // API URL
         type: "POST",  // Request method
         contentType: "application/json", // Send as JSON
         data: JSON.stringify(data), // Convert JS object to JSON string
@@ -1711,7 +1757,7 @@ function DeleteNewsletter(the_id) {
         if (element) {
             // Make an AJAX DELETE request to delete the team from the database
             $.ajax({
-                url: `https://diet-api-dm7h.onrender.com/newsletter/${the_id}`,  // API URL with the teamID
+                url: `https://diettutapi.onrender.com/newsletter/${the_id}`,  // API URL with the teamID
                 type: "DELETE",  // Request method for deleting
                 success: function(response) {
                     UpdateTimeChange()
@@ -1754,7 +1800,7 @@ function UpdateNewsletter(the_id) {
 
         // Now make an AJAX PUT request to update the team
         $.ajax({
-            url: `https://diet-api-dm7h.onrender.com/newsletter/${the_id}`,  // API URL with the teamID
+            url: `https://diettutapi.onrender.com/newsletter/${the_id}`,  // API URL with the teamID
             type: "PUT",  // Request method for updating
             data: JSON.stringify(data),  // Send the team data as JSON
             contentType: "application/json",  // Set content type as JSON
@@ -1774,7 +1820,7 @@ function UpdateNewsletter(the_id) {
 }
 
 function UpdateTimeChange() {
-    const url = "https://diet-api-dm7h.onrender.com/overview/last_update";
+    const url = "https://diettutapi.onrender.com/overview/last_update";
     
     fetch(url, {
         method: "PUT", // Use "POST" if it's a POST route

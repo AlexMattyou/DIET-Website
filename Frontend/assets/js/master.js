@@ -169,7 +169,7 @@ function timeDifference(storedTime) {
 
 function GetOverview() {
   return $.ajax({
-      url: "https://diet-api-dm7h.onrender.com/overview",
+      url: "https://diettutapi.onrender.com/overview",
       type: "GET",
       success: function(overview) {
           $('#total-views').html(String(overview.total_views));
@@ -184,7 +184,7 @@ function GetOverview() {
 
 // Custom function to handle new user logic
 function NewUser() {
-  const url = "https://diet-api-dm7h.onrender.com/overview/new_user"; // URL for PostUser endpoint
+  const url = "https://diettutapi.onrender.com/overview/new_user"; // URL for PostUser endpoint
   
   fetch(url, {
       method: "PUT", // Use "POST" if you're sticking with POST
